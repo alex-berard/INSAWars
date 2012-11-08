@@ -78,7 +78,28 @@
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\objects\pack\" />
     <Folder Include=".git\refs\tags\" />
-    <Folder Include="Units\" />
+    <Folder Include="Units\NewFolder1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Game\Case.cs" />
+    <Compile Include="Game\CaseDecorator.cs" />
+    <Compile Include="Game\City.cs" />
+    <Compile Include="Game\Civilization.cs" />
+    <Compile Include="Game\Desert.cs" />
+    <Compile Include="Game\FoodCaseDecorator.cs" />
+    <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\GameBuilder.cs" />
+    <Compile Include="Game\IronCaseDecorator.cs" />
+    <Compile Include="Game\Map.cs" />
+    <Compile Include="Game\IMapGenerator.cs" />
+    <Compile Include="Game\MediumMapGenerator.cs" />
+    <Compile Include="Game\Mountain.cs" />
+    <Compile Include="Game\Plain.cs" />
+    <Compile Include="Game\Player.cs" />
+    <Compile Include="Game\SmallMapGenerator.cs" />
+    <Compile Include="Game\Teacher.cs" />
+    <Compile Include="Game\Texture.cs" />
+    <Compile Include="Game\Unit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
