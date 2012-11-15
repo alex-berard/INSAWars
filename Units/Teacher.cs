@@ -5,8 +5,8 @@ using System.Text;
 
 namespace INSAWars.Units
 {
-    abstract class Student : Unit
+    class Teacher : Unit
     {
-        public virtual double IronCost { get { return 100.0; } }
+        public virtual double IronCost { get { return 60.0; } }
     }
 }
