@@ -72,13 +72,13 @@
     <None Include=".git\packed-refs" />
     <None Include=".git\refs\heads\master" />
     <None Include=".git\refs\remotes\origin\HEAD" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\objects\pack\" />
     <Folder Include=".git\refs\tags\" />
-    <Folder Include="Units\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\Case.cs" />
@@ -100,6 +100,10 @@
     <Compile Include="Game\Teacher.cs" />
     <Compile Include="Game\Texture.cs" />
     <Compile Include="Game\Unit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Units\Student.cs" />
+    <Compile Include="Units\Unit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
