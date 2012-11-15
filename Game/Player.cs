@@ -13,6 +13,11 @@ namespace INSAWars.Game
         private string name;
         private HashSet<Unit> units;
 
+        public Civilization Civilization
+        {
+            get { return civilization; }
+        }
+
         public Player(Civilization civilization, string name)
         {
             alive = true;
@@ -52,7 +57,7 @@ namespace INSAWars.Game
 
             foreach (Unit unit in units)
             {
-                unit.Die();
+                unit.Kill();
             }
         }
 

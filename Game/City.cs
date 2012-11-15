@@ -11,16 +11,22 @@ namespace INSAWars.Game
         private Case position;
         private Player occupant;
         private int population;
-        private int maxPopulation;
         
         private int food;
         private int iron;
 
+        private int id;
         private string name;
 
         private Unit pendingProduction;
         private int remainingTurns;
 
+        /// <summary>
+        /// Creates a new city on a given case.
+        /// </summary>
+        /// <param name="position">The position of the city.</param>
+        /// <param name="player">The player to whom the city belongs.</param>
+        /// <param name="name">The name of the city (defined by the player).</param>
         public City(Case position, Player player, string name)
         {
             this.position = position;
@@ -53,6 +59,9 @@ namespace INSAWars.Game
             return false;
         }
 
+        /// <summary>
+        /// Handles the production for the next turn.
+        /// </summary>
         public void NextTurn()
         {
             if (pendingProduction != null)

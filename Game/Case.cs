@@ -5,7 +5,7 @@ using System.Text;
 
 namespace INSAWars.Game
 {
-    public abstract class Case
+    abstract class Case
     {
         #region fields
         private Map.Vector coordinates;
@@ -20,9 +20,14 @@ namespace INSAWars.Game
             get { return units.ToList<Unit>(); }
         }
 
-        public Unit AttackedUnit
+        public abstract int Food
         {
-            get { return null; }
+            get;
+        }
+
+        public abstract int Iron
+        {
+            get;
         }
 
         public Case(Map.Vector coordinates)
@@ -36,8 +41,10 @@ namespace INSAWars.Game
 
         }
 
-        public virtual int GetFood();
-        public virtual int GetIron();
+        public void getAttackedUnit()
+        {
+
+        }
 
         public void BuildCity(City city)
         {
