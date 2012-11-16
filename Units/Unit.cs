@@ -1,4 +1,4 @@
-﻿using INSAWars.Game;
+﻿using INSAWars.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +22,11 @@ namespace INSAWars.Units
         public Texture Texture { get; set; }
 
         public abstract void Attack(Unit opponent);
-        public abstract void Kill();
+
+        public void Kill() {
+            
+        }
+
         public abstract Boolean MoveTo(Case to);
 
         public Unit(Case location);
