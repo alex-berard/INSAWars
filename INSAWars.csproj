@@ -72,7 +72,6 @@
     <None Include=".git\packed-refs" />
     <None Include=".git\refs\heads\master" />
     <None Include=".git\refs\remotes\origin\HEAD" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -81,10 +80,25 @@
     <Folder Include=".git\refs\tags\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Units\AbstractUnitFactory.cs" />
+    <Compile Include="Game\Civilization.cs" />
+    <Compile Include="Game\EIICivilization.cs" />
+    <Compile Include="Game\InfoCivilization.cs" />
+    <Compile Include="Units\EIIUnitFactory.cs" />
+    <Compile Include="Units\EII\EIITeacher.cs" />
+    <Compile Include="Units\Head.cs" />
+    <Compile Include="Units\EII\EIIHead.cs" />
+    <Compile Include="Units\EII\EIIStudent.cs" />
+    <Compile Include="Units\InfoUnitFactory.cs" />
+    <Compile Include="Units\Info\InfoHead.cs" />
+    <Compile Include="Units\Info\InfoTeacher.cs" />
+    <Compile Include="Units\Info\InfoStudent.cs" />
+    <Compile Include="Units\Student.cs" />
+    <Compile Include="Units\Teacher.cs" />
+    <Compile Include="Units\Unit.cs" />
     <Compile Include="Game\Case.cs" />
     <Compile Include="Game\CaseDecorator.cs" />
     <Compile Include="Game\City.cs" />
-    <Compile Include="Game\Civilization.cs" />
     <Compile Include="Game\Desert.cs" />
     <Compile Include="Game\FoodCaseDecorator.cs" />
     <Compile Include="Game\Game.cs" />
@@ -97,9 +111,7 @@
     <Compile Include="Game\Plain.cs" />
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\SmallMapGenerator.cs" />
-    <Compile Include="Game\Teacher.cs" />
     <Compile Include="Game\Texture.cs" />
-    <Compile Include="Game\Unit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Units\Student.cs" />
