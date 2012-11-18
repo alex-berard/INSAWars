@@ -7,14 +7,14 @@ namespace INSAWars.Game
 {
     public class Plain : Case
     {
-        public int getFood()
+        public override int Food
         {
-            return 3;
+            get { return 3; }
         }
 
-        public int getIron()
+        public override int Iron
         {
-            return 1;
+            get { return 1; }
         }
     }
 }

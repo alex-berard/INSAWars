@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using INSAWars.Units;
 
 namespace INSAWars.Game
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class City
     {
         private List<Case> cases;
@@ -18,8 +22,12 @@ namespace INSAWars.Game
         private int id;
         private string name;
 
-        private Unit pendingProduction;
-        private int remainingTurns;
+        private Dictionary<Unit, int> pendingProductions;
+
+        public Case Position
+        {
+            get { return position; }
+        }
 
         /// <summary>
         /// Creates a new city on a given case.
@@ -32,6 +40,7 @@ namespace INSAWars.Game
             this.position = position;
             this.occupant = player;
             this.name = name;
+            this.pendingProductions = new Dictionary<Unit, int>();
         }
 
         public void AddCase(Case c)
@@ -46,6 +55,7 @@ namespace INSAWars.Game
 
         public bool MakeStudent()
         {
+            Student unit = occupant.Civilization.UnitFactory.CreateStudent(this);
             return false;
         }
 
@@ -64,25 +74,31 @@ namespace INSAWars.Game
         /// </summary>
         public void NextTurn()
         {
-            if (pendingProduction != null)
+            var productions = new Dictionary<Unit, int>();
+
+            foreach (var production in pendingProductions)
             {
-                remainingTurns--;
+                int remainingTurns = production.Value - 1;
+                Unit unit = production.Key;
 
                 if (remainingTurns == 0)
                 {
-                    occupant.AddUnit(pendingProduction);
-                    position.AddUnit(pendingProduction);
-                    pendingProduction = null;
+                    occupant.AddUnit(unit);
+                    position.AddUnit(unit);
+                }
+                else
+                {
+                    productions.Add(unit, remainingTurns);
                 }
             }
+
+            pendingProductions = productions;
         }
 
         public void Destroy()
         {
             position.Free();
             occupant.RemoveCity(this);
-
-            // Kill the units created in this city?
         }
     }
 }

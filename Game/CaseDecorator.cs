@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using INSAWars.Units;
 
 namespace INSAWars.Game
 {
@@ -12,13 +13,8 @@ namespace INSAWars.Game
     {
         protected Case decoratedCase;
 
-        public List<Unit> Units {
+        public override List<Unit> Units {
             get { return decoratedCase.Units; }
-        }
-
-        public Unit AttackedUnit
-        {
-            get { return decoratedCase.AttackedUnit; }
         }
 
         public CaseDecorator(Case decoratedCase)
@@ -26,30 +22,32 @@ namespace INSAWars.Game
             this.decoratedCase = decoratedCase;
         }
 
-        public virtual int GetFood();
-        public virtual int GetIron();
-
-        public void BuildCity(City city)
+        public override Unit GetAttackedUnit()
         {
-            decoratedCase.BuildCity(city);
+            return decoratedCase.GetAttackedUnit();
         }
 
-        public void UsedBy(City city)
+        public override bool BuildCity(City city)
         {
-            decoratedCase.UsedBy(city);
+            return decoratedCase.BuildCity(city);
         }
 
-        public void Free()
+        public override bool Use(City city)
+        {
+            return decoratedCase.Use(city);
+        }
+
+        public override void Free()
         {
             decoratedCase.Free();
         }
 
-        public void AddUnit(Unit unit)
+        public override void AddUnit(Unit unit)
         {
             decoratedCase.AddUnit(unit);
         }
 
-        public void RemoveUnit(Unit unit)
+        public override void RemoveUnit(Unit unit)
         {
             decoratedCase.RemoveUnit(unit);
         }

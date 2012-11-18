@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using INSAWars.Game;
+using INSAWars.Units;
 
 namespace INSAWars.Units.Info
 {
-    class InfoHead : Head
+    class InfoCivilization : ICivilization
     {
-        public InfoHead(Case location)
-            : base(location)
+        public AbstractUnitFactory UnitFactory
         {
+            get { return new InfoUnitFactory(); }
         }
     }
 }

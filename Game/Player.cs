@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using INSAWars.Units;
 
 namespace INSAWars.Game
 {
@@ -9,16 +10,16 @@ namespace INSAWars.Game
     {
         private bool alive;
         private HashSet<City> cities;
-        private Civilization civilization;
+        private ICivilization civilization;
         private string name;
         private HashSet<Unit> units;
 
-        public Civilization Civilization
+        public ICivilization Civilization
         {
             get { return civilization; }
         }
 
-        public Player(Civilization civilization, string name)
+        public Player(ICivilization civilization, string name)
         {
             alive = true;
             cities = new HashSet<City>();
@@ -70,7 +71,7 @@ namespace INSAWars.Game
 
             foreach (Unit unit in units)
             {
-                unit.NextTurn();
+                unit.Reset();
             }
         }
     }

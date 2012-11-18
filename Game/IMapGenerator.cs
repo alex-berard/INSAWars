@@ -5,8 +5,8 @@ using System.Text;
 
 namespace INSAWars.Game
 {
-    public interface IMapGenerator
+    interface IMapGenerator
     {
-        public Map generate();
+        Map generate();
     }
 }

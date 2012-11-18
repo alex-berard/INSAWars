@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using INSAWars.Game;
 
 namespace INSAWars.Units
 {
-    class Teacher : Unit
+    public class Teacher : Unit
     {
-        public virtual double IronCost { get { return 60.0; } }
+        public override double IronCost { get { return 60.0; } }
+
+        public Teacher(Case location)
+            : base(location)
+        {
+        }
     }
 }

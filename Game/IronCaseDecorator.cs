@@ -7,14 +7,17 @@ namespace INSAWars.Game
 {
     public class IronCaseDecorator : CaseDecorator
     {
-        public int GetFood()
+        public override int Food
         {
-            return decoratedCase.GetFood();
+            get { return decoratedCase.Food; }
         }
 
-        public int GetIron()
+        public override int Iron
         {
-            return decoratedCase.GetIron() + 2;
+            get { return decoratedCase.Iron + 2; }
         }
+
+        public IronCaseDecorator(Case decoratedCase)
+            : base(decoratedCase) {}
     }
 }

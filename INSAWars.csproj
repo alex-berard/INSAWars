@@ -80,16 +80,17 @@
     <Folder Include=".git\refs\tags\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\InfiniteQueue.cs" />
     <Compile Include="Units\AbstractUnitFactory.cs" />
-    <Compile Include="Game\Civilization.cs" />
-    <Compile Include="Game\EIICivilization.cs" />
-    <Compile Include="Game\InfoCivilization.cs" />
-    <Compile Include="Units\EIIUnitFactory.cs" />
+    <Compile Include="Units\EII\EIICivilization.cs" />
+    <Compile Include="Units\Info\InfoCivilization.cs" />
+    <Compile Include="Units\EII\EIIUnitFactory.cs" />
     <Compile Include="Units\EII\EIITeacher.cs" />
     <Compile Include="Units\Head.cs" />
     <Compile Include="Units\EII\EIIHead.cs" />
     <Compile Include="Units\EII\EIIStudent.cs" />
-    <Compile Include="Units\InfoUnitFactory.cs" />
+    <Compile Include="Units\ICivilization.cs" />
+    <Compile Include="Units\Info\InfoUnitFactory.cs" />
     <Compile Include="Units\Info\InfoHead.cs" />
     <Compile Include="Units\Info\InfoTeacher.cs" />
     <Compile Include="Units\Info\InfoStudent.cs" />
@@ -112,10 +113,6 @@
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\SmallMapGenerator.cs" />
     <Compile Include="Game\Texture.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Units\Student.cs" />
-    <Compile Include="Units\Unit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

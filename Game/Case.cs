@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using INSAWars.Units;
 
 namespace INSAWars.Game
 {
-    abstract class Case
+    public abstract class Case
     {
         #region fields
         private Map.Vector coordinates;
@@ -16,7 +17,7 @@ namespace INSAWars.Game
         private Player occupant;
         #endregion
 
-        public List<Unit> Units {
+        public virtual List<Unit> Units {
             get { return units.ToList<Unit>(); }
         }
 
@@ -36,49 +37,90 @@ namespace INSAWars.Game
             status = CaseStatus.FREE;
         }
 
-        public Case()
-        {
+        protected Case() {}
 
+        /// <summary>
+        /// Returns the next target on this case (the unit with the highest defense).
+        /// </summary>
+        /// <returns>The unit with the highest defense.</returns>
+        public virtual Unit GetAttackedUnit()
+        {
+            double bestDefense = 0;
+            Unit bestUnit = null;
+
+            foreach (Unit unit in units)
+            {
+                if (unit.DefensePoints >= bestDefense)
+                {
+                    bestUnit = unit;
+                    bestDefense = unit.DefensePoints;
+                }
+            }
+
+            return bestUnit;
         }
 
-        public void getAttackedUnit()
+        /// <summary>
+        /// Tries to build a city on this case.
+        /// </summary>
+        /// <param name="city">The city to build.</param>
+        /// <returns>False if the case is already occupied, true otherwise.</returns>
+        public virtual bool BuildCity(City city)
         {
+            // TODO: allow a player to build a city on a used case of his own.
 
+            if (status != CaseStatus.FREE)
+            {
+                return false;
+            }
+            else
+            {
+                this.city = city;
+                status = CaseStatus.CITY;
+                return true;
+            }
         }
 
-        public void BuildCity(City city)
+        public virtual bool Use(City city)
         {
-            this.city = city;
-            status = CaseStatus.CITY;
+            if (status != CaseStatus.FREE)
+            {
+                return false;
+            }
+            else
+            {
+                this.city = city;
+                status = CaseStatus.USED;
+                return true;
+            }
         }
 
-        public void UsedBy(City city)
-        {
-            this.city = city;
-            status = CaseStatus.USED;
-        }
-
-        public void Free()
+        public virtual void Free()
         {
             city = null;
             status = CaseStatus.FREE;
         }
 
-        public void AddUnit(Unit unit)
+        public virtual void AddUnit(Unit unit)
         {
             this.units.Add(unit);
         }
 
-        public void RemoveUnit(Unit unit)
+        public virtual void RemoveUnit(Unit unit)
         {
             this.units.Remove(unit);
         }
 
+        /// <summary>
+        /// A city is built on the case,
+        /// or the case is used by a city to produce resources,
+        /// or it is totally free.
+        /// </summary>
         enum CaseStatus
         {
-            FREE,
             USED,
-            CITY
+            CITY,
+            FREE
         }
     }
 }

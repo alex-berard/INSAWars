@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using INSAWars.Units;
 
 namespace INSAWars.Game
 {
@@ -20,13 +21,27 @@ namespace INSAWars.Game
             this.nbTurns = 0;
         }
 
-        public void Attack(Unit unit, Case c) {
-
+        public bool Attack(Unit unit, Case c) {
+            return false;
         }
 
-        public void BuildCity(Teacher teacher)
+        public bool BuildCity(string name, Teacher teacher)
         {
+            Player player = teacher.Player;
+            Case position = teacher.CurrentCase;
 
+            City city = new City(position, player, name);
+
+            position.BuildCity(city);
+            player.AddCity(city);
+
+            return false;
+        }
+
+        public bool MoveUnit(Unit unit, Case to)
+        {
+            // TODO: Verify that the case is empty, and that the unit has enough movement points.
+            return unit.MoveTo(to);
         }
 
         public void NextTurn()
@@ -37,6 +52,14 @@ namespace INSAWars.Game
         public void Over()
         {
 
+        }
+
+        static int Main(string[] args)
+        {
+            Console.Out.WriteLine("Banane");
+
+            while (true) ;
+            return 0;
         }
     }
 }

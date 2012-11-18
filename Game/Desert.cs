@@ -7,14 +7,14 @@ namespace INSAWars.Game
 {
     public class Desert : Case
     {
-        public int getFood()
+        public override int Food
         {
-            return 0;
+            get { return 0; }
         }
 
-        public int getIron()
+        public override int Iron
         {
-            return 2;
+            get { return 2; }
         }
     }
 }
