@@ -13,7 +13,8 @@ namespace INSAWars.Game
     {
         protected Case decoratedCase;
 
-        public override List<Unit> Units {
+        public override List<Unit> Units
+        {
             get { return decoratedCase.Units; }
         }
 

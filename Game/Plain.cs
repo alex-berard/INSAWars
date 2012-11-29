@@ -16,5 +16,10 @@ namespace INSAWars.Game
         {
             get { return 1; }
         }
+
+        public override string ToString()
+        {
+            return "Plain " + coordinates;
+        }
     }
 }

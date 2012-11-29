@@ -1,23 +1,28 @@
-﻿using System;
+﻿#region usings
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using INSAWars.Units;
+using Drawing = System.Drawing;
+#endregion
 
 namespace INSAWars.Game
 {
     public abstract class Case
     {
         #region fields
-        private Map.Vector coordinates;
-        private CaseStatus status;
-        private City city;
-        private HashSet<Unit> units;
-        private Texture texture;
-        private Player occupant;
+        protected Drawing.Point coordinates;
+        protected CaseStatus status;
+        protected City city;
+        protected HashSet<Unit> units;
+        protected Texture texture;
+        protected Player occupant;
         #endregion
 
-        public virtual List<Unit> Units {
+        #region properties
+        public virtual List<Unit> Units
+        {
             get { return units.ToList<Unit>(); }
         }
 
@@ -30,14 +35,30 @@ namespace INSAWars.Game
         {
             get;
         }
+        #endregion properties
 
-        public Case(Map.Vector coordinates)
+        #region constructor
+        protected Case()
         {
-            this.coordinates = coordinates;
             status = CaseStatus.FREE;
         }
+        #endregion
 
-        protected Case() {}
+        #region methods
+
+        /// <summary>
+        /// Clones this case, and changes its coordinates.
+        /// </summary>
+        /// <param name="x">The new x coordinate.</param>
+        /// <param name="y">The new y coordinate.</param>
+        /// <returns>The cloned case.</returns>
+        public Case Clone(int x, int y)
+        {
+            Case case_ = (Case) this.MemberwiseClone();
+            case_.coordinates = new Drawing.Point(x, y);
+
+            return case_;
+        }
 
         /// <summary>
         /// Returns the next target on this case (the unit with the highest defense).
@@ -111,12 +132,18 @@ namespace INSAWars.Game
             this.units.Remove(unit);
         }
 
+        public override string ToString()
+        {
+            return "Case " + coordinates;
+        }
+        #endregion
+
         /// <summary>
         /// A city is built on the case,
         /// or the case is used by a city to produce resources,
-        /// or it is totally free.
+        /// or it is unused.
         /// </summary>
-        enum CaseStatus
+        protected enum CaseStatus
         {
             USED,
             CITY,

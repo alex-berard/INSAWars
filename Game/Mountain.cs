@@ -16,5 +16,10 @@ namespace INSAWars.Game
         {
             get { return 3; }
         }
+
+        public override string ToString()
+        {
+            return "Mountain " + coordinates;
+        }
     }
 }

@@ -1,18 +1,23 @@
-﻿using INSAWars.Units;
+﻿#region usings
+using INSAWars.Units;
 using INSAWars.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#endregion
 
 namespace INSAWars.Units
 {
     public abstract class Unit
     {
-        protected Case currentCase;
+        #region fields
+        protected Case location;
         protected double remainingLife;
         protected double remainingMovementPoints;
+        #endregion
 
+        #region properties
         public virtual double AttackPoints { get { return 0.0; } }
         public virtual double DefensePoints { get { return 0.0; } }
         public virtual double FoodCost { get { return 0.0; } }        
@@ -25,7 +30,16 @@ namespace INSAWars.Units
         public uint RemainingHitPoints { get; set; }
         public uint RemainingMovementPoints { get; set; }
         public Texture Texture { get; set; }
+        #endregion
 
+        #region constructors
+        public Unit(Case location)
+        {
+            this.location = location;
+        }
+        #endregion
+
+        #region methods
         public void Attack(Unit opponent)
         {
 
@@ -48,10 +62,6 @@ namespace INSAWars.Units
         {
 
         }
-
-        public Unit(Case location)
-        {
-
-        }
+        #endregion
     }
 }
