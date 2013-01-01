@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using INSAWrapper;
 
 namespace INSAWars.Game
 {
@@ -12,8 +13,7 @@ namespace INSAWars.Game
         private static Random generator = new Random();
 
         public Map generate()
-        {
-            
+        {   
             var generator = new Random();
 
             var cases = new Case[SIZE][];

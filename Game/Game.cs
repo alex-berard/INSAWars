@@ -56,13 +56,7 @@ namespace INSAWars.Game
 
         static int Main(string[] args)
         {
-            Console.Out.WriteLine("Banane");
-
             var gen = new MediumMapGenerator();
-            Map m = gen.generate();
-            Console.Out.WriteLine(m);
-
-            while (true) ;
             return 0;
         }
     }
