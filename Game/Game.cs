@@ -26,8 +26,15 @@ namespace INSAWars.Game
             return false;
         }
 
-        public bool BuildCity(string name, Teacher teacher)
+        /// <summary>
+        /// Builds a city on the case on which the given teacher stands.
+        /// </summary>
+        /// <param name="name">Name of the city.</param>
+        /// <param name="teacher">Teacher building the city.</param>
+        /// <returns></returns>
+        public void BuildCity(string name, Teacher teacher)
         {
+            // TODO: kill the teacher. Check that a city does not already exist on this case.
             Player player = teacher.Player;
             Case position = teacher.CurrentCase;
 
@@ -35,13 +42,12 @@ namespace INSAWars.Game
 
             position.BuildCity(city);
             player.AddCity(city);
-
-            return false;
         }
 
         public bool MoveUnit(Unit unit, Case to)
         {
-            // TODO: Verify that the case is empty, and that the unit has enough movement points.
+            // TODO: Check that the case is accessible (not water, and not occupied by an enemy).
+            // Check that the unit has enough movement points.
             return unit.MoveTo(to);
         }
 
@@ -57,7 +63,6 @@ namespace INSAWars.Game
 
         static int Main(string[] args)
         {
-            var gen = new MediumMapGenerator();
             return 0;
         }
     }

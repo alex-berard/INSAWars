@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int PerlinMap::getTile(int x, int y)
+int PerlinMap::getTerrain(int x, int y)
 {
 	return cases[x][y].first;
 }
@@ -128,16 +128,16 @@ inline double interpolate(double a, double b, double x)
 	return a * (1 - f) + b * f;
 }
 
-Distribution::Distribution(vector<double> &tiles, vector<double> &decorators) : tiles(tiles), decorators(decorators)
+Distribution::Distribution(vector<double> &terrains, vector<double> &decorators) : terrains(terrains), decorators(decorators)
 {
 	// Arrange the weights into a cumulative distribution.
-	for (unsigned int i = 1; i < decorators.size(); i++) {
+	for (int i = 1; i < decorators.size(); i++) {
 		decorators[i] += decorators[i - 1];
 	}
 
 	// TODO: real distribution according to the Perlin noise distribution.
-	for (unsigned int i = 1; i < tiles.size(); i++) {
-		tiles[i] += tiles[i - 1];
+	for (int i = 1; i < terrains.size(); i++) {
+		terrains[i] += terrains[i - 1];
 	}
 }
 
@@ -164,9 +164,9 @@ pair<int, int> Distribution::createCase(double r)
 		decorator = i;
 	}
 
-	for (i = 0; i < tiles.size() - 1; i++)
+	for (i = 0; i < terrains.size() - 1; i++)
 	{
-		if (r < tiles[i])
+		if (r < terrains[i])
 		{
 			break;
 		}
@@ -177,18 +177,14 @@ pair<int, int> Distribution::createCase(double r)
 	return pair<int, int>(tile, decorator);
 }
 
-vector<pair<int, int>> PerlinMap::placePlayers(int nbPlayers, vector<int> inaccessibleTerrains)
+vector<pair<int, int>> PerlinMap::getStartingPositions(vector<int> inaccessibleTerrains)
 {
 	// TODO: do not place players on the water + randomize
 	vector<pair<int, int>> positions;
 	positions.push_back(pair<int, int>(0, 0));
 	positions.push_back(pair<int, int>(width - 1, height - 1));
-
-	if (nbPlayers == 4)
-	{
-		positions.push_back(pair<int, int>(width - 1, 0));
-		positions.push_back(pair<int, int>(0, height - 1));
-	}
+	positions.push_back(pair<int, int>(width - 1, 0));
+	positions.push_back(pair<int, int>(0, height - 1));
 
 	return positions;
 }

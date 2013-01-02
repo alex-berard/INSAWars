@@ -21,7 +21,7 @@ public:
 	 * Typically : water, desert, plain, mountains.
 	 * @param decorators list of decorators frequencies.
 	 */
-	Distribution(vector<double> &tiles, vector<double> &decorators);
+	Distribution(vector<double> &terrains, vector<double> &decorators);
 
 	/**
 	 * @param r value between 0 and 1 defining the height of the terrain.
@@ -31,7 +31,7 @@ public:
 	pair<int, int> createCase(double r);
 
 private:
-	vector<double> tiles;
+	vector<double> terrains;
 	vector<double> decorators;
 };
 
@@ -41,7 +41,7 @@ class EXPORT_OR_IMPORT PerlinMap
 {
 public:
 	PerlinMap(int height, int width, Distribution *distr);
-	int getTile(int x, int y);
+	int getTerrain(int x, int y);
 	int getDecorator(int x, int y);
 
 	/**
@@ -49,7 +49,7 @@ public:
 	 * @param inaccessibleTerrains list of terrains on which units cannot be moved and cities built (typically water).
 	 * @return positions of the players on the map.
 	 */
-	vector<pair<int, int>> placePlayers(int nbPlayers, vector<int> inaccessibleTerrains);
+	vector<pair<int, int>> getStartingPositions(vector<int> inaccessibleTerrains);
 private:
 	Distribution *distr;
 	int width;

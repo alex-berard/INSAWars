@@ -14,6 +14,11 @@ namespace INSAWars.Game
         private string name;
         private HashSet<Unit> units;
 
+        public string Name
+        {
+            get { return name; }
+        }
+
         public ICivilization Civilization
         {
             get { return civilization; }

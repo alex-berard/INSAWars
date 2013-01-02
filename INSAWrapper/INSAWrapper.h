@@ -11,20 +11,10 @@ using namespace System;
 using namespace std;
 
 namespace INSAWrapper {
-	generic<typename T1, typename T2> public ref class Pair
-	{
-	public:
-		Pair(T1 first, T2 second) : first(first), second(second)
-		{}
-
-		T1 first;
-		T2 second;
-	};
-
 	public ref class PerlinMapWrapper
 	{
 	public:
-		PerlinMapWrapper(int size, array<double> ^tiles, array<double> ^decorators) : size(size)
+		PerlinMapWrapper(int size, array<double>^ tiles, array<double>^ decorators)
 		{
 			vector<double> tiles_c;
 			vector<double> decorators_c;
@@ -51,7 +41,7 @@ namespace INSAWrapper {
 			delete map;
 		}
 
-		array<Pair<int, int>^> ^placePlayers(int nbPlayers, array<int> ^inaccessibleTerrains)
+		array<int, 2>^ GetStartingPositions(array<int>^ inaccessibleTerrains)
 		{
 			vector<int> inaccessibleTerrains_c;
 			for (int i = 0; i < inaccessibleTerrains->Length; i++)
@@ -60,35 +50,28 @@ namespace INSAWrapper {
 				inaccessibleTerrains_c.push_back(terrain);
 			}
 
-			vector<pair<int, int>> positions_c = map->placePlayers(nbPlayers, inaccessibleTerrains_c);
-			array<Pair<int, int>^> ^positions;
+			vector<pair<int, int>> positions_c = map->getStartingPositions(inaccessibleTerrains_c);
+			array<int, 2>^ positions = gcnew array<int, 2>(positions_c.size(), 2);;
 
 			for (int i = 0; i < positions_c.size(); i++)
 			{
-				Pair<int, int> ^position = gcnew Pair<int, int>(positions_c[i].first, positions_c[i].second);
-
-				positions[i] = position;
+				positions[i, 0] = positions_c[i].first;
+				positions[i, 1] = positions_c[i].second;
 			}
 
 			return positions;
 		}
 
-		int getTile(int x, int y)
+		int GetTerrain(int x, int y)
 		{
-			return map->getTile(x, y);
+			return map->getTerrain(x, y);
 		}
 
-		int getDecorator(int x, int y)
+		int GetDecorator(int x, int y)
 		{
 			return map->getDecorator(x, y);
 		}
-
-		int getSize()
-		{
-			return size;
-		}
 	private:
 		PerlinMap *map;
-		int size;
 	};
 }

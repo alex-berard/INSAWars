@@ -10,7 +10,7 @@ namespace INSAWars.Game
     {
         private const int SIZE = 100;
 
-        public Map generate()
+        public override Map generate(MapConfiguration config)
         {
             return null;
         }

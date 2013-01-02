@@ -147,31 +147,5 @@ namespace INSAWars.Game
             CITY,
             FREE
         }
-
-        /// <summary>
-        /// Defines the height of the terrains.
-        /// </summary>
-        public enum Tiles
-        {
-            WATER,
-            DESERT,
-            PLAIN,
-            MOUNTAIN
-        }
-
-        static Case GetCase(int tile, int x, int y)
-        {
-            switch (tile)
-            {
-                case (int)Tiles.WATER:
-                    return new Water(x, y);
-                case (int)Tiles.DESERT:
-                    return new Desert(x, y);
-                case (int)Tiles.MOUNTAIN:
-                    return new Mountain(x, y);
-                default:
-                    return new Plain(x, y);
-            }
-        }
     }
 }

@@ -9,10 +9,17 @@ namespace INSAWars.Game
     public class Map
     {
         private Case[,] cases;
+        private Stack<Case> startingPositions;
 
-        public Map(Case[,] cases)
+        public Case FreePosition
+        {
+            get { return startingPositions.Pop(); }
+        }
+
+        public Map(Case[,] cases, List<Case> startingPositions)
         {
             this.cases = cases;
+            this.startingPositions = new Stack<Case>(startingPositions);
         }
 
         public override string ToString()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using INSAWrapper;
 using INSAWars.Units;
+using INSAWars.Game;
 
 namespace INSAWars.Game
 {
@@ -12,7 +13,12 @@ namespace INSAWars.Game
         private string size;
         private IMapGenerator mapGenerator;
         private Dictionary<string, ICivilization> players;
-        private Dictionary<string, double> terrainFrequencies;
+        private MapConfiguration mapConfig;
+
+        public GameBuilder()
+        {
+            mapConfig = new MapConfiguration();
+        }
 
         public void SetSize(string size)
         {
@@ -36,14 +42,30 @@ namespace INSAWars.Game
             players.Remove(name);
         }
 
-        public void SetFrequency(string terrain, double frequency)
+        /// <summary>
+        /// Sets the frequency of the given terrain.
+        /// The sum of the frequencies must be 1.
+        /// </summary>
+        /// <param name="terrainIndex">Enum Terrain</param>
+        /// <param name="frequency"></param>
+        public void SetTerrainFrequency(int terrainIndex, double frequency)
         {
+            mapConfig.terrains[terrainIndex] = frequency;
+        }
 
+        /// <summary>
+        /// Sets the probability for each case to have the given decorator.
+        /// </summary>
+        /// <param name="decoratorIndex">Enum Decorator</param>
+        /// <param name="probability"></param>
+        public void SetDecoratorProbability(int decoratorIndex, double probability)
+        {
+            mapConfig.decorators[decoratorIndex] = probability;
         }
 
         public Game Build()
         {
-            Map map = mapGenerator.generate();
+            Map map = mapGenerator.generate(mapConfig);
 
             List<Player> players = new List<Player>();
 
@@ -51,9 +73,15 @@ namespace INSAWars.Game
             {
                 Player player = new Player(entry.Value, entry.Key);
                 players.Add(player);
+                initPlayer(player, map.FreePosition);
             }
 
             return new Game(map, players);
+        }
+
+        private void initPlayer(Player player, Case position)
+        {
+            player.AddCity(new City(position, player, "Main city of " + player.Name));
         }
     }
 }
