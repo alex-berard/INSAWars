@@ -8,5 +8,6 @@ namespace INSAWars.Game
     interface IMapGenerator
     {
         Map generate();
+        void placePlayers(List<Player> players);
     }
 }

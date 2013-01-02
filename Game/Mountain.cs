@@ -17,9 +17,11 @@ namespace INSAWars.Game
             get { return 3; }
         }
 
+        public Mountain(int x, int y) : base(x, y) { }
+
         public override string ToString()
         {
-            return "Mountain " + coordinates;
+            return "Mountain (" + x + ", " + y + ")";
         }
     }
 }

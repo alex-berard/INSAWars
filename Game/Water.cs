@@ -1,11 +1,13 @@
-﻿using System;
+﻿#region usings
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#endregion
 
 namespace INSAWars.Game
 {
-    public class Desert : Case
+    public class Water : Case
     {
         public override int Food
         {
@@ -14,14 +16,14 @@ namespace INSAWars.Game
 
         public override int Iron
         {
-            get { return 2; }
+            get { return 0; }
         }
 
-        public Desert(int x, int y) : base(x, y) { }
+        public Water(int x, int y) : base(x, y) { }
 
         public override string ToString()
         {
-            return "Desert (" + x + ", " + y + ")";
+            return "Water (" + x + ", " + y + ")";
         }
     }
 }

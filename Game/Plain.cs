@@ -17,9 +17,11 @@ namespace INSAWars.Game
             get { return 1; }
         }
 
+        public Plain(int x, int y) : base(x, y) { }
+
         public override string ToString()
         {
-            return "Plain " + coordinates;
+            return "Plain (" + x + ", " + y + ")";
         }
     }
 }

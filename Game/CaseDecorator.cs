@@ -13,6 +13,16 @@ namespace INSAWars.Game
     {
         protected Case decoratedCase;
 
+        public override int X
+        {
+            get { return decoratedCase.X; }
+        }
+
+        public override int Y
+        {
+            get { return decoratedCase.Y; }
+        }
+
         public override List<Unit> Units
         {
             get { return decoratedCase.Units; }
@@ -21,6 +31,14 @@ namespace INSAWars.Game
         public CaseDecorator(Case decoratedCase)
         {
             this.decoratedCase = decoratedCase;
+        }
+
+        public Case Clone(Case decoratedCase)
+        {
+            CaseDecorator case_ = (CaseDecorator)this.MemberwiseClone();
+            case_.decoratedCase = decoratedCase;
+
+            return case_;
         }
 
         public override Unit GetAttackedUnit()

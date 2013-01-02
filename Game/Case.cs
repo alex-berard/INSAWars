@@ -12,7 +12,8 @@ namespace INSAWars.Game
     public abstract class Case
     {
         #region fields
-        protected Drawing.Point coordinates;
+        protected int x;
+        protected int y;
         protected CaseStatus status;
         protected City city;
         protected HashSet<Unit> units;
@@ -24,6 +25,16 @@ namespace INSAWars.Game
         public virtual List<Unit> Units
         {
             get { return units.ToList<Unit>(); }
+        }
+
+        public int X
+        {
+            get { return x; }
+        }
+
+        public int Y
+        {
+            get { return y; }
         }
 
         public abstract int Food
@@ -38,28 +49,15 @@ namespace INSAWars.Game
         #endregion properties
 
         #region constructor
-        protected Case()
+        public Case(int x, int y)
         {
+            this.x = x;
+            this.y = y;
             status = CaseStatus.FREE;
         }
         #endregion
 
         #region methods
-
-        /// <summary>
-        /// Clones this case, and changes its coordinates.
-        /// </summary>
-        /// <param name="x">The new x coordinate.</param>
-        /// <param name="y">The new y coordinate.</param>
-        /// <returns>The cloned case.</returns>
-        public Case Clone(int x, int y)
-        {
-            Case case_ = (Case) this.MemberwiseClone();
-            case_.coordinates = new Drawing.Point(x, y);
-
-            return case_;
-        }
-
         /// <summary>
         /// Returns the next target on this case (the unit with the highest defense).
         /// </summary>
@@ -134,7 +132,7 @@ namespace INSAWars.Game
 
         public override string ToString()
         {
-            return "Case " + coordinates;
+            return "Case (" + x + ", " + y + ")";
         }
         #endregion
 
@@ -148,6 +146,32 @@ namespace INSAWars.Game
             USED,
             CITY,
             FREE
+        }
+
+        /// <summary>
+        /// Defines the height of the terrains.
+        /// </summary>
+        public enum Tiles
+        {
+            WATER,
+            DESERT,
+            PLAIN,
+            MOUNTAIN
+        }
+
+        static Case GetCase(int tile, int x, int y)
+        {
+            switch (tile)
+            {
+                case (int)Tiles.WATER:
+                    return new Water(x, y);
+                case (int)Tiles.DESERT:
+                    return new Desert(x, y);
+                case (int)Tiles.MOUNTAIN:
+                    return new Mountain(x, y);
+                default:
+                    return new Plain(x, y);
+            }
         }
     }
 }
