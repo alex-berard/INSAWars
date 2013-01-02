@@ -1,7 +1,7 @@
 #if defined DLL_EXPORT
-#define PERLIN_MAP_EXP __declspec (dllexport)
+#define EXPORT_OR_IMPORT __declspec (dllexport)
 #else
-#define PERLIN_MAP_EXP __declspec (dllimport)
+#define EXPORT_OR_IMPORT __declspec (dllimport)
 #endif
 
 #include <vector>
@@ -12,7 +12,7 @@ using namespace std;
 float interpolate_2d(float a, float b, float c, float d, float x, float y);
 inline float interpolate(float a, float b, float x);
 
-class PERLIN_MAP_EXP Distribution
+class EXPORT_OR_IMPORT Distribution
 {
 public:
 	/**
@@ -35,7 +35,7 @@ private:
 	vector<pair<int, float>> decorators;
 };
 
-class PERLIN_MAP_EXP PerlinMap
+class EXPORT_OR_IMPORT PerlinMap
 {
 public:
 	PerlinMap(int height, int width, Distribution *distr);
@@ -49,4 +49,18 @@ private:
 
 	static vector<vector<float>> generateWhiteNoise(int width, int height);
 	static vector<vector<float>> generatePerlinNoise(int width, int height, int octaveCount, float persistance);
+};
+
+class EXPORT_OR_IMPORT Fights
+{
+public:
+	/**
+	 * Resolves a fight between two units, given their characteristics.
+	 * 
+	 * @param life current life of the two units.
+	 * @param attack attack points.
+	 * @param defense defense points.
+	 * @returns remaining life of the two units.
+	 */
+	static pair<double, double> resolveFight(pair<double, double> life, pair<double, double> attack, pair<double, double> defense);
 };

@@ -59,7 +59,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>INSALib.lib</AdditionalDependencies>
+      <AdditionalDependencies>INSALib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>C:\Users\eske\Dropbox\Git\INSAWars\bin\Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
