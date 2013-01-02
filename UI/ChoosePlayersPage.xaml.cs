@@ -16,13 +16,29 @@ using System.Windows.Shapes;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for NumberOfPlayerPage.xaml
+    /// Interaction logic for ChoosePlayersPage.xaml
     /// </summary>
-    public partial class NumberOfPlayersPage : Page
+    public partial class ChoosePlayersPage : Page
     {
-        public NumberOfPlayersPage()
+        private int _playerCount;
+
+        public ChoosePlayersPage(int playerCount)
         {
+            _playerCount = playerCount;
             InitializeComponent();
+            HideUnusedPlayers();
+        }
+
+        private void HideUnusedPlayers()
+        {
+            if (_playerCount < 3)
+            {
+                _playerThree.Visibility = System.Windows.Visibility.Hidden;
+            }
+            if (_playerCount < 4)
+            {
+                _playerFour.Visibility = System.Windows.Visibility.Hidden;
+            }
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
@@ -32,7 +48,7 @@ namespace UI
 
         private void NextButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ChoosePlayersPage(int.Parse(_numberOfPlayers.Text)));
+
         }
     }
 }

@@ -14,21 +14,25 @@
         AlignmentX="Left"
         AlignmentY="Top" ViewboxUnits="RelativeToBoundingBox"></ImageBrush>
     </Page.Background>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="47*"/>
-            <RowDefinition Height="199*"/>
-            <RowDefinition Height="54*"/>
+            <RowDefinition Height="87*"/>
+            <RowDefinition Height="123*"/>
+            <RowDefinition Height="46*"/>
         </Grid.RowDefinitions>
-        <Label Content="Nombre de joueurs" Height="26" Width="113" Grid.Row="1"/>
-        <ComboBox x:Name="_numberOfPlayers" Height="21" Margin="0" Grid.Row="1" Width="124">
-            <ComboBoxItem Content="2" Width="122" IsSelected="True" />
-            <ComboBoxItem Content="3" Width="122" />
-            <ComboBoxItem Content="4" Width="122" />
-        </ComboBox>
+        <StackPanel Grid.Row="1">
+            <Label Content="Nombre de joueurs" HorizontalAlignment="Center" FontSize="48" Foreground="#FF9C9C8F" FontFamily="Charlemagne Std" Height="80"/>
+            <ComboBox x:Name="_numberOfPlayers" Height="21" Width="124" Margin="10" IsReadOnly="True">
+                <ComboBoxItem Content="2" Width="122" IsSelected="True" />
+                <ComboBoxItem Content="3" Width="122" />
+                <ComboBoxItem Content="4" Width="122" />
+            </ComboBox>
+        </StackPanel>
         <DockPanel LastChildFill="False" Grid.Row="2">
-            <Button Content="Précédent" Width="64" Height="24" Margin="10,0,0,0" DockPanel.Dock="Left" Click="BackButtonClick"/>
-            <Button Content="Suivant" Width="64" Height="24" Margin="0,0,10,0" DockPanel.Dock="Right" Click="NextButtonClick"/>
+            <Button Content="Précédent" Margin="40" DockPanel.Dock="Left" Style="{StaticResource menuStyle}" Click="BackButtonClick"/>
+            <Button Content="Suivant" Margin="40" DockPanel.Dock="Right" Style="{StaticResource menuStyle}" Click="NextButtonClick"/>
         </DockPanel>
+
     </Grid>
 </Page>
