@@ -21,19 +21,29 @@ namespace UI
     /// </summary>
     public partial class ChooseMapSizePage : Page
     {
+        private GameBuilder _builder;
+
         public ChooseMapSizePage(GameBuilder builder)
         {
+            _builder = builder;
+
             InitializeComponent();
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.GoBack();
         }
 
         private void NextButtonClick(object sender, RoutedEventArgs e)
         {
+            _builder.SetSize(_mapSize.Text);
 
+            var main = Application.Current.MainWindow;
+            var game = new GameWindow(_builder);            
+            Application.Current.MainWindow = game;
+            main.Close();
+            game.Show();
         }
     }
 }

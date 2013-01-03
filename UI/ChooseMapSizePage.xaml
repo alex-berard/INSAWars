@@ -30,7 +30,7 @@
         </StackPanel>
         <DockPanel LastChildFill="False" Grid.Row="2">
             <Button Content="Back" Margin="40" DockPanel.Dock="Left" Style="{StaticResource menuStyle}" Click="BackButtonClick"/>
-            <Button Content="Next" Margin="40" DockPanel.Dock="Right" Style="{StaticResource menuStyle}" Click="NextButtonClick"/>
+            <Button Content="Create game" Margin="40" DockPanel.Dock="Right" Style="{StaticResource menuStyle}" Click="NextButtonClick"/>
         </DockPanel>
     </Grid>
 </Page>

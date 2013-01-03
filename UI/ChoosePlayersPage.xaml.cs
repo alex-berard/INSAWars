@@ -59,7 +59,7 @@ namespace UI
 
         private void NextButtonClick(object sender, RoutedEventArgs e)
         {
-            GameBuilder builder = new GameBuilder();
+            var builder = new GameBuilder();
             AddPlayerToGameBuilder(builder, _playerOne, _playerOneName, _playerOneCivilization);
             AddPlayerToGameBuilder(builder, _playerTwo, _playerTwoName, _playerTwoCivilization);
             AddPlayerToGameBuilder(builder, _playerThree, _playerThreeName, _playerThreeCivilization);

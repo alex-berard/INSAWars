@@ -23,7 +23,7 @@ namespace INSAWars.Game
 
         public void SetSize(string size)
         {
-            if (size == "small")
+            if (size == "Small")
             {
                 mapGenerator = new SmallMapGenerator();
             }
