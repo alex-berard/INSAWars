@@ -5,7 +5,7 @@ using System.Text;
 
 namespace INSAWars.Game
 {
-    interface IMapGenerator
+    public interface IMapGenerator
     {
         Map generate(MapConfiguration config);
     }

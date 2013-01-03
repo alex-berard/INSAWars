@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace INSAWars.Game
 {
-    class MapConfiguration
+    public class MapConfiguration
     {
         public double[] terrains;
         public double[] decorators;

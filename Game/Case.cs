@@ -27,12 +27,12 @@ namespace INSAWars.Game
             get { return units.ToList<Unit>(); }
         }
 
-        public int X
+        public virtual int X
         {
             get { return x; }
         }
 
-        public int Y
+        public virtual int Y
         {
             get { return y; }
         }
@@ -49,6 +49,9 @@ namespace INSAWars.Game
         #endregion properties
 
         #region constructor
+        public Case()
+        { }
+
         public Case(int x, int y)
         {
             this.x = x;

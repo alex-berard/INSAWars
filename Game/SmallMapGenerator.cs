@@ -8,7 +8,7 @@ namespace INSAWars.Game
     {
         private const int SIZE = 25;
 
-        public override Map generate(MapConfiguration config)
+        public Map generate(MapConfiguration config)
         {
             PerlinMapWrapper perlinMap = new PerlinMapWrapper(SIZE, config.terrains, config.decorators);
             Case[,] cases = new Case[SIZE, SIZE];
