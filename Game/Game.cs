@@ -15,6 +15,11 @@ namespace INSAWars.Game
         private int nbTurns;
         private Boolean over;
 
+        public Map Map
+        {
+            get { return map; }
+        }
+
         public Player CurrentPlayer
         {
             get { return alivePlayers.Peek();  }

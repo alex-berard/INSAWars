@@ -33,7 +33,8 @@ namespace UI
 
         public void DrawMap()
         {
-            
+            var map = _game.Map;
+            System.Diagnostics.Debug.WriteLine(map.ToString());
         }
     }
 }
