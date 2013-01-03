@@ -20,9 +20,20 @@ namespace UI
     /// </summary>
     public partial class GameWindow : Window
     {
+        private GameBuilder _builder;
+        private Game _game;
+
         public GameWindow(GameBuilder builder)
         {
+            _builder = builder;
+            _game = _builder.Build();
             InitializeComponent();
+            DrawMap();
+        }
+
+        public void DrawMap()
+        {
+            
         }
     }
 }

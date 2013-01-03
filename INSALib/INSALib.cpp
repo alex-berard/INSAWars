@@ -1,5 +1,4 @@
 
-#include "stdafx.h"
 #include "INSALib.h"
 
 using namespace std;

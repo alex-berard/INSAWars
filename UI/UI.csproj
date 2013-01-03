@@ -15,7 +15,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>UI.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -133,6 +136,10 @@
     <ProjectReference Include="..\INSAWars.csproj">
       <Project>{760bfa8f-5773-417b-b9c0-00951b4085fd}</Project>
       <Name>INSAWars</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\INSAWrapper\INSAWrapper.vcxproj">
+      <Project>{0d427f1f-3e94-4fbe-bd99-3badab15cb5f}</Project>
+      <Name>INSAWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

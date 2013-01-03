@@ -13,6 +13,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "INSAWrapper", "INSAWrapper\
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{9C054967-11B5-4658-83D1-67E89833FA1C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0D427F1F-3E94-4FBE-BD99-3BADAB15CB5F} = {0D427F1F-3E94-4FBE-BD99-3BADAB15CB5F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
