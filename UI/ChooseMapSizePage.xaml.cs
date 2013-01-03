@@ -12,27 +12,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using INSAWars.Game;
 
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for ChooseMapSizePage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class ChooseMapSizePage : Page
     {
-        public HomePage()
+        public ChooseMapSizePage(GameBuilder builder)
         {
             InitializeComponent();
         }
 
-        private void CreateGameButtonClick(object sender, RoutedEventArgs e)
+        private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ChoosePlayerCountPage());
+
         }
 
-        private void ExitButtonClick(object sender, RoutedEventArgs e)
+        private void NextButtonClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Close();
+
         }
     }
 }

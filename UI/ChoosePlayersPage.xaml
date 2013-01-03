@@ -16,50 +16,50 @@
     </Page.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="264*"/>
-            <RowDefinition Height="377*"/>
-            <RowDefinition Height="127*"/>
+            <RowDefinition Height="87*"/>
+            <RowDefinition Height="123*"/>
+            <RowDefinition Height="46*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" >
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="42*"/>
+                <RowDefinition Height="41*"/>
                 <RowDefinition Height="41*"/>
                 <RowDefinition Height="41*"/>
                 <RowDefinition Height="41*"/>
             </Grid.RowDefinitions>       
             
             <StackPanel Name="_playerOne">
-                <TextBox TextWrapping="Wrap" Text="Player 1" VerticalAlignment="Top" Width="240"/>
-                <ComboBox VerticalAlignment="Top" Width="240" >
+                <TextBox Name="_playerOneName" TextWrapping="Wrap" Text="Player 1" VerticalAlignment="Top" Width="240"/>
+                <ComboBox Name="_playerOneCivilization" VerticalAlignment="Top" Width="240" >
                     <ComboBoxItem Content="INFO" HorizontalAlignment="Left" Width="238" IsSelected="True"/>
                     <ComboBoxItem Content="EII" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>
             </StackPanel>
             <StackPanel Name="_playerTwo" Grid.Row="1">
-                <TextBox TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Width="240"/>
-                <ComboBox VerticalAlignment="Top" Width="240" >
+                <TextBox Name="_playerTwoName" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Width="240"/>
+                <ComboBox Name="_playerTwoCivilization" VerticalAlignment="Top" Width="240" >
                     <ComboBoxItem Content="INFO" HorizontalAlignment="Left" Width="238" IsSelected="True"/>
                     <ComboBoxItem Content="EII" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>
             </StackPanel>
             <StackPanel Name="_playerThree" Grid.Row="2">
-                <TextBox TextWrapping="Wrap" Text="Player 3" VerticalAlignment="Top" Width="240"/>
-                <ComboBox VerticalAlignment="Top" Width="240" >
+                <TextBox Name="_playerThreeName" TextWrapping="Wrap" Text="Player 3" VerticalAlignment="Top" Width="240"/>
+                <ComboBox Name="_playerThreeCivilization" VerticalAlignment="Top" Width="240" >
                     <ComboBoxItem Content="INFO" HorizontalAlignment="Left" Width="238" IsSelected="True"/>
                     <ComboBoxItem Content="EII" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>
             </StackPanel>
             <StackPanel Name="_playerFour" Grid.Row="3">
-                <TextBox TextWrapping="Wrap" Text="Player 4" VerticalAlignment="Top" Width="240"/>
-                <ComboBox VerticalAlignment="Top" Width="240" >
+                <TextBox Name="_playerFourName" TextWrapping="Wrap" Text="Player 4" VerticalAlignment="Top" Width="240"/>
+                <ComboBox Name="_playerFourCivilization" VerticalAlignment="Top" Width="240" >
                     <ComboBoxItem Content="INFO" HorizontalAlignment="Left" Width="238" IsSelected="True"/>
                     <ComboBoxItem Content="EII" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>
             </StackPanel>
         </Grid>
         <DockPanel LastChildFill="False" Grid.Row="2">
-            <Button Content="Précédent" Margin="40" DockPanel.Dock="Left" Style="{StaticResource menuStyle}" Click="BackButtonClick"/>
-            <Button Content="Suivant" Margin="40" DockPanel.Dock="Right" Style="{StaticResource menuStyle}" Click="NextButtonClick"/>
+            <Button Content="Back" Margin="40" DockPanel.Dock="Left" Style="{StaticResource menuStyle}" Click="BackButtonClick"/>
+            <Button Content="Next" Margin="40" DockPanel.Dock="Right" Style="{StaticResource menuStyle}" Click="NextButtonClick"/>
         </DockPanel>
     </Grid>
 </Page>

@@ -113,6 +113,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Units\AbstractUnitFactory.cs" />
+    <Compile Include="Units\CivilizationFactory.cs" />
     <Compile Include="Units\EII\EIICivilization.cs" />
     <Compile Include="Units\Info\InfoCivilization.cs" />
     <Compile Include="Units\EII\EIIUnitFactory.cs" />

@@ -16,23 +16,23 @@ using System.Windows.Shapes;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for NumberOfPlayerPage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class ChoosePlayerCountPage : Page
     {
-        public HomePage()
+        public ChoosePlayerCountPage()
         {
             InitializeComponent();
         }
 
-        private void CreateGameButtonClick(object sender, RoutedEventArgs e)
+        private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ChoosePlayerCountPage());
+            NavigationService.GoBack();
         }
 
-        private void ExitButtonClick(object sender, RoutedEventArgs e)
+        private void NextButtonClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Close();
+            NavigationService.Navigate(new ChoosePlayersPage(int.Parse(_numberOfPlayers.Text)));
         }
     }
 }
