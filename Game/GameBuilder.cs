@@ -10,7 +10,7 @@ namespace INSAWars.Game
 {
     public class GameBuilder
     {
-        private string size;
+        
         private IMapGenerator mapGenerator;
         private Dictionary<string, ICivilization> players;
         private MapConfiguration mapConfig;
@@ -18,6 +18,7 @@ namespace INSAWars.Game
         public GameBuilder()
         {
             mapConfig = new MapConfiguration();
+            players = new Dictionary<string, ICivilization>();
         }
 
         public void SetSize(string size)
