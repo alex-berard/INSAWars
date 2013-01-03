@@ -19,5 +19,10 @@ namespace INSAWars.Game
 
         public FoodCaseDecorator(Case decoratedCase)
             : base(decoratedCase) {}
+
+        public override string ToString()
+        {
+            return decoratedCase.ToString() + " + food";
+        }
     }
 }

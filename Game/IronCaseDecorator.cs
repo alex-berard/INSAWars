@@ -19,5 +19,10 @@ namespace INSAWars.Game
 
         public IronCaseDecorator(Case decoratedCase)
             : base(decoratedCase) {}
+
+        public override string ToString()
+        {
+            return decoratedCase.ToString() + " + iron";
+        }
     }
 }
