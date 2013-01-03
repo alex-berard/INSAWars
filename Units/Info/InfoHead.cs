@@ -8,8 +8,8 @@ namespace INSAWars.Units.Info
 {
     class InfoHead : Head
     {
-        public InfoHead(Case location)
-            : base(location)
+        public InfoHead(Case location, Player player)
+            : base(location, player)
         {
         }
     }

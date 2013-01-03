@@ -8,11 +8,16 @@ namespace INSAWars.Game
 {
     public class Player
     {
-        private bool alive;
+        private bool isDead;
         private HashSet<City> cities;
         private ICivilization civilization;
         private string name;
         private HashSet<Unit> units;
+
+        public bool IsDead
+        {
+            get { return isDead; }
+        }
 
         public string Name
         {
@@ -26,7 +31,7 @@ namespace INSAWars.Game
 
         public Player(ICivilization civilization, string name)
         {
-            alive = true;
+            isDead = false;
             cities = new HashSet<City>();
             this.civilization = civilization;
             this.name = name;
@@ -40,6 +45,12 @@ namespace INSAWars.Game
         public void RemoveCity(City city)
         {
             cities.Remove(city);
+
+            // When a player has no city left he loses the game.
+            if (cities.Count == 0)
+            {
+                Lose();
+            }
         }
 
         public void AddUnit(Unit unit)
@@ -54,7 +65,7 @@ namespace INSAWars.Game
 
         public void Lose()
         {
-            alive = false;
+            isDead = true;
 
             foreach (City city in cities)
             {

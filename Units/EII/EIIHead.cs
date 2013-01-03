@@ -8,8 +8,8 @@ namespace INSAWars.Units.EII
 {
     class EIIHead : Head
     {
-        public EIIHead(Case location)
-            : base(location)
+        public EIIHead(Case location, Player player)
+            : base(location, player)
         {
         }
     }

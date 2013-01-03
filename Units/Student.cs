@@ -8,10 +8,10 @@ namespace INSAWars.Units
 {
     public abstract class Student : Unit
     {
-        public override double IronCost { get { return 100.0; } }
+        public override uint IronCost { get { return 100; } }
 
-        public Student(Case location)
-            : base(location)
+        public Student(Case location, Player player)
+            : base(location, player)
         {
         }
     }

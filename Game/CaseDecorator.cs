@@ -35,10 +35,10 @@ namespace INSAWars.Game
 
         public Case Clone(Case decoratedCase)
         {
-            CaseDecorator case_ = (CaseDecorator)this.MemberwiseClone();
-            case_.decoratedCase = decoratedCase;
+            CaseDecorator c = (CaseDecorator)this.MemberwiseClone();
+            c.decoratedCase = decoratedCase;
 
-            return case_;
+            return c;
         }
 
         public override Unit GetAttackedUnit()
