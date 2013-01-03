@@ -10,17 +10,17 @@ namespace INSAWars.Units.Info
     {
         public override Head CreateHead(City city)
         {
-            return new InfoHead(city.Position);
+            return new InfoHead(city.Position, city.Player);
         }
 
         public override Student CreateStudent(City city)
         {
-            return new InfoStudent(city.Position);
+            return new InfoStudent(city.Position, city.Player);
         }
 
         public override Teacher CreateTeacher(City city)
         {
-            return new InfoTeacher(city.Position);
+            return new InfoTeacher(city.Position, city.Player);
         }
     }
 }

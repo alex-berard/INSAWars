@@ -148,7 +148,6 @@
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\SmallMapGenerator.cs" />
     <Compile Include="Game\Texture.cs" />
-    <Compile Include="Utils\InfiniteQueue.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

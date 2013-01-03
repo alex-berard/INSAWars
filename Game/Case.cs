@@ -22,6 +22,32 @@ namespace INSAWars.Game
         #endregion
 
         #region properties
+        public City City
+        {
+            get { return city; }
+        }
+
+        public virtual bool IsFree
+        {
+            get { return status == CaseStatus.FREE; }
+        }
+
+        public virtual bool IsUsed
+        {
+            get { return status == CaseStatus.USED; }
+        }
+
+        public virtual bool HasCity
+        {
+            get { return status == CaseStatus.CITY; }
+        }
+
+        public virtual Player Occupant
+        {
+            // TODO
+            get { return occupant; }
+        }
+
         public virtual List<Unit> Units
         {
             get { return units.ToList<Unit>(); }

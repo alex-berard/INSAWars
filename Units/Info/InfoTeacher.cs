@@ -8,12 +8,13 @@ namespace INSAWars.Units.Info
 {
     class InfoTeacher : Teacher
     {
-        public override double DefensePoints { get { return 1.0; } }
-        public override double MovementPoints { get { return 3.0; } }
-        public override double HitPoints { get { return 1.0; } }
+        public override uint AttackPoints { get { return 0; } }
+        public override uint DefensePoints { get { return 1; } }
+        public override uint HitPoints { get { return 1; } }
+        public override uint MovementPoints { get { return 3; } }
 
-        public InfoTeacher(Case location)
-            : base(location)
+        public InfoTeacher(Case location, Player player)
+            : base(location, player)
         {
         }
     }

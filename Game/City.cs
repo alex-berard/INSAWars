@@ -24,6 +24,11 @@ namespace INSAWars.Game
 
         private Dictionary<Unit, int> pendingProductions;
 
+        public Player Player
+        {
+            get { return occupant; }
+        }
+
         public Case Position
         {
             get { return position; }
@@ -51,6 +56,8 @@ namespace INSAWars.Game
         public void CapturedBy(Player invader)
         {
             occupant = invader;
+            occupant.RemoveCity(this);
+            invader.AddCity(this);
         }
 
         public bool MakeStudent()

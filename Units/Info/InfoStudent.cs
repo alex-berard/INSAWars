@@ -8,13 +8,13 @@ namespace INSAWars.Units.Info
 {
     class InfoStudent : Student
     {
-        public override double AttackPoints { get { return 4.0; } }
-        public override double DefensePoints { get { return 2.0; } }
-        public override double MovementPoints { get { return 2.0; } }
-        public override double HitPoints { get { return 10.0; } }
+        public override uint AttackPoints { get { return 4; } }
+        public override uint DefensePoints { get { return 2; } }
+        public override uint HitPoints { get { return 10; } }
+        public override uint MovementPoints { get { return 2; } }
 
-        public InfoStudent(Case location)
-            : base(location)
+        public InfoStudent(Case location, Player player)
+            : base(location, player)
         {
         }
     }
