@@ -70,5 +70,10 @@ namespace INSAWars.Game
         {
             decoratedCase.RemoveUnit(unit);
         }
+
+        public override string ToString()
+        {
+            return decoratedCase.ToString();
+        }
     }
 }

@@ -41,8 +41,10 @@ namespace INSAWars.Game
             {
                 case (int)Decorators.IRON:
                     return new IronCaseDecorator(decoratedCase);
-                default:
+                case (int)Decorators.FOOD:
                     return new FoodCaseDecorator(decoratedCase);
+                default:
+                    return decoratedCase;
             }
         }
     }
