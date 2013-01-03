@@ -25,7 +25,7 @@ namespace INSAWars.Game
             }
 
             int[,] positions = perlinMap.GetStartingPositions(MapConfiguration.inaccessibleTerrains);
-            for (int i = 0; i < positions.Length; i++)
+            for (int i = 0; i < positions.GetLength(0); i++)
             {
                 int x = positions[i, 0];
                 int y = positions[i, 1];
