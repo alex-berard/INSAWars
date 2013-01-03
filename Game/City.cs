@@ -60,18 +60,34 @@ namespace INSAWars.Game
             invader.AddCity(this);
         }
 
-        public bool MakeStudent()
+        public void CancelProduction()
+        {
+        }
+
+        public void MakeStudent()
         {
             Student unit = occupant.Civilization.UnitFactory.CreateStudent(this);
-            return false;
         }
 
-        public bool MakeTeacher()
+        public bool CanMakeStudent()
         {
             return false;
         }
 
-        public bool MakeHead()
+        public void MakeTeacher()
+        {
+        }
+
+        public bool CanMakeTeacher()
+        {
+            return false;
+        }
+
+        public void MakeHead()
+        {
+        }
+
+        public bool CanMakeHead()
         {
             return false;
         }

@@ -59,13 +59,24 @@ namespace INSAWars.Units
 
             for (int i = 0; i < rounds; i++)
             {
-                if (remainingHitPoints == 0)
+                double ratio = AttackPoints / opponent.DefensePoints;
+                double proba = 0.5 * ratio;
+
+                if (Game.Game.random.NextDouble() < proba)
                 {
-                    return;
+                    if (--opponent.remainingHitPoints == 0)
+                    {
+                        this.Kill();
+                        return;
+                    }
                 }
-                else if (opponent.remainingHitPoints == 0)
+                else
                 {
-                    return;
+                    if (--remainingHitPoints == 0)
+                    {
+                        this.Kill();
+                        return;
+                    }
                 }
             }
         }
