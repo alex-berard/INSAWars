@@ -16,7 +16,7 @@ int PerlinMap::getDecorator(int x, int y)
 
 PerlinMap::PerlinMap(int width, int height, Distribution *distr) : cases(), distr(distr)
 {
-	vector<vector<double>> perlinNoise = generatePerlinNoise(width, height, 6, 0.7f);
+	vector<vector<double>> perlinNoise = generatePerlinNoise(width, height, 6, 0.7);
 
 	for (int i = 0; i < width; i++)
 	{
@@ -77,7 +77,7 @@ vector<vector<double>> PerlinMap::generatePerlinNoise(int width, int height, int
 		amplitude *= persistance;
 		total += amplitude;
 
-		int period = octave * octave;
+		int period = pow(2, octave);
 		int width = baseNoise.size();
 		int height = baseNoise[0].size();
 
