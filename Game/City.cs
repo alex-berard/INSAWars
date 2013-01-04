@@ -13,7 +13,7 @@ namespace INSAWars.Game
     {
         private List<Case> cases;
         private Case position;
-        private Player occupant;
+        private Player player;
         private int population;
         
         private int food;
@@ -22,16 +22,31 @@ namespace INSAWars.Game
         private int id;
         private string name;
 
-        private Dictionary<Unit, int> pendingProductions;
+        private List<Unit> pendingProductions;
+
+        public int Food
+        {
+            get { return food; }
+        }
+
+        public int Iron
+        {
+            get { return iron; }
+        }
 
         public Player Player
         {
-            get { return occupant; }
+            get { return player; }
         }
 
         public Case Position
         {
             get { return position; }
+        }
+
+        private AbstractUnitFactory Factory
+        {
+            get { return player.Civilization.UnitFactory; }
         }
 
         /// <summary>
@@ -43,9 +58,11 @@ namespace INSAWars.Game
         public City(Case position, Player player, string name)
         {
             this.position = position;
-            this.occupant = player;
+            this.player = player;
             this.name = name;
-            this.pendingProductions = new Dictionary<Unit, int>();
+            this.cases = new List<Case>();
+            this.cases.Add(this.position);
+            this.pendingProductions = new List<Unit>();
         }
 
         public void AddCase(Case c)
@@ -55,73 +72,84 @@ namespace INSAWars.Game
 
         public void CapturedBy(Player invader)
         {
-            occupant = invader;
-            occupant.RemoveCity(this);
+            player = invader;
+            player.RemoveCity(this);
             invader.AddCity(this);
         }
 
-        public void CancelProduction()
+        public void CancelProduction(int index)
         {
+            pendingProductions.RemoveAt(index);
         }
 
         public void MakeStudent()
         {
-            Student unit = occupant.Civilization.UnitFactory.CreateStudent(this);
+            Student unit = player.Civilization.UnitFactory.CreateStudent(this);
+            pendingProductions.Add(unit);
+            food -= Factory.StudentFoodCost;
+            iron -= Factory.StudentIronCost;
         }
 
         public bool CanMakeStudent()
         {
-            return false;
+            return food >= Factory.StudentFoodCost && iron >= Factory.StudentIronCost;
         }
 
         public void MakeTeacher()
         {
+            Teacher unit = player.Civilization.UnitFactory.CreateTeacher(this);
+            pendingProductions.Add(unit);
+            food -= Factory.TeacherFoodCost;
+            iron -= Factory.TeacherIronCost;
         }
 
         public bool CanMakeTeacher()
         {
-            return false;
+            return food >= Factory.TeacherFoodCost && iron >= Factory.TeacherIronCost;
         }
 
         public void MakeHead()
         {
+            Teacher unit = player.Civilization.UnitFactory.CreateTeacher(this);
+            pendingProductions.Add(unit);
+            food -= Factory.HeadFoodCost;
+            iron -= Factory.HeadIronCost;
         }
 
         public bool CanMakeHead()
         {
-            return false;
+            return food >= Factory.HeadFoodCost && iron >= Factory.HeadIronCost;
         }
 
-        /// <summary>
-        /// Handles the production for the next turn.
-        /// </summary>
         public void NextTurn()
         {
-            var productions = new Dictionary<Unit, int>();
+            CollectResources();
+            HandleProduction();
+        }
 
-            foreach (var production in pendingProductions)
+        private void HandleProduction()
+        {
+            foreach (Unit unit in pendingProductions)
             {
-                int remainingTurns = production.Value - 1;
-                Unit unit = production.Key;
-
-                if (remainingTurns == 0)
-                {
-                    occupant.AddUnit(unit);
-                    position.AddUnit(unit);
-                }
-                else
-                {
-                    productions.Add(unit, remainingTurns);
-                }
+                player.AddUnit(unit);
+                position.AddUnit(unit);
             }
 
-            pendingProductions = productions;
+            pendingProductions = new List<Unit>();
+        }
+
+        private void CollectResources()
+        {
+            foreach (Case c in cases) {
+                food += c.Food;
+                iron += c.Iron;
+            }
         }
 
         public void Destroy()
         {
             position.Free();
-            occupant.RemoveCity(this);
+            player.RemoveCity(this);
         }
     }
 }

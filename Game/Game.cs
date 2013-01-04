@@ -25,11 +25,6 @@ namespace INSAWars.Game
             get { return alivePlayers.Peek();  }
         }
 
-        public Case GetCaseAt(int x, int y)
-        {
-            return map.GetCaseAt(x, y);
-        }
-
         public Game(Map map, List<Player> players)
         {
             this.players = players;
@@ -37,6 +32,7 @@ namespace INSAWars.Game
 
             this.map = map;
 
+            this.over = false;
             this.nbTurns = 0;
         }
 
@@ -44,18 +40,55 @@ namespace INSAWars.Game
         {
             if (c.Units.Count == 0)
             {
-
+                // Seize the territory, move the unit onto it
             }
             else
             {
                 Unit opponent = c.GetAttackedUnit();
                 unit.Attack(opponent);
+
+                if (c.Units.Count == 0)
+                {
+                    // Seize the territory, move the unit onto it
+                }
             }
+
+            unit.HasAttacked = true;
         }
 
         public bool CanAttack(Unit unit, Case c)
         {
-            return false;
+            return !unit.HasAttacked && unit.AttackPoints > 0 && !c.IsFree && c.Occupant != unit.Player;
+        }
+
+        public void MakeStudent(City city)
+        {
+            city.MakeStudent();
+        }
+
+        public bool CanMakeStudent(City city)
+        {
+            return city.CanMakeStudent();
+        }
+
+        public void MakeTeacher(City city)
+        {
+            city.MakeTeacher();
+        }
+
+        public bool CanMakeTeacher(City city)
+        {
+            return city.CanMakeTeacher();
+        }
+
+        public void MakeHead(City city)
+        {
+            city.MakeHead();
+        }
+
+        public bool CanMakeHead(City city)
+        {
+            return city.CanMakeHead();
         }
 
         /// <summary>
@@ -77,18 +110,18 @@ namespace INSAWars.Game
 
         public bool CanBuildCity(Teacher teacher)
         {
-            return false;
+            return !teacher.Location.HasCity;
         }
 
-        public void MoveUnit(Unit unit, Case to)
+        public void MoveUnit(Unit unit, Case destination)
+        {
+            unit.MoveTo(destination);
+        }
+
+        public bool CanMoveUnit(Unit unit, Case destination)
         {
             // TODO: Check that the case is accessible (not water, and not occupied by an enemy).
             // Check that the unit has enough movement points.
-            unit.MoveTo(to);
-        }
-
-        public bool CanMoveUnit(Unit unit, Case to)
-        {
             return false;
         }
 
@@ -122,9 +155,24 @@ namespace INSAWars.Game
             }
         }
 
-        static int Main(string[] args)
+        /// <summary>
+        /// Tells wether or not the given case is visible by the current player.
+        /// </summary>
+        /// <param name="c">Given case</param>
+        /// <returns>True if the case is in the field of view of the current player, false otherwise.</returns>
+        public bool IsVisible(Case c)
         {
-            return 0;
+            return false;
+        }
+
+        public void Save(string filename)
+        {
+
+        }
+
+        private void ExpandCity(City city)
+        {
+
         }
     }
 }

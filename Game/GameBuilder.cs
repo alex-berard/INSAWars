@@ -10,7 +10,6 @@ namespace INSAWars.Game
 {
     public class GameBuilder
     {
-        
         private IMapGenerator mapGenerator;
         private Dictionary<string, ICivilization> players;
         private MapConfiguration mapConfig;
@@ -87,6 +86,11 @@ namespace INSAWars.Game
             }
 
             return new Game(map, players);
+        }
+
+        public Game LoadGame(string filename)
+        {
+            return null;
         }
 
         private void initPlayer(Player player, Case position)

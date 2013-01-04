@@ -11,6 +11,11 @@ namespace INSAWars.Game
         private Case[,] cases;
         private Stack<Case> startingPositions;
 
+        public int Size
+        {
+            get { return cases.GetLength(0); }
+        }
+
         public Case GetCaseAt(int x, int y)
         {
             return cases[x, y];
