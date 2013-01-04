@@ -24,6 +24,9 @@ namespace INSAWars.Units
         public virtual uint HitPoints { get { return 0; } }
         public virtual uint MovementPoints { get { return 0; } }
 
+        public virtual uint AttackBonus { get { return 1; } }
+        public virtual uint DefenseBonus { get { return 1; } }
+
         public Player Player { get { return player; } }
         public Case Location { get { return location; } }
         public uint RemainingHitPoints { get { return remainingHitPoints; } }

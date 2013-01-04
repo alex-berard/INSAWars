@@ -15,15 +15,13 @@ namespace INSAWars.Game
         private int nbTurns;
         private Boolean over;
 
-        public Map Map
-        {
-            get { return map; }
-        }
+        public bool Over { get { return over; } }
 
-        public Player CurrentPlayer
-        {
-            get { return alivePlayers.Peek();  }
-        }
+        public int NbTurns { get { return nbTurns; } }
+
+        public Map Map { get { return map; } }
+
+        public Player CurrentPlayer { get { return alivePlayers.Peek(); } }
 
         public Game(Map map, List<Player> players)
         {
@@ -102,7 +100,19 @@ namespace INSAWars.Game
             Player player = teacher.Player;
             Case position = teacher.Location;
 
-            City city = new City(position, player, name);
+            List<Case> territory = new List<Case>();
+
+            for (int x = Math.Max(0, position.X - 5); x <= Math.Min(map.Size - 1, position.X + 5); x++)
+            {
+                int offset = (int) Math.Sqrt(5 - x*x);
+
+                for (int y = Math.Max(0, position.Y - offset); y <= Math.Min(map.Size - 1, position.Y + offset); y++)
+                {
+                    territory.Add(map.GetCaseAt(x, y));
+                }
+            }
+
+            City city = new City(position, player, name, territory);
 
             position.BuildCity(city);
             player.AddCity(city);
@@ -167,11 +177,6 @@ namespace INSAWars.Game
         }
 
         public void Save(string filename)
-        {
-
-        }
-
-        private void ExpandCity(City city)
         {
 
         }

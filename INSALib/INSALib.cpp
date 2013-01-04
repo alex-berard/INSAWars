@@ -32,7 +32,7 @@ PerlinMap::PerlinMap(int width, int height, Distribution *distr) : cases(), dist
 
 vector<vector<double>> PerlinMap::generateWhiteNoise(int width, int height)
 {
-	srand(0);
+	srand(time(NULL));
 	vector<vector<double>> whiteNoise;
 
 	for (int i = 0; i < width; i++)

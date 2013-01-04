@@ -11,12 +11,14 @@ namespace INSAWars.Game
     /// </summary>
     public class City
     {
-        private List<Case> cases;
+        private List<Case> territory;
+        private List<Case> fields;
         private Case position;
         private Player player;
         private int population;
         
         private int food;
+        private int requiredFood;
         private int iron;
 
         private string name;
@@ -54,19 +56,19 @@ namespace INSAWars.Game
         /// <param name="position">The position of the city.</param>
         /// <param name="player">The player to whom the city belongs.</param>
         /// <param name="name">The name of the city (defined by the player).</param>
-        public City(Case position, Player player, string name)
+        public City(Case position, Player player, string name, List<Case> territory)
         {
             this.position = position;
             this.player = player;
             this.name = name;
-            this.cases = new List<Case>();
-            this.cases.Add(this.position);
+            this.fields = new List<Case>();
+            this.fields.Add(this.position);
             this.pendingProductions = new List<Unit>();
-        }
-
-        public void AddCase(Case c)
-        {
-            cases.Add(c);
+            this.territory = territory;
+            population = 1;
+            food = 0;
+            iron = 0;
+            requiredFood = 10;
         }
 
         public void CapturedBy(Player invader)
@@ -120,6 +122,21 @@ namespace INSAWars.Game
             return food >= Factory.HeadFoodCost && iron >= Factory.HeadIronCost;
         }
 
+        public void Expand()
+        {
+            //cases.Add(c);
+            List<Case> freeTerritory = new List<Case>();
+
+            population++;
+            food -= requiredFood;
+            requiredFood += requiredFood / 2;
+        }
+
+        public bool CanExpand()
+        {
+            return food >= requiredFood;
+        }
+
         public void NextTurn()
         {
             CollectResources();
@@ -139,7 +156,7 @@ namespace INSAWars.Game
 
         private void CollectResources()
         {
-            foreach (Case c in cases) {
+            foreach (Case c in fields) {
                 food += c.Food;
                 iron += c.Iron;
             }

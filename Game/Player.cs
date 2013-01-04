@@ -14,6 +14,11 @@ namespace INSAWars.Game
         private string name;
         private HashSet<Unit> units;
 
+        public List<City> Cities
+        {
+            get { return cities.ToList(); }
+        }
+
         public bool IsDead
         {
             get { return isDead; }
