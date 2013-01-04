@@ -100,19 +100,7 @@ namespace INSAWars.Game
             Player player = teacher.Player;
             Case position = teacher.Location;
 
-            List<Case> territory = new List<Case>();
-
-            for (int x = Math.Max(0, position.X - 5); x <= Math.Min(map.Size - 1, position.X + 5); x++)
-            {
-                int offset = (int) Math.Sqrt(5 - x*x);
-
-                for (int y = Math.Max(0, position.Y - offset); y <= Math.Min(map.Size - 1, position.Y + offset); y++)
-                {
-                    territory.Add(map.GetCaseAt(x, y));
-                }
-            }
-
-            City city = new City(position, player, name, territory);
+            City city = new City(position, player, name, map.TerritoryAround(position));
 
             position.BuildCity(city);
             player.AddCity(city);

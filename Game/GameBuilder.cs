@@ -82,7 +82,7 @@ namespace INSAWars.Game
             {
                 Player player = new Player(entry.Value, entry.Key);
                 players.Add(player);
-                initPlayer(player, map.FreePosition);
+                initPlayer(player, map);
             }
 
             return new Game(map, players);
@@ -93,9 +93,10 @@ namespace INSAWars.Game
             return null;
         }
 
-        private void initPlayer(Player player, Case position)
+        private void initPlayer(Player player, Map map)
         {
-            player.AddCity(new City(position, player, "Main city of " + player.Name));
+            Case position = map.FreePosition;
+            player.AddCity(new City(position, player, "Main city of " + player.Name, map.TerritoryAround(position)));
         }
     }
 }

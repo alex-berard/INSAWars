@@ -26,6 +26,23 @@ namespace INSAWars.Game
             get { return startingPositions.Pop(); }
         }
 
+        public List<Case> TerritoryAround(Case position)
+        {
+            List<Case> territory = new List<Case>();
+
+            for (int x = Math.Max(0, position.X - 5); x <= Math.Min(Size - 1, position.X + 5); x++)
+            {
+                int offset = (int)Math.Sqrt(5 - x * x);
+
+                for (int y = Math.Max(0, position.Y - offset); y <= Math.Min(Size - 1, position.Y + offset); y++)
+                {
+                    territory.Add(GetCaseAt(x, y));
+                }
+            }
+
+            return territory;
+        }
+
         public Map(Case[,] cases, List<Case> startingPositions)
         {
             this.cases = cases;
