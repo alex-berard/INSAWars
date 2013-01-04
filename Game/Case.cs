@@ -75,9 +75,10 @@ namespace INSAWars.Game
             get { return y; }
         }
 
-        public abstract int Food
+        public virtual int Food
         {
             get;
+            set;
         }
 
         public abstract int Iron

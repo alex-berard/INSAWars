@@ -47,7 +47,6 @@ namespace UI
         {
             if (player.Visibility == Visibility.Visible)
             {
-                System.Diagnostics.Debug.WriteLine("This player is looovisible!");
                 builder.AddPlayer(name.Text, CivilizationFactory.GetCivilizationByName(civilization.Text));
             }
         }

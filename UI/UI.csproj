@@ -150,20 +150,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\background.png" />
+    <Resource Include="Resources\icons\16x16\boss.png" />
+    <Resource Include="Resources\icons\16x16\city.png" />
+    <Resource Include="Resources\icons\16x16\food.png" />
+    <Resource Include="Resources\icons\16x16\iron.png" />
+    <Resource Include="Resources\icons\16x16\student.png" />
+    <Resource Include="Resources\icons\16x16\teacher.png" />
+    <Resource Include="Resources\icons\32x32\boss.png" />
+    <Resource Include="Resources\icons\32x32\city.png" />
+    <Resource Include="Resources\icons\32x32\food.png" />
+    <Resource Include="Resources\icons\32x32\iron.png" />
+    <Resource Include="Resources\icons\32x32\student.png" />
+    <Resource Include="Resources\icons\32x32\teacher.png" />
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Resources\splash.png" />
+    <Resource Include="Resources\ui\background.png" />
+    <SplashScreen Include="Resources\ui\splash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\water.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\desert.png" />
-    <Resource Include="Resources\plain.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\mountain.png" />
+    <Resource Include="Resources\textures\desert.png" />
+    <Resource Include="Resources\textures\mountain.png" />
+    <Resource Include="Resources\textures\plain.png" />
+    <Resource Include="Resources\textures\water.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

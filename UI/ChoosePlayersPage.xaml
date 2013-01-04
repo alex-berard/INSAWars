@@ -7,7 +7,7 @@
       d:DesignHeight="768" d:DesignWidth="1024"
 	Title="ChoosePlayersPage">
     <Page.Background>
-        <ImageBrush ImageSource="Resources\background.png" Viewport="0,0,1024,768"
+        <ImageBrush ImageSource="Resources\ui\background.png" Viewport="0,0,1024,768"
         ViewportUnits="Absolute"
         TileMode="Tile"
         Stretch="None"

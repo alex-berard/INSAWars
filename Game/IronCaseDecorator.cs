@@ -19,7 +19,7 @@ namespace INSAWars.Game
 
         public override string Texture
         {
-            get { return "Moutain"; }
+            get { return decoratedCase.Texture; }
         }
 
         public IronCaseDecorator(Case decoratedCase)

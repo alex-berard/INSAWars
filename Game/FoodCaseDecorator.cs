@@ -19,7 +19,7 @@ namespace INSAWars.Game
 
         public override string Texture
         {
-            get { return "Plain"; }
+            get { return decoratedCase.Texture; }
         }
 
         public FoodCaseDecorator(Case decoratedCase)
