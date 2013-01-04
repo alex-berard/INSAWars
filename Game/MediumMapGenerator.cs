@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using INSAWrapper;
-
+﻿
 namespace INSAWars.Game
 {
-    public class MediumMapGenerator : IMapGenerator
+    public class MediumMapGenerator : MapGenerator
     {
         private const int SIZE = 100;
 
-        public Map generate(MapConfiguration config)
+        public override Map generate(MapConfiguration config)
         {
-            return null;
+            return generate(config, SIZE);
         }
     }
 }

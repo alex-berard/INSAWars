@@ -10,7 +10,7 @@ namespace INSAWars.Game
 {
     public class GameBuilder
     {
-        private IMapGenerator mapGenerator;
+        private MapGenerator mapGenerator;
         private Dictionary<string, ICivilization> players;
         private MapConfiguration mapConfig;
 
