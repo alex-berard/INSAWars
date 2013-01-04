@@ -28,6 +28,7 @@ namespace INSAWars.Units
         public Case Location { get { return location; } }
         public uint RemainingHitPoints { get { return remainingHitPoints; } }
         public uint RemainingMovementPoints { get { return remainingMovementPoints;  } }
+        public bool HasAttacked { get; set; }
         public string Texture { get; set; }
         #endregion
 

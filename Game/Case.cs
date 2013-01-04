@@ -21,7 +21,7 @@ namespace INSAWars.Game
         #endregion
 
         #region properties
-        public City City
+        public virtual City City
         {
             get { return city; }
         }
@@ -52,11 +52,6 @@ namespace INSAWars.Game
             get { return occupant; }
         }
 
-        public virtual City City
-        {
-            get { return city; }
-        }
-
         public virtual IEnumerable<Unit> Units
         {
             get { return units.OrderByDescending(unit => unit.DefensePoints); }
@@ -65,7 +60,7 @@ namespace INSAWars.Game
         /// <summary>
         /// The visible unit on this case (the unit with the highest defense).
         /// </summary>
-        public virtual Unit Unit
+        public virtual Unit MostDefensiveUnit
         {
             get { return units.OrderByDescending(unit => unit.DefensePoints).First(); }
         }

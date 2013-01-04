@@ -41,7 +41,7 @@ namespace INSAWars.Game
             if (c.HasUnits)
             {
                 // Seize the territory, move the unit onto it
-                Unit opponent = c.Unit;
+                Unit opponent = c.MostDefensiveUnit;
                 unit.Attack(opponent);
 
                 if (!c.HasUnits)

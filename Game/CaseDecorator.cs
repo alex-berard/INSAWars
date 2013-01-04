@@ -13,6 +13,37 @@ namespace INSAWars.Game
     {
         protected Case decoratedCase;
 
+        public virtual City City
+        {
+            get { return decoratedCase.City; }
+        }
+
+        public virtual bool IsFree
+        {
+            get { return decoratedCase.IsFree; }
+        }
+
+        public virtual bool IsUsed
+        {
+            get { return decoratedCase.IsUsed; }
+        }
+
+        public virtual bool HasCity
+        {
+            get { return decoratedCase.IsUsed; }
+        }
+
+        public virtual bool HasUnits
+        {
+            get { return decoratedCase.HasUnits; }
+        }
+
+        public virtual Player Occupant
+        {
+            // TODO: assign and update
+            get { return decoratedCase.Occupant; }
+        }
+
         public override int X
         {
             get { return decoratedCase.X; }
@@ -23,27 +54,19 @@ namespace INSAWars.Game
             get { return decoratedCase.Y; }
         }
 
-        public override List<Unit> Units
+        public override IEnumerable<Unit> Units
         {
             get { return decoratedCase.Units; }
+        }
+
+        public override Unit MostDefensiveUnit
+        {
+            get { return decoratedCase.MostDefensiveUnit; }
         }
 
         public CaseDecorator(Case decoratedCase)
         {
             this.decoratedCase = decoratedCase;
-        }
-
-        public Case Clone(Case decoratedCase)
-        {
-            CaseDecorator c = (CaseDecorator)this.MemberwiseClone();
-            c.decoratedCase = decoratedCase;
-
-            return c;
-        }
-
-        public override Unit GetAttackedUnit()
-        {
-            return decoratedCase.GetAttackedUnit();
         }
 
         public override bool BuildCity(City city)
