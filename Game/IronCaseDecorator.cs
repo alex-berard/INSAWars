@@ -17,6 +17,11 @@ namespace INSAWars.Game
             get { return decoratedCase.Iron + 2; }
         }
 
+        public override string Texture
+        {
+            get { return "Moutain"; }
+        }
+
         public IronCaseDecorator(Case decoratedCase)
             : base(decoratedCase) {}
 

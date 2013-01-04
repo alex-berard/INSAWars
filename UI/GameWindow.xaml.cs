@@ -26,15 +26,16 @@ namespace UI
         public GameWindow(GameBuilder builder)
         {
             _builder = builder;
+            _builder.UseDefaultFrequencies();
             _game = _builder.Build();
+
             InitializeComponent();
             DrawMap();
         }
 
         public void DrawMap()
         {
-            var map = _game.Map;
-            System.Diagnostics.Debug.WriteLine(map.ToString());
+            _gameView.Map = _game.Map;
         }
     }
 }

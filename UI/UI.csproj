@@ -65,6 +65,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +90,9 @@
     </Compile>
     <Compile Include="ChoosePlayersPage.xaml.cs">
       <DependentUpon>ChoosePlayersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
@@ -147,6 +154,16 @@
   </ItemGroup>
   <ItemGroup>
     <SplashScreen Include="Resources\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\desert.png" />
+    <Resource Include="Resources\plain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mountain.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,6 +17,11 @@ namespace INSAWars.Game
             get { return decoratedCase.Iron; }
         }
 
+        public override string Texture
+        {
+            get { return "Plain"; }
+        }
+
         public FoodCaseDecorator(Case decoratedCase)
             : base(decoratedCase) {}
 

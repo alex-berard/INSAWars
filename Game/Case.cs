@@ -17,7 +17,6 @@ namespace INSAWars.Game
         protected CaseStatus status;
         protected City city;
         protected HashSet<Unit> units;
-        protected Texture texture;
         protected Player occupant;
         #endregion
 
@@ -69,6 +68,11 @@ namespace INSAWars.Game
         }
 
         public abstract int Iron
+        {
+            get;
+        }
+
+        public abstract string Texture
         {
             get;
         }

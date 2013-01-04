@@ -19,6 +19,11 @@ namespace INSAWars.Game
             get { return 0; }
         }
 
+        public override string Texture
+        {
+            get { return "Water"; }
+        }
+
         public Water(int x, int y) : base(x, y) { }
 
         public override string ToString()
