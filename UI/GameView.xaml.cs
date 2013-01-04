@@ -42,12 +42,15 @@ namespace UI
         {
             if (!_isMapDrawn)
             {
+                Height = Map.Size * HEIGHT;
+                Width = Map.Size * WIDTH;
+                
                 DrawingVisual drawingVisual = new DrawingVisual();
                 using (DrawingContext drawingContext = drawingVisual.RenderOpen())
                 {
-                    for (int i = 0; i < 25; i++)
+                    for (int i = 0; i < Map.Size; i++)
                     {
-                        for (int j = 0; j < 25; j++)
+                        for (int j = 0; j < Map.Size; j++)
                         {
                             BitmapImage texture = (BitmapImage)FindResource(Map.GetCaseAt(i, j).Texture);
                             drawingContext.DrawImage(texture, new Rect(i * WIDTH, j * HEIGHT, WIDTH, HEIGHT));
@@ -56,7 +59,7 @@ namespace UI
                 }
 
                 var bitmap = new RenderTargetBitmap(
-                    1024, 768, 96, 96, PixelFormats.Default);
+                    Convert.ToInt32(Width), Convert.ToInt32(Height), 96, 96, PixelFormats.Default);
                 bitmap.Render(drawingVisual);
 
                 _bitmapMap = bitmap;
@@ -70,7 +73,7 @@ namespace UI
         {
             base.OnRender(context);
             BitmapSource bitmap = DrawMapToBitmap();
-            context.DrawImage(bitmap, new Rect(0, 0, 1024, 768));
+            context.DrawImage(bitmap, new Rect(0, 0, Width, Height));
         }
     }
 }
