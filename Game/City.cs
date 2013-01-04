@@ -19,7 +19,6 @@ namespace INSAWars.Game
         private int food;
         private int iron;
 
-        private int id;
         private string name;
 
         private List<Unit> pendingProductions;

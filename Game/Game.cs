@@ -38,19 +38,20 @@ namespace INSAWars.Game
 
         public void Attack(Unit unit, Case c)
         {
-            if (c.Units.Count == 0)
+            if (c.HasUnits)
             {
                 // Seize the territory, move the unit onto it
-            }
-            else
-            {
-                Unit opponent = c.GetAttackedUnit();
+                Unit opponent = c.Unit;
                 unit.Attack(opponent);
 
-                if (c.Units.Count == 0)
+                if (!c.HasUnits)
                 {
                     // Seize the territory, move the unit onto it
                 }
+            }
+            else
+            {
+                // Seize the territory, move the unit onto it
             }
 
             unit.HasAttacked = true;
