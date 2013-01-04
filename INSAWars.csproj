@@ -141,7 +141,7 @@
     <Compile Include="Game\GameBuilder.cs" />
     <Compile Include="Game\IronCaseDecorator.cs" />
     <Compile Include="Game\Map.cs" />
-    <Compile Include="Game\IMapGenerator.cs" />
+    <Compile Include="Game\MapGenerator.cs" />
     <Compile Include="Game\MediumMapGenerator.cs" />
     <Compile Include="Game\Mountain.cs" />
     <Compile Include="Game\Plain.cs" />

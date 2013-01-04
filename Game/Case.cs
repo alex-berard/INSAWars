@@ -41,15 +41,33 @@ namespace INSAWars.Game
             get { return status == CaseStatus.CITY; }
         }
 
+        public virtual bool HasUnits
+        {
+            get { return units.Count > 0; }
+        }
+
         public virtual Player Occupant
         {
-            // TODO
+            // TODO: assign and update
             get { return occupant; }
         }
 
-        public virtual List<Unit> Units
+        public virtual City City
         {
-            get { return units.ToList<Unit>(); }
+            get { return city; }
+        }
+
+        public virtual IEnumerable<Unit> Units
+        {
+            get { return units.OrderByDescending(unit => unit.DefensePoints); }
+        }
+
+        /// <summary>
+        /// The visible unit on this case (the unit with the highest defense).
+        /// </summary>
+        public virtual Unit Unit
+        {
+            get { return units.OrderByDescending(unit => unit.DefensePoints).First(); }
         }
 
         public virtual int X
@@ -91,27 +109,6 @@ namespace INSAWars.Game
         #endregion
 
         #region methods
-        /// <summary>
-        /// Returns the next target on this case (the unit with the highest defense).
-        /// </summary>
-        /// <returns>The unit with the highest defense.</returns>
-        public virtual Unit GetAttackedUnit()
-        {
-            double bestDefense = 0;
-            Unit bestUnit = null;
-
-            foreach (Unit unit in units)
-            {
-                if (unit.DefensePoints >= bestDefense)
-                {
-                    bestUnit = unit;
-                    bestDefense = unit.DefensePoints;
-                }
-            }
-
-            return bestUnit;
-        }
-
         /// <summary>
         /// Tries to build a city on this case.
         /// </summary>

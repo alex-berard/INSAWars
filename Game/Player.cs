@@ -90,16 +90,5 @@ namespace INSAWars.Game
                 unit.Reset();
             }
         }
-
-        /// <summary>
-        /// Returns all the units visible by the current player
-        /// (the units in the field of view of this player's units and cities).
-        /// Cities have a field of view of 3 cases, units of 2 cases.
-        /// </summary>
-        /// <returns></returns>
-        public List<Unit> GetVisibleUnits()
-        {
-            return null;
-        }
     }
 }

@@ -21,8 +21,6 @@ namespace INSAWars.Units
         #region properties
         public virtual uint AttackPoints { get { return 0; } }
         public virtual uint DefensePoints { get { return 0; } }
-        public virtual uint FoodCost { get { return 0; } }
-        public virtual uint IronCost { get { return 0; } }
         public virtual uint HitPoints { get { return 0; } }
         public virtual uint MovementPoints { get { return 0; } }
 
@@ -66,7 +64,7 @@ namespace INSAWars.Units
                 {
                     if (--opponent.remainingHitPoints == 0)
                     {
-                        this.Kill();
+                        opponent.Kill();
                         return;
                     }
                 }
@@ -94,11 +92,6 @@ namespace INSAWars.Units
             destination.AddUnit(this);
         }
 
-        public bool CanMoveTo(Case destination)
-        {
-            return false;
-        }
-
         /// <summary>
         /// Resets the hit points and movement points (to call at the beginning of a new turn).
         /// </summary>
@@ -106,6 +99,7 @@ namespace INSAWars.Units
         {
             remainingHitPoints = HitPoints;
             remainingMovementPoints = MovementPoints;
+            HasAttacked = false;
         }
         #endregion
     }
