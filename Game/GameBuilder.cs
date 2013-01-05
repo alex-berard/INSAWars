@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,14 +44,14 @@ namespace INSAWars.Game
         }
 
         /// <summary>
-        /// Adds a new players to the settings.
+        /// Adds a new player to the settings.
         /// The number of players has to be between 2 and 4.
         /// </summary>
         /// <param name="name">Name of the player</param>
-        /// <param name="civ">Civilization of the player</param>
-        public void AddPlayer(string name, ICivilization civ)
+        /// <param name="civ">Civilization of the player, either "INFO" or "EII".</param>
+        public void AddPlayer(string name, string civ)
         {
-            players.Add(name, civ);
+            players.Add(name, CivilizationFactory.GetCivilizationByName(civ));
         }
 
         public void RemovePlayer(string name)
@@ -118,7 +121,14 @@ namespace INSAWars.Game
         /// <returns>The restored game.</returns>
         public Game LoadGame(string filename)
         {
-            return null;
+            Game game = null;
+            Stream stream = File.Open(filename, FileMode.Open);
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            game = (Game)formatter.Deserialize(stream);
+            stream.Close();
+
+            return game;
         }
 
         private void initPlayer(Player player, Map map)

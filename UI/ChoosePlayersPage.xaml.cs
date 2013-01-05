@@ -47,7 +47,7 @@ namespace UI
         {
             if (player.Visibility == Visibility.Visible)
             {
-                builder.AddPlayer(name.Text, CivilizationFactory.GetCivilizationByName(civilization.Text));
+                builder.AddPlayer(name.Text, civilization.Text);
             }
         }
 

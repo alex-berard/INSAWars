@@ -6,6 +6,7 @@ using INSAWars.Game;
 
 namespace INSAWars.Units.EII
 {
+    [Serializable]
     class EIIHead : Head
     {
         public EIIHead(Case location, Player player)

@@ -7,6 +7,7 @@ using INSAWars.Units;
 
 namespace INSAWars.Units.Info
 {
+    [Serializable]
     class InfoCivilization : ICivilization
     {
         public AbstractUnitFactory UnitFactory

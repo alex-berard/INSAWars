@@ -6,6 +6,7 @@ using INSAWars.Units;
 
 namespace INSAWars.Game
 {
+    [Serializable]
     public class Player
     {
         private bool isDead;
@@ -95,6 +96,13 @@ namespace INSAWars.Game
             {
                 unit.Reset();
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Player playerObj = obj as Player;
+
+            return playerObj != null && name == playerObj.name;
         }
     }
 }

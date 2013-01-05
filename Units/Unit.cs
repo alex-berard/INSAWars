@@ -9,28 +9,29 @@ using System.Text;
 
 namespace INSAWars.Units
 {
+    [Serializable]
     public abstract class Unit
     {
         #region fields
         protected Player player;
         protected Case location;
-        protected uint remainingHitPoints;
-        protected uint remainingMovementPoints;
+        protected int remainingHitPoints;
+        protected int remainingMovementPoints;
         #endregion
 
         #region properties
-        public virtual uint AttackPoints { get { return 0; } }
-        public virtual uint DefensePoints { get { return 0; } }
-        public virtual uint HitPoints { get { return 0; } }
-        public virtual uint MovementPoints { get { return 0; } }
+        public virtual int AttackPoints { get { return 0; } }
+        public virtual int DefensePoints { get { return 0; } }
+        public virtual int HitPoints { get { return 0; } }
+        public virtual int MovementPoints { get { return 0; } }
 
-        public virtual uint AttackBonus { get { return 1; } }
-        public virtual uint DefenseBonus { get { return 1; } }
+        public virtual int AttackBonus { get { return 1; } }
+        public virtual int DefenseBonus { get { return 1; } }
 
         public Player Player { get { return player; } }
         public Case Location { get { return location; } }
-        public uint RemainingHitPoints { get { return remainingHitPoints; } }
-        public uint RemainingMovementPoints { get { return remainingMovementPoints;  } }
+        public int RemainingHitPoints { get { return remainingHitPoints; } }
+        public int RemainingMovementPoints { get { return remainingMovementPoints;  } }
         public bool HasAttacked { get; set; }
         public string Texture { get; set; }
         #endregion
@@ -56,7 +57,7 @@ namespace INSAWars.Units
                 opponent.Kill();
             }
 
-            int hits = Math.Max((int) RemainingHitPoints, (int) opponent.RemainingHitPoints) + 2;
+            int hits = Math.Max(RemainingHitPoints, opponent.RemainingHitPoints) + 2;
             int rounds = Game.Game.random.Next(3, hits);
 
             for (int i = 0; i < rounds; i++)
@@ -93,19 +94,9 @@ namespace INSAWars.Units
         {
             location.RemoveUnit(this);
             location = destination;
-
-            if (destination.HasCity && destination.Occupant != Player)
-            {
-                // If an enemy city is built on this case, invade it.
-                destination.City.Invade(Player);
-            }
-            else if (destination.IsUsed && destination.Occupant != Player)
-            {
-                // If the case is used as a field by an enemy, sack it.
-                destination.Sack();
-            }
-
             destination.AddUnit(this);
+
+            remainingMovementPoints = Math.Max(0, remainingMovementPoints - location.DistanceTo(destination));
         }
 
         /// <summary>

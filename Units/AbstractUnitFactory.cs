@@ -6,6 +6,7 @@ using INSAWars.Game;
 
 namespace INSAWars.Units
 {
+    [Serializable]
     public abstract class AbstractUnitFactory
     {
         public virtual int HeadIronCost { get { return 200; } }

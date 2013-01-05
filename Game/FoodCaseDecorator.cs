@@ -5,6 +5,7 @@ using System.Text;
 
 namespace INSAWars.Game
 {
+    [Serializable]
     public class FoodCaseDecorator : CaseDecorator
     {
         public override int Food

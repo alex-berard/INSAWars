@@ -9,6 +9,7 @@ using Drawing = System.Drawing;
 
 namespace INSAWars.Game
 {
+    [Serializable]
     public abstract class Case
     {
         #region fields
@@ -60,9 +61,9 @@ namespace INSAWars.Game
         /// <summary>
         /// The visible unit on this case (the unit with the highest defense).
         /// </summary>
-        public virtual Unit MostDefensiveUnit
+        public Unit MostDefensiveUnit
         {
-            get { return units.OrderByDescending(unit => unit.DefensePoints).First(); }
+            get { return Units.First(); }
         }
 
         public virtual int X
@@ -136,12 +137,6 @@ namespace INSAWars.Game
             }
         }
 
-        public virtual void Sack()
-        {
-            city.RemoveField(this);
-            Free();
-        }
-
         public virtual void Free()
         {
             city = null;
@@ -154,18 +149,41 @@ namespace INSAWars.Game
         /// <param name="unit">The new unit to occupy the case.</param>
         public virtual void AddUnit(Unit unit)
         {
+            if (HasCity && occupant != unit.Player)
+            {
+                // If an enemy city is built on this case, invade it.
+                city.Invade(unit.Player);
+            }
+            else if (IsUsed && occupant != unit.Player)
+            {
+                // If the case is used as a field by an enemy, sack it.
+                city.RemoveField(this);
+                Free();
+            }
+
             this.units.Add(unit);
             occupant = unit.Player;
         }
 
         public virtual void RemoveUnit(Unit unit)
         {
-            this.units.Remove(unit);
+            units.Remove(unit);
+        }
+
+        public int DistanceTo(Case destination)
+        {
+            return Math.Abs(destination.X - X) + Math.Abs(destination.Y - Y);
         }
 
         public override string ToString()
         {
             return "Case (" + x + ", " + y + ")";
+        }
+
+        public override bool Equals(object obj)
+        {
+            Case caseObj = obj as Case;
+            return caseObj != null && X == caseObj.X && Y == caseObj.Y;
         }
         #endregion
 

@@ -6,7 +6,8 @@ using INSAWars.Game;
 
 namespace INSAWars.Units
 {
-    public class Teacher : Unit
+    [Serializable]
+    public abstract class Teacher : Unit
     {
         public Teacher(Case location, Player player)
             : base(location, player)

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +9,7 @@ using INSAWars.Units;
 
 namespace INSAWars.Game
 {
+    [Serializable]
     public class Game
     {
         public static Random random = new Random();
@@ -128,9 +132,15 @@ namespace INSAWars.Game
 
         public bool CanMoveUnit(Unit unit, Case destination)
         {
-            // TODO: Check that the case is accessible (not water, and not occupied by an enemy).
-            // Check that the unit has enough movement points.
-            return false;
+            // TODO: Check that the case is accessible
+            if (unit.Location == destination ||
+                (destination.HasUnits && destination.Occupant != unit.Player) ||
+                (destination.HasCity && destination.Occupant != unit.Player))
+            {
+                return false;
+            }
+
+            return unit.RemainingMovementPoints >= unit.Location.DistanceTo(destination);
         }
 
         /// <summary>
@@ -201,7 +211,10 @@ namespace INSAWars.Game
         /// <param name="filename">Location of the save file.</param>
         public void Save(string filename)
         {
-
+            Stream stream = File.Open(filename, FileMode.Create);
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, this);
+            stream.Close();
         }
     }
 }

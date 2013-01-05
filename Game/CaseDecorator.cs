@@ -9,6 +9,7 @@ namespace INSAWars.Game
     /// <summary>
     /// Adds an amount of food or iron to a case.
     /// </summary>
+    [Serializable]
     public abstract class CaseDecorator : Case
     {
         protected Case decoratedCase;
@@ -40,7 +41,6 @@ namespace INSAWars.Game
 
         public override Player Occupant
         {
-            // TODO: assign and update
             get { return decoratedCase.Occupant; }
         }
 
@@ -57,11 +57,6 @@ namespace INSAWars.Game
         public override IEnumerable<Unit> Units
         {
             get { return decoratedCase.Units; }
-        }
-
-        public override Unit MostDefensiveUnit
-        {
-            get { return decoratedCase.MostDefensiveUnit; }
         }
 
         public CaseDecorator(Case decoratedCase)

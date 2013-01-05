@@ -6,6 +6,7 @@ using System.Drawing;
 
 namespace INSAWars.Game
 {
+    [Serializable]
     public class Map
     {
         private Case[,] cases;

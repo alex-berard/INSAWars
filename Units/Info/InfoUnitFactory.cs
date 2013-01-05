@@ -6,6 +6,7 @@ using INSAWars.Game;
 
 namespace INSAWars.Units.Info
 {
+    [Serializable]
     class InfoUnitFactory : AbstractUnitFactory
     {
         public override Head CreateHead(City city)

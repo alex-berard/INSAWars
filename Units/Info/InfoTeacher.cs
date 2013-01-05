@@ -6,12 +6,13 @@ using INSAWars.Game;
 
 namespace INSAWars.Units.Info
 {
+    [Serializable]
     class InfoTeacher : Teacher
     {
-        public override uint AttackPoints { get { return 0; } }
-        public override uint DefensePoints { get { return 1; } }
-        public override uint HitPoints { get { return 1; } }
-        public override uint MovementPoints { get { return 3; } }
+        public override int AttackPoints { get { return 0; } }
+        public override int DefensePoints { get { return 1; } }
+        public override int HitPoints { get { return 1; } }
+        public override int MovementPoints { get { return 3; } }
 
         public InfoTeacher(Case location, Player player)
             : base(location, player)

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace INSAWars.Units.EII
 {
+    [Serializable]
     class EIICivilization : ICivilization
     {
         public AbstractUnitFactory UnitFactory

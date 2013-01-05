@@ -9,6 +9,7 @@ namespace INSAWars.Game
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public class City
     {
         private List<Case> territory;
@@ -82,7 +83,8 @@ namespace INSAWars.Game
                 if (field.HasUnits)
                 {
                     // The case is occupied by the enemy and cannot be used as a field.
-                    field.Sack();
+                    RemoveField(field);
+                    field.Free();
                 }
                 else
                 {
