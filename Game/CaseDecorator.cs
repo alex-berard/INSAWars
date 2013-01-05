@@ -13,32 +13,32 @@ namespace INSAWars.Game
     {
         protected Case decoratedCase;
 
-        public virtual City City
+        public override City City
         {
             get { return decoratedCase.City; }
         }
 
-        public virtual bool IsFree
+        public override bool IsFree
         {
             get { return decoratedCase.IsFree; }
         }
 
-        public virtual bool IsUsed
+        public override bool IsUsed
         {
             get { return decoratedCase.IsUsed; }
         }
 
-        public virtual bool HasCity
+        public override bool HasCity
         {
             get { return decoratedCase.IsUsed; }
         }
 
-        public virtual bool HasUnits
+        public override bool HasUnits
         {
             get { return decoratedCase.HasUnits; }
         }
 
-        public virtual Player Occupant
+        public override Player Occupant
         {
             // TODO: assign and update
             get { return decoratedCase.Occupant; }

@@ -17,17 +17,7 @@ PerlinMap::PerlinMap(int width, int height, Distribution *distr) : cases(), dist
 {
 	vector<vector<double>> perlinNoise = generatePerlinNoise(width, height, 6, 0.7);
 
-	for (int i = 0; i < width; i++)
-	{
-		vector<pair<int, int>> col;
-		
-		for (int j = 0; j < height; j++)
-		{
-			col.push_back(distr->createCase(perlinNoise[i][j]));
-		}
-
-		cases.push_back(col);
-	}
+	cases = distr->createMap(perlinNoise);
 }
 
 vector<vector<double>> PerlinMap::generateWhiteNoise(int width, int height)
@@ -111,6 +101,7 @@ vector<vector<double>> PerlinMap::generatePerlinNoise(int width, int height, int
 		}
 	}
 
+	smoothen(perlinNoise);
 	return perlinNoise;
 }
 
@@ -127,53 +118,38 @@ inline double interpolate(double a, double b, double x)
 	return a * (1 - f) + b * f;
 }
 
-Distribution::Distribution(vector<double> &terrains, vector<double> &decorators) : terrains(terrains), decorators(decorators)
+void smoothen(vector<vector<double>>& perlinMap)
 {
-	// Arrange the weights into a cumulative distribution.
-	for (int i = 1; i < decorators.size(); i++) {
-		decorators[i] += decorators[i - 1];
-	}
+	int width = perlinMap.size();
+	int height = perlinMap[0].size();
 
-	// TODO: real distribution according to the Perlin noise distribution.
-	for (int i = 1; i < terrains.size(); i++) {
-		terrains[i] += terrains[i - 1];
-	}
-}
-
-pair<int, int> Distribution::createCase(double r)
-{
-	unsigned int i, decorator, tile;
-
-	double randNumber = rand() / (double) RAND_MAX;
-
-	for (i = 0; i < decorators.size(); i++)
+	for (int x = 0; x < width; x++)
 	{
-		if (randNumber < decorators[i])
+		for (int y = 0; y < height; y++)
 		{
-			break;
+			double average = 0;
+			int times = 0;
+
+			for (int i = -1; i <= 1; i++)
+			{
+				int _x = x + i;
+				if (_x < 0 || _x >= width)
+					continue;
+
+				for (int j = -1; j <= 1; j++)
+				{
+					int _y = y + j;
+					if (_y < 0 || _y >= height)
+						continue;
+
+					average += perlinMap[_x][_y];
+					times += 1;
+				}
+			}
+
+			perlinMap[x][y] = average / times;
 		}
 	}
-
-	if (i == decorators.size())
-	{
-		decorator = -1;
-	}
-	else
-	{
-		decorator = i;
-	}
-
-	for (i = 0; i < terrains.size() - 1; i++)
-	{
-		if (r < terrains[i])
-		{
-			break;
-		}
-	}
-
-	tile = i;
-
-	return pair<int, int>(tile, decorator);
 }
 
 vector<pair<int, int>> PerlinMap::getStartingPositions(vector<int> inaccessibleTerrains)
@@ -186,4 +162,67 @@ vector<pair<int, int>> PerlinMap::getStartingPositions(vector<int> inaccessibleT
 	positions.push_back(pair<int, int>(0, height - 1));
 
 	return positions;
+}
+
+Distribution::Distribution(vector<double>& terrains, vector<double>& decorators) : terrains(terrains), decorators(decorators)
+{
+	// Arrange the weights into a cumulative distribution.
+	for (int i = 1; i < decorators.size(); i++) {
+		decorators[i] += decorators[i - 1];
+	}
+}
+
+bool compPositionsHeights(pair<pair<int, int>, double> p1, pair<pair<int, int>, double> p2)
+{
+	return p1.second < p2.second;
+}
+
+// TODO: smooth
+vector<vector<pair<int, int>>> Distribution::createMap(vector<vector<double>>& perlinMap)
+{
+	vector<vector<pair<int, int>>> map;
+	vector<pair<pair<int, int>, double>> sortedPositions;
+
+	for (int i = 0; i < perlinMap.size(); i++)
+	{
+		vector<pair<int, int>> col;
+
+		for (int j = 0; j < perlinMap[0].size(); j++)
+		{
+			col.push_back(pair<int, int>(0, -1));
+			pair<int, int> position(i, j);
+			pair<pair<int, int>, double> positionHeight(position, perlinMap[i][j]);
+			sortedPositions.push_back(positionHeight);
+		}
+
+		map.push_back(col);
+	}
+
+	sort(sortedPositions.begin(), sortedPositions.end(), compPositionsHeights);
+
+	int j = 0;
+	for (int i = 0; i < terrains.size(); i++)
+	{
+		int n = sortedPositions.size() * terrains[i];
+		int end = (i == terrains.size() - 1) ? sortedPositions.size() : j + n;
+
+		for (; j < end; j++)
+		{
+			pair<int, int> pos = sortedPositions[j].first;
+			map[pos.first][pos.second].first = i;
+
+			double randNumber = rand() / (double) RAND_MAX;
+
+			for (int k = 0; k < decorators.size(); k++)
+			{
+				if (randNumber < decorators[k])
+				{
+					map[pos.first][pos.second].second = k;
+					break;
+				}
+			}
+		}
+	}
+
+	return map;
 }

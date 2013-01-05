@@ -38,6 +38,7 @@ namespace INSAWars.Game
         {
             isDead = false;
             cities = new HashSet<City>();
+            units = new HashSet<Unit>();
             this.civilization = civilization;
             this.name = name;
         }
