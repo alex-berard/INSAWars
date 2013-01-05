@@ -22,114 +22,130 @@ namespace UI
     /// </summary>
     public partial class GameView : UserControl
     {
-        private bool _isMapDrawn;
-        private BitmapSource _bitmapMap;
-
+        /// <summary>
+        /// Width of a case's texture, in pixels.
+        /// </summary>
         private const int CaseWidth = 96;
+        /// <summary>
+        /// Height of a case's texture, in pixels.
+        /// </summary>
         private const int CaseHeight = 96;
 
+        /// <summary>
+        /// The width (in pixels) of the visible part of the map.
+        /// </summary>
         private const int VisibleWidth = 960;
-        private const int VisibleHeight = 768;
+        /// <summary>
+        /// The height (in pixels) of the visible part of the map.
+        /// </summary>
+        private const int VisibleHeight = 576;
 
-        private const int ShiftOffset = 96;
+        /// <summary>
+        /// The amount (in pixels) of one shifting operation.
+        /// Since we don't display the entire map at any given moment,
+        /// we need to shift the visible part of the map.
+        /// We decided to move one case at a time.
+        /// </summary>
+        private const int MoveOffset = CaseWidth;
+        /// <summary>
+        /// The current X offset.
+        /// </summary>
         private int OffsetX = 0;
+        /// <summary>
+        /// The current Y offset.
+        /// </summary>
         private int OffsetY = 0;
 
-        private int CaseNumberX;
-        private int CaseNumberY;
+        /// <summary>
+        /// The number of cases we can display at any given moment on the X axis.
+        /// </summary>
+        private int CaseCountX = (int)Math.Ceiling((double)VisibleWidth / CaseWidth);
+        /// <summary>
+        /// The number of cases we can display at any given moment on the Y axis.
+        /// </summary>
+        private int CaseCountY = (int)Math.Ceiling((double)VisibleHeight / CaseHeight);
 
-        private readonly Tuple<int, int> FoodOffset = new Tuple<int, int>(8, 8);
         private const string FoodTexture = "FoodSmall";
 
-        private readonly Tuple<int, int> IronOffset = new Tuple<int, int>(8, 24);
         private const string IronTexture = "IronSmall";
 
+        private Map _map;
+
+        #region constructor
         public GameView()
         {
-            _isMapDrawn = false;
-
             InitializeComponent();
         }
+        #endregion constructor
 
+        #region properties
         public Map Map
         {
-            get;
-            set;
+            get { return _map; }
+            set {
+                _map = value;
+                Height = Map.Size * CaseHeight;
+                Width = Map.Size * CaseWidth;
+            }
         }
+        #endregion properties
 
-        protected Tuple<int, int> CaseOffset(Case c)
+        #region drawings
+
+        protected override void OnRender(DrawingContext context)
         {
-            return new Tuple<int, int>(c.X * CaseWidth, c.Y * CaseHeight);
+            base.OnRender(context);
+            DrawVisibleMap(context);
+            DrawCases(context);
         }
 
         /// <summary>
-        /// Computes an origin for the drawing, since we don't have to render every case. This method
-        /// determines what's the first case we have to draw.
+        /// Draws the visible portion of the map.
         /// </summary>
-        /// <param name="offsetX"></param>
-        /// <param name="offsetY"></param>
         /// <returns></returns>
-        protected Tuple<int, int> DrawingOrigin(int offsetX, int offsetY)
+        protected void DrawVisibleMap(DrawingContext context)
         {
-            return new Tuple<int, int>(offsetX / CaseWidth,
-                                       offsetY / CaseHeight);
-        }
+            var rect = new Rect(0, 0, CaseWidth, CaseHeight);
+            var origin = TopLeftCaseIndexes(OffsetX, OffsetY);
 
-        protected BitmapSource DrawMapToBitmap()
-        {
-            if (!_isMapDrawn)
+            for (int i = 0; i < CaseCountX; i++)
             {
-                Height = Map.Size * CaseHeight;
-                Width = Map.Size * CaseWidth;
-
-                CaseNumberX = (int)Math.Ceiling((double)VisibleWidth / CaseWidth);
-                CaseNumberY = (int)Math.Ceiling((double)VisibleHeight / CaseHeight);
-
-                _isMapDrawn = true;
-            }
-                
-            var drawingVisual = new DrawingVisual();
-            using (var drawingContext = drawingVisual.RenderOpen())
-            {
-                var rect = new Rect(0, 0, CaseWidth, CaseHeight);
-                var origin = DrawingOrigin(OffsetX, OffsetY);
-
-                System.Diagnostics.Debug.WriteLine(origin);
-                System.Diagnostics.Debug.WriteLine(CaseNumberX);
-
-                for (int i = 0; i < CaseNumberX; i++)
+                for (int j = 0; j < CaseCountY; j++)
                 {
-                    for (int j = 0; j < CaseNumberY; j++)
-                    {
-                        rect.X = i * CaseWidth;
-                        rect.Y = j * CaseHeight;
+                    rect.X = i * CaseWidth;
+                    rect.Y = j * CaseHeight;
 
-                        drawingContext.DrawImage((BitmapImage)FindResource(Map.GetCaseAt(i + origin.Item1, j + origin.Item2).Texture), rect);
-                    }
+                    context.DrawImage((BitmapImage)FindResource(Map.GetCaseAt(i + origin.Item1, j + origin.Item2).Texture), rect);
                 }
             }
-
-            var bitmap = new RenderTargetBitmap(
-                VisibleWidth, VisibleHeight, 96, 96, PixelFormats.Default);
-            bitmap.Render(drawingVisual);
-
-            _bitmapMap = bitmap;
-
-            return _bitmapMap;
         }
 
-        protected void DrawCaseContent(Case c, DrawingContext context)
+        protected void DrawCases(DrawingContext context)
         {
-            DrawFood(c.Food, context, CaseOffset(c));
-            DrawIron(c.Iron, context, CaseOffset(c));
+            var origin = TopLeftCaseIndexes(OffsetX, OffsetY);
+
+            for (int i = 0; i < CaseCountX; i++)
+            {
+                for (int j = 0; j < CaseCountY; j++)
+                {
+                    DrawCaseContent(context, Map.GetCaseAt(i + origin.Item1, j + origin.Item2), CaseOffset(i, j));
+                }
+            }
         }
+
+        protected void DrawCaseContent(DrawingContext context, Case c, Tuple<int, int> origin)
+        {
+            DrawFood(c.Food, context, origin);
+            DrawIron(c.Iron, context, origin);
+        }
+
         protected void DrawFood(int amount, DrawingContext context, Tuple<int, int> origin)
         {
             if (amount > 0)
             {
                 var texture = (BitmapImage)FindResource(FoodTexture);
-                context.DrawImage(texture, new Rect(origin.Item1 + FoodOffset.Item1,
-                                                    origin.Item2 + FoodOffset.Item2,
+                context.DrawImage(texture, new Rect(origin.Item1,
+                                                    origin.Item2,
                                                     16, 16));
                 var formattedText = new FormattedText(
                     amount.ToString(),
@@ -138,56 +154,61 @@ namespace UI
                     new Typeface("Charlemagne STD"),
                     12,
                     Brushes.PaleVioletRed);
-                context.DrawText(formattedText, new Point(origin.Item1 + FoodOffset.Item1 + 20, origin.Item2 + FoodOffset.Item2 + 2));
+                context.DrawText(formattedText, new Point(origin.Item1 + 20, origin.Item2 + 2));
             }
         }
+        
         protected void DrawIron(int amount, DrawingContext context, Tuple<int, int> origin)
         {
             if (amount > 0)
             {
                 var texture = (BitmapImage)FindResource(IronTexture);
-                context.DrawImage(texture, new Rect(origin.Item1 + IronOffset.Item1,
-                                                    origin.Item2 + IronOffset.Item2,
+                context.DrawImage(texture, new Rect(origin.Item1,
+                                                    origin.Item2 + 24,
                                                     16, 16));
-                /*var formattedText = new FormattedText(
+                var formattedText = new FormattedText(
                     amount.ToString(),
                     CultureInfo.GetCultureInfo("en-us"),
                     FlowDirection.LeftToRight,
                     new Typeface("Charlemagne STD"),
                     12,
                     Brushes.Red);
-                context.DrawText(formattedText, new Point(origin.Item1 + IronOffset.Item1 + 20, origin.Item2 + IronOffset.Item2 + 2));*/
+                context.DrawText(formattedText, new Point(origin.Item1 + 20, origin.Item2 + 26));
             }
         }
 
-        protected override void OnRender(DrawingContext context)
+        /// <summary>
+        /// Returns the pixel offsets for the given case's indexes.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        protected Tuple<int, int> CaseOffset(int i, int j)
         {
-            base.OnRender(context);
-
-            // Draw textures
-            // This takes a lot of memory (~750 Mb) but not much time
-            var background = DrawMapToBitmap();
-            context.DrawImage(background, new Rect(0, 0, VisibleWidth, VisibleHeight));
-
-            // Draw cases' content
-            // This takes a lot of time, but not much memory
-            /*for (int i = 0; i < Map.Size; i++)
-            {
-                for (int j = 0; j < Map.Size; j++)
-                {
-                    DrawCaseContent(Map.GetCaseAt(i, j), context);
-                }
-            }*/
+            return new Tuple<int, int>(i * CaseWidth, j * CaseHeight);
         }
 
-        protected Case CaseAtPosition(double x, double y)
+        /// <summary>
+        /// Determines the indexes of the top left case according to the current offset.
+        /// </summary>
+        /// <param name="offsetX">The current pixel X offset</param>
+        /// <param name="offsetY">The current pixel Y offset</param>
+        /// <returns>A tuple of indices for the map array corresponding to the origin case.</returns>
+        protected Tuple<int, int> TopLeftCaseIndexes(int offsetX, int offsetY)
         {
-            int i = (int) (x / CaseWidth);
-            int j = (int) (y / CaseHeight);
-            return Map.GetCaseAt(i, j);
+            return new Tuple<int, int>(offsetX / CaseWidth,
+                                       offsetY / CaseHeight);
         }
+        
+        #endregion
 
-        protected override void OnMouseDown(MouseButtonEventArgs e)
+        #region events
+        /// <summary>
+        /// Handles mouse clicks. When we click on a case,
+        /// we want to display some information about its content.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             double x = e.GetPosition(this).X;
             double y = e.GetPosition(this).Y;
@@ -195,42 +216,122 @@ namespace UI
             System.Diagnostics.Debug.WriteLine("Case:" + c.X + "," + c.Y);
         }
 
+        /// <summary>
+        /// Handles key inputs. Mainly used to move the visible portion of the map.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             switch (e.Key)
             {
                 case Key.Left:
-                    if (OffsetX > 0)
+                    if (CanMoveVisibleMapLeft())
                     {
-                        OffsetX -= ShiftOffset;
-                        this.InvalidateVisual();
+                        MoveVisibleMapLeft();
                     }
                     break;
                 case Key.Right:
                     
-                    if (OffsetX + (CaseNumberX * CaseWidth) <= Width - CaseWidth)
+                    if (CanMoveVisibleMapRight())
                     {
-                        OffsetX += ShiftOffset;
-                        this.InvalidateVisual();
+                        MoveVisibleMapRight();
                     }
                     break;
                 case Key.Up:
-                    if (OffsetY > 0)
+                    if (CanMoveVisibleMapUp())
                     {
-                        OffsetY -= ShiftOffset;
-                        this.InvalidateVisual();
+                        MoveVisibleMapUp();
                     }
                     break;
                 case Key.Down:
-                    if (OffsetY + (CaseNumberY * CaseHeight) <= Height - CaseHeight)
+                    if (CanMoveVisibleMapDown())
                     {
-                        OffsetY += ShiftOffset;
-                        this.InvalidateVisual();
+                        MoveVisibleMapDown();
                     }
                     break;
                 default:
                     break;
             }
         }
+
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                if (CanMoveVisibleMapUp())
+                {
+                    MoveVisibleMapUp();
+                }
+            }
+            else
+            {
+                if (CanMoveVisibleMapDown())
+                {
+                    MoveVisibleMapDown();
+                }
+            }
+        }
+        
+        #endregion
+
+        #region PartialMap
+        protected bool CanMoveVisibleMapLeft()
+        {
+            return OffsetX > 0;
+        }
+
+        protected bool CanMoveVisibleMapRight()
+        {
+            return OffsetX + (CaseCountX * CaseWidth) <= Width - CaseWidth;
+        }
+
+        protected bool CanMoveVisibleMapUp()
+        {
+            return OffsetY > 0;
+        }
+
+        protected bool CanMoveVisibleMapDown()
+        {
+            return OffsetY + (CaseCountY * CaseHeight) <= Height - CaseHeight;
+        }
+
+        protected void MoveVisibleMapLeft()
+        {
+            OffsetX -= MoveOffset;
+            InvalidateVisual();
+        }
+
+        protected void MoveVisibleMapRight()
+        {
+            OffsetX += MoveOffset;
+            InvalidateVisual();
+        }
+
+        protected void MoveVisibleMapUp()
+        {
+            OffsetY -= MoveOffset;
+            InvalidateVisual();
+        }
+
+        protected void MoveVisibleMapDown()
+        {
+            OffsetY += MoveOffset;
+            InvalidateVisual();
+        }
+
+        /// <summary>
+        /// Returns the case at the given position on the screen (relative to the game's window).
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        protected Case CaseAtPosition(double x, double y)
+        {
+            int i = (int)(x / CaseWidth);
+            int j = (int)(y / CaseHeight);
+            return Map.GetCaseAt(i, j);
+        }
+
+        #endregion
     }
 }
