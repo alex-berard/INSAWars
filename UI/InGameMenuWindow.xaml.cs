@@ -37,7 +37,12 @@ namespace UI
 
         private void NewGameButtonClick(object sender, RoutedEventArgs e)
         {
-            
+            var window = new MainWindow();
+            var gameWindow = Application.Current.MainWindow;
+            Application.Current.MainWindow = window;
+            window.Show();
+            gameWindow.Close();
+            Close();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
