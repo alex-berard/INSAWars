@@ -101,6 +101,7 @@ vector<vector<double>> PerlinMap::generatePerlinNoise(int width, int height, int
 		}
 	}
 
+	smoothen(perlinNoise);
 	return perlinNoise;
 }
 
@@ -115,6 +116,52 @@ inline double interpolate(double a, double b, double x)
 {
 	double f = (1 - cos(x * atan(1.0) * 4)) / 2;
 	return a * (1 - f) + b * f;
+}
+
+void smoothen(vector<vector<double>>& perlinMap)
+{
+	int width = perlinMap.size();
+	int height = perlinMap[0].size();
+
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			double average = 0;
+			int times = 0;
+
+			for (int i = -1; i <= 1; i++)
+			{
+				int _x = x + i;
+				if (_x < 0 || _x >= width)
+					continue;
+
+				for (int j = -1; j <= 1; j++)
+				{
+					int _y = y + j;
+					if (_y < 0 || _y >= height)
+						continue;
+
+					average += perlinMap[_x][_y];
+					times += 1;
+				}
+			}
+
+			perlinMap[x][y] = average / times;
+		}
+	}
+}
+
+vector<pair<int, int>> PerlinMap::getStartingPositions(vector<int> inaccessibleTerrains)
+{
+	// TODO: do not place players on the water + randomize
+	vector<pair<int, int>> positions;
+	positions.push_back(pair<int, int>(0, 0));
+	positions.push_back(pair<int, int>(width - 1, height - 1));
+	positions.push_back(pair<int, int>(width - 1, 0));
+	positions.push_back(pair<int, int>(0, height - 1));
+
+	return positions;
 }
 
 Distribution::Distribution(vector<double>& terrains, vector<double>& decorators) : terrains(terrains), decorators(decorators)
@@ -178,16 +225,4 @@ vector<vector<pair<int, int>>> Distribution::createMap(vector<vector<double>>& p
 	}
 
 	return map;
-}
-
-vector<pair<int, int>> PerlinMap::getStartingPositions(vector<int> inaccessibleTerrains)
-{
-	// TODO: do not place players on the water + randomize
-	vector<pair<int, int>> positions;
-	positions.push_back(pair<int, int>(0, 0));
-	positions.push_back(pair<int, int>(width - 1, height - 1));
-	positions.push_back(pair<int, int>(width - 1, 0));
-	positions.push_back(pair<int, int>(0, height - 1));
-
-	return positions;
 }

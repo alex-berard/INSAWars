@@ -13,6 +13,7 @@ using namespace std;
 
 double interpolate_2d(double a, double b, double c, double d, double x, double y);
 inline double interpolate(double a, double b, double x);
+void smoothen(vector<vector<double>>& perlinMap);
 
 class EXPORT_OR_IMPORT Distribution
 {
