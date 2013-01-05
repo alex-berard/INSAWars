@@ -150,8 +150,8 @@ namespace UI
 
         protected Case CaseAtPosition(double x, double y)
         {
-            int i = (int) Math.Round(x / CaseWidth);
-            int j = (int) Math.Round(y / CaseHeight);
+            int i = (int) Math.Floor(x / CaseWidth);
+            int j = (int) Math.Floor(y / CaseHeight);
             System.Diagnostics.Debug.WriteLine("Case:" + i.ToString() + "," + j.ToString());
             return Map.GetCaseAt(i, j);
         }
