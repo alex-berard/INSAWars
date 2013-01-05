@@ -26,10 +26,8 @@ namespace INSAWars.Game
             get { return startingPositions.Pop(); }
         }
 
-        public List<Case> TerritoryAround(Case position)
+        public List<Case> TerritoryAround(Case position, int radius)
         {
-            int radius = 5;
-
             List<Case> territory = new List<Case>();
 
             for (int x = Math.Max(0, position.X - radius); x <= Math.Min(Size - 1, position.X + radius); x++)

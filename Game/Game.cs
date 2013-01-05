@@ -9,6 +9,7 @@ namespace INSAWars.Game
     public class Game
     {
         public static Random random = new Random();
+
         private List<Player> players;
         private Queue<Player> alivePlayers;
         private Map map;
@@ -23,6 +24,12 @@ namespace INSAWars.Game
 
         public Player CurrentPlayer { get { return alivePlayers.Peek(); } }
 
+        /// <summary>
+        /// Makes a new game with the given map and the given players.
+        /// Players play turn by turn until only one player remains.
+        /// </summary>
+        /// <param name="map">Map of the game.</param>
+        /// <param name="players">Players of the game.</param>
         public Game(Map map, List<Player> players)
         {
             this.players = players;
@@ -38,18 +45,18 @@ namespace INSAWars.Game
         {
             if (c.HasUnits)
             {
-                // Seize the territory, move the unit onto it
                 Unit opponent = c.MostDefensiveUnit;
                 unit.Attack(opponent);
 
+                // Seize the territory, move the unit onto it.
                 if (!c.HasUnits)
                 {
-                    // Seize the territory, move the unit onto it
+                    unit.MoveTo(c);
                 }
             }
             else
             {
-                // Seize the territory, move the unit onto it
+                unit.MoveTo(c);
             }
 
             unit.HasAttacked = true;
@@ -100,10 +107,12 @@ namespace INSAWars.Game
             Player player = teacher.Player;
             Case position = teacher.Location;
 
-            City city = new City(position, player, name, map.TerritoryAround(position));
+            City city = new City(position, player, name, map.TerritoryAround(position, 5));
 
             position.BuildCity(city);
             player.AddCity(city);
+
+            // The teacher sacrifices himself to build the city (may he rest in peace).
             teacher.Kill();
         }
 
@@ -124,11 +133,16 @@ namespace INSAWars.Game
             return false;
         }
 
+        /// <summary>
+        /// Makes the game go to the next turn.
+        /// Changes the current player, and updates the state of the game.
+        /// </summary>
         public void NextTurn()
         {
             Player player;
 
             int count = players.Count;
+            // Updates the queue of alive players (remove the dead ones).
             for (int i = 0; i < count; i++)
             {
                 player = alivePlayers.Dequeue();
@@ -139,8 +153,8 @@ namespace INSAWars.Game
                 }
             }
 
-
-            if (players.Count <= 1)
+            // If there are less than 1 alive player left, then the game is over.
+            if (alivePlayers.Count <= 1)
             {
                 over = true;
                 return;
@@ -148,6 +162,7 @@ namespace INSAWars.Game
             else
             {
                 nbTurns++;
+                // Puts the player to the end of the queue.
                 player = alivePlayers.Dequeue();
                 alivePlayers.Enqueue(player);
                 player.NextTurn();
@@ -161,9 +176,29 @@ namespace INSAWars.Game
         /// <returns>True if the case is in the field of view of the current player, false otherwise.</returns>
         public bool IsVisible(Case c)
         {
+            foreach (Case _c in map.TerritoryAround(c, 3))
+            {
+                if (_c.HasCity && _c.Occupant == CurrentPlayer)
+                {
+                    return true;
+                }
+            }
+
+            foreach (Case _c in map.TerritoryAround(c, 2))
+            {
+                if (_c.HasUnits && _c.Occupant == CurrentPlayer)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 
+        /// <summary>
+        /// Saves the current game state into the given file.
+        /// </summary>
+        /// <param name="filename">Location of the save file.</param>
         public void Save(string filename)
         {
 

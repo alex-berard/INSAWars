@@ -101,43 +101,45 @@ namespace INSAWars.Game
             this.x = x;
             this.y = y;
             status = CaseStatus.FREE;
+            units = new HashSet<Unit>();
         }
         #endregion
 
         #region methods
         /// <summary>
-        /// Tries to build a city on this case.
+        /// Builds a city on this case. If the case was used as a field by another city, it is removed.
         /// </summary>
         /// <param name="city">The city to build.</param>
-        /// <returns>False if the case is already occupied, true otherwise.</returns>
-        public virtual bool BuildCity(City city)
+        public virtual void BuildCity(City city)
         {
-            // TODO: allow a player to build a city on a used case of his own.
+            if (status == CaseStatus.USED)
+            {
+                this.city.RemoveField(this);
+            }
 
-            if (status != CaseStatus.FREE)
-            {
-                return false;
-            }
-            else
-            {
-                this.city = city;
-                status = CaseStatus.CITY;
-                return true;
-            }
+            this.city = city;
+            status = CaseStatus.CITY;
+            occupant = city.Player;
         }
 
-        public virtual bool Use(City city)
+        /// <summary>
+        /// Makes the given city use this case as a field.
+        /// </summary>
+        /// <param name="city">The city the field belongs to.</param>
+        public virtual void Use(City city)
         {
-            if (status != CaseStatus.FREE)
-            {
-                return false;
-            }
-            else
+            if (status != CaseStatus.CITY)
             {
                 this.city = city;
                 status = CaseStatus.USED;
-                return true;
+                occupant = city.Player;
             }
+        }
+
+        public virtual void Sack()
+        {
+            city.RemoveField(this);
+            Free();
         }
 
         public virtual void Free()
@@ -146,9 +148,14 @@ namespace INSAWars.Game
             status = CaseStatus.FREE;
         }
 
+        /// <summary>
+        /// Adds a unit on the case.
+        /// </summary>
+        /// <param name="unit">The new unit to occupy the case.</param>
         public virtual void AddUnit(Unit unit)
         {
             this.units.Add(unit);
+            occupant = unit.Player;
         }
 
         public virtual void RemoveUnit(Unit unit)
@@ -164,7 +171,7 @@ namespace INSAWars.Game
 
         /// <summary>
         /// A city is built on the case,
-        /// or the case is used by a city to produce resources,
+        /// or the case is used by a city as a field to produce resources,
         /// or it is unused.
         /// </summary>
         protected enum CaseStatus

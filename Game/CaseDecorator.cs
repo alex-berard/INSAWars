@@ -69,14 +69,14 @@ namespace INSAWars.Game
             this.decoratedCase = decoratedCase;
         }
 
-        public override bool BuildCity(City city)
+        public override void BuildCity(City city)
         {
-            return decoratedCase.BuildCity(city);
+            decoratedCase.BuildCity(city);
         }
 
-        public override bool Use(City city)
+        public override void Use(City city)
         {
-            return decoratedCase.Use(city);
+            decoratedCase.Use(city);
         }
 
         public override void Free()
