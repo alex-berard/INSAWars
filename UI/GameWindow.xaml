@@ -2,13 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:my="clr-namespace:UI"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
-        Title="INSAWars" WindowStartupLocation="CenterScreen" Height="768" Width="1024" ResizeMode="NoResize">
-    <Grid>
-        <Grid.RowDefinitions>
-            
-        </Grid.RowDefinitions>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible">
-            <my:GameView x:Name="_gameView"></my:GameView>
-        </ScrollViewer>
+        Title="INSAWars" WindowStartupLocation="CenterScreen" Height="768" Width="975" ResizeMode="NoResize" FocusManager.FocusedElement="{Binding ElementName=_gameView}">
+    <Grid>        
+        <my:GameView x:Name="_gameView" Focusable="True" FocusVisualStyle="{x:Null}"></my:GameView>        
     </Grid>
 </Window>
