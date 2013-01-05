@@ -14,7 +14,7 @@ namespace INSAWrapper {
 	public ref class PerlinMapWrapper
 	{
 	public:
-		PerlinMapWrapper(int size, array<double>^ tiles, array<double>^ decorators)
+		PerlinMapWrapper(int size, int octaves, double persistance, array<double>^ tiles, array<double>^ decorators)
 		{
 			vector<double> tiles_c;
 			vector<double> decorators_c;
@@ -33,7 +33,7 @@ namespace INSAWrapper {
 
 			Distribution *distr = new Distribution(tiles_c, decorators_c);
 
-			map = new PerlinMap(size, size, distr);
+			map = new PerlinMap(size, size, octaves, persistance, distr);
 		}
 
 		~PerlinMapWrapper()

@@ -43,7 +43,7 @@ private:
 class EXPORT_OR_IMPORT PerlinMap
 {
 public:
-	PerlinMap(int height, int width, Distribution* distr);
+	PerlinMap(int height, int width, int octaves, double persistance, Distribution* distr);
 	int getTerrain(int x, int y);
 	int getDecorator(int x, int y);
 

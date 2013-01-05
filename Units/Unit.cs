@@ -76,7 +76,7 @@ namespace INSAWars.Units
                 {
                     if (--remainingHitPoints == 0)
                     {
-                        this.Kill();
+                        Kill();
                         return;
                     }
                 }

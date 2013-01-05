@@ -13,9 +13,9 @@ int PerlinMap::getDecorator(int x, int y)
 	return cases[x][y].second;
 }
 
-PerlinMap::PerlinMap(int width, int height, Distribution *distr) : cases(), distr(distr), width(width), height(height)
+PerlinMap::PerlinMap(int width, int height, int octaves, double persistance, Distribution *distr) : cases(), distr(distr), width(width), height(height)
 {
-	vector<vector<double>> perlinNoise = generatePerlinNoise(width, height, 6, 0.7);
+	vector<vector<double>> perlinNoise = generatePerlinNoise(width, height, octaves, persistance);
 
 	cases = distr->createMap(perlinNoise);
 }
