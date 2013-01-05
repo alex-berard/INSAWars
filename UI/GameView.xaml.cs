@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using INSAWars.Game;
+using UI.Drawing;
 
 namespace UI
 {
@@ -135,18 +136,15 @@ namespace UI
 
         protected void DrawCaseContent(DrawingContext context, Case c, Tuple<int, int> origin)
         {
-            DrawFood(c.Food, context, origin);
-            DrawIron(c.Iron, context, origin);
+            var drawer = new CaseDrawer(context, origin);
+            DrawFood(c.Food, drawer);
+            DrawIron(c.Iron, drawer);
         }
 
-        protected void DrawFood(int amount, DrawingContext context, Tuple<int, int> origin)
+        protected void DrawFood(int amount, CaseDrawer drawer)
         {
             if (amount > 0)
-            {
-                var texture = (BitmapImage)FindResource(FoodTexture);
-                context.DrawImage(texture, new Rect(origin.Item1,
-                                                    origin.Item2,
-                                                    16, 16));
+            {         
                 var formattedText = new FormattedText(
                     amount.ToString(),
                     CultureInfo.GetCultureInfo("en-us"),
@@ -154,18 +152,14 @@ namespace UI
                     new Typeface("Charlemagne STD"),
                     12,
                     Brushes.PaleVioletRed);
-                context.DrawText(formattedText, new Point(origin.Item1 + 20, origin.Item2 + 2));
+                drawer.Draw(formattedText, (BitmapImage)FindResource(FoodTexture));
             }
         }
         
-        protected void DrawIron(int amount, DrawingContext context, Tuple<int, int> origin)
+        protected void DrawIron(int amount, CaseDrawer drawer)
         {
             if (amount > 0)
             {
-                var texture = (BitmapImage)FindResource(IronTexture);
-                context.DrawImage(texture, new Rect(origin.Item1,
-                                                    origin.Item2 + 24,
-                                                    16, 16));
                 var formattedText = new FormattedText(
                     amount.ToString(),
                     CultureInfo.GetCultureInfo("en-us"),
@@ -173,7 +167,7 @@ namespace UI
                     new Typeface("Charlemagne STD"),
                     12,
                     Brushes.Red);
-                context.DrawText(formattedText, new Point(origin.Item1 + 20, origin.Item2 + 26));
+                drawer.Draw(formattedText, (BitmapImage)FindResource(IronTexture));
             }
         }
 
