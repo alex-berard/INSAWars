@@ -71,11 +71,25 @@ namespace INSAWars.Game
             requiredFood = 10;
         }
 
-        public void CapturedBy(Player invader)
+        public void Invade(Player invader)
         {
             player = invader;
             player.RemoveCity(this);
             invader.AddCity(this);
+
+            foreach (Case field in fields.ToList())
+            {
+                if (field.HasUnits)
+                {
+                    // The case is occupied by the enemy and cannot be used as a field.
+                    field.Sack();
+                }
+                else
+                {
+                    // Changes the occupant of the field.
+                    field.Use(this);
+                }
+            }
         }
 
         public void CancelProduction(int index)
@@ -146,6 +160,14 @@ namespace INSAWars.Game
                 food -= requiredFood;
                 requiredFood += requiredFood / 2;
             }
+        }
+
+        public void RemoveField(Case field)
+        {
+            population--;
+            requiredFood = requiredFood * 2 / 3;
+            fields.Remove(field);
+
         }
 
         public bool CanExpand()

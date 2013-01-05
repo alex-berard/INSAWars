@@ -14,12 +14,20 @@ namespace INSAWars.Game
         private Dictionary<string, ICivilization> players;
         private MapConfiguration mapConfig;
 
+        /// <summary>
+        /// Creates a new game builder.
+        /// You have to define the settings by calling AddPlayer, SetSize and SetTerrainFrequency and SetDecoratorProbability, as there are not default settings.
+        /// </summary>
         public GameBuilder()
         {
             mapConfig = new MapConfiguration();
             players = new Dictionary<string, ICivilization>();
         }
 
+        /// <summary>
+        /// Defines the size of the map, either small or medium.
+        /// </summary>
+        /// <param name="size">Either "Small" for a 25x25 map, or "Medium" for a 100x100</param>
         public void SetSize(string size)
         {
             if (size == "Small")
@@ -32,6 +40,12 @@ namespace INSAWars.Game
             }
         }
 
+        /// <summary>
+        /// Adds a new players to the settings.
+        /// The number of players has to be between 2 and 4.
+        /// </summary>
+        /// <param name="name">Name of the player</param>
+        /// <param name="civ">Civilization of the player</param>
         public void AddPlayer(string name, ICivilization civ)
         {
             players.Add(name, civ);
@@ -47,12 +61,15 @@ namespace INSAWars.Game
         /// The sum of the frequencies must be 1.
         /// </summary>
         /// <param name="terrainIndex">Enum Terrain</param>
-        /// <param name="frequency"></param>
+        /// <param name="frequency">The desired frequency of the given terrain on the map</param>
         public void SetTerrainFrequency(int terrainIndex, double frequency)
         {
             mapConfig.terrains[terrainIndex] = frequency;
         }
 
+        /// <summary>
+        /// Substitute to SetDecoratorProbability and SetTerrainFrequency.
+        /// </summary>
         public void UseDefaultFrequencies()
         {
             mapConfig.terrains[(int) Terrains.DESERT] = 0.3;
@@ -65,14 +82,19 @@ namespace INSAWars.Game
 
         /// <summary>
         /// Sets the probability for each case to have the given decorator.
+        /// The sum of the probability may not exceed 1.
         /// </summary>
         /// <param name="decoratorIndex">Enum Decorator</param>
-        /// <param name="probability"></param>
+        /// <param name="probability">Probability for each case of having the given decorator</param>
         public void SetDecoratorProbability(int decoratorIndex, double probability)
         {
             mapConfig.decorators[decoratorIndex] = probability;
         }
 
+        /// <summary>
+        /// Builds a new game. Builds the map and initializes the players according to the chosen settings.
+        /// </summary>
+        /// <returns>A new game, ready to run</returns>
         public Game Build()
         {
             Map map = mapGenerator.generate(mapConfig);
@@ -89,6 +111,11 @@ namespace INSAWars.Game
             return new Game(map, players);
         }
 
+        /// <summary>
+        /// Restores a previously saved game from the save file.
+        /// </summary>
+        /// <param name="filename">Location of the save file</param>
+        /// <returns>The restored game.</returns>
         public Game LoadGame(string filename)
         {
             return null;
@@ -97,7 +124,7 @@ namespace INSAWars.Game
         private void initPlayer(Player player, Map map)
         {
             Case position = map.FreePosition;
-            player.AddCity(new City(position, player, "Main city of " + player.Name, map.TerritoryAround(position)));
+            player.AddCity(new City(position, player, "Main city of " + player.Name, map.TerritoryAround(position, 5)));
         }
     }
 }

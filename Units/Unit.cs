@@ -93,6 +93,18 @@ namespace INSAWars.Units
         {
             location.RemoveUnit(this);
             location = destination;
+
+            if (destination.HasCity && destination.Occupant != Player)
+            {
+                // If an enemy city is built on this case, invade it.
+                destination.City.Invade(Player);
+            }
+            else if (destination.IsUsed && destination.Occupant != Player)
+            {
+                // If the case is used as a field by an enemy, sack it.
+                destination.Sack();
+            }
+
             destination.AddUnit(this);
         }
 
