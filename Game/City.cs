@@ -207,5 +207,10 @@ namespace INSAWars.Game
             position.Free();
             player.RemoveCity(this);
         }
+
+        public override string ToString()
+        {
+            return "City \"" + name + "\" of [" + Player + "] at coordinates [" + position.X + ", " + position.Y + "]"; 
+        }
     }
 }

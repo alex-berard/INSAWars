@@ -104,5 +104,10 @@ namespace INSAWars.Game
 
             return playerObj != null && name == playerObj.name;
         }
+
+        public override string ToString()
+        {
+            return "Player " + name + " (" + (isDead ? "dead" : "alive") + ")";
+        }
     }
 }
