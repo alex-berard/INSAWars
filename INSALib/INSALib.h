@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <time.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -22,14 +23,14 @@ public:
 	 * Typically : water, desert, plain, mountains.
 	 * @param decorators list of decorators frequencies.
 	 */
-	Distribution(vector<double> &terrains, vector<double> &decorators);
+	Distribution(vector<double>& terrains, vector<double>& decorators);
 
 	/**
 	 * @param r value between 0 and 1 defining the height of the terrain.
 	 * @return the tile index and the decorator index corresponding to this terrain.
 	 * The tile value is picked according to the height, the decorator value is purely random.
 	 */
-	pair<int, int> createCase(double r);
+	vector<vector<pair<int, int>>> createMap(vector<vector<double>>& perlinMap);
 
 private:
 	vector<double> terrains;
@@ -41,7 +42,7 @@ private:
 class EXPORT_OR_IMPORT PerlinMap
 {
 public:
-	PerlinMap(int height, int width, Distribution *distr);
+	PerlinMap(int height, int width, Distribution* distr);
 	int getTerrain(int x, int y);
 	int getDecorator(int x, int y);
 
@@ -52,7 +53,7 @@ public:
 	 */
 	vector<pair<int, int>> getStartingPositions(vector<int> inaccessibleTerrains);
 private:
-	Distribution *distr;
+	Distribution* distr;
 	int width;
 	int height;
 	vector<vector<pair<int, int>>> cases;
