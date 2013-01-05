@@ -37,5 +37,14 @@ namespace UI
         {
             _gameView.Map = _game.Map;
         }
+
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                var menu = new InGameMenuWindow();
+                menu.ShowDialog();
+            }
+        }
     }
 }
