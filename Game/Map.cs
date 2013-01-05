@@ -28,15 +28,22 @@ namespace INSAWars.Game
 
         public List<Case> TerritoryAround(Case position)
         {
+            int radius = 5;
+
             List<Case> territory = new List<Case>();
 
-            for (int x = Math.Max(0, position.X - 5); x <= Math.Min(Size - 1, position.X + 5); x++)
+            for (int x = Math.Max(0, position.X - radius); x <= Math.Min(Size - 1, position.X + radius); x++)
             {
-                int offset = (int)Math.Sqrt(5 - x * x);
+                int offset = (int)Math.Sqrt(radius - x * x);
 
                 for (int y = Math.Max(0, position.Y - offset); y <= Math.Min(Size - 1, position.Y + offset); y++)
                 {
-                    territory.Add(GetCaseAt(x, y));
+                    Case c = GetCaseAt(x, y);
+
+                    if (!(c is Water))
+                    {
+                        territory.Add(GetCaseAt(x, y));
+                    }
                 }
             }
 

@@ -124,17 +124,33 @@ namespace INSAWars.Game
 
         public void Expand()
         {
-            //cases.Add(c);
             List<Case> freeTerritory = new List<Case>();
 
-            population++;
-            food -= requiredFood;
-            requiredFood += requiredFood / 2;
+            foreach (Case c in territory)
+            {
+                if (c.IsFree && !c.HasUnits || c.Occupant != Player)
+                {
+                    freeTerritory.Add(c);
+                }
+            }
+
+            if (freeTerritory.Count > 0)
+            {
+                int r = Game.random.Next(freeTerritory.Count);
+                Case field = freeTerritory[r];
+
+                fields.Add(field);
+                field.Use(this);
+
+                population++;
+                food -= requiredFood;
+                requiredFood += requiredFood / 2;
+            }
         }
 
         public bool CanExpand()
         {
-            return food >= requiredFood;
+            return food >= requiredFood && fields.Count < territory.Count;
         }
 
         public void NextTurn()

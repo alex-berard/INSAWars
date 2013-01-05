@@ -8,6 +8,8 @@ namespace INSAWars.Game
 {
     public class MapConfiguration
     {
+        public int octaves = 6;
+        public double persistance = 0.5;
         public double[] terrains;
         public double[] decorators;
         public static int[] inaccessibleTerrains = new int[] { (int) Terrains.WATER };
@@ -20,22 +22,22 @@ namespace INSAWars.Game
             Array.Clear(decorators, 0, decorators.Length);
         }
 
-        public static Case GetCase(int terrainIndex, int x, int y)
+        public static Case GetCase(int terrainIndex, int decoratorIndex, int x, int y)
         {
             switch (terrainIndex)
             {
                 case (int)Terrains.WATER:
                     return new Water(x, y);
                 case (int)Terrains.DESERT:
-                    return new Desert(x, y);
+                    return GetDecorator(decoratorIndex, new Desert(x, y));
                 case (int)Terrains.MOUNTAIN:
-                    return new Mountain(x, y);
+                    return GetDecorator(decoratorIndex, new Mountain(x, y));
                 default:
-                    return new Plain(x, y);
+                    return GetDecorator(decoratorIndex, new Plain(x, y));
             }
         }
 
-        public static Case GetDecorator(int decoratorIndex, Case decoratedCase)
+        private static Case GetDecorator(int decoratorIndex, Case decoratedCase)
         {
             switch (decoratorIndex)
             {
