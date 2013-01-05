@@ -3,7 +3,32 @@
         xmlns:my="clr-namespace:UI"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
         Title="INSAWars" WindowStartupLocation="CenterScreen" Height="768" Width="975" ResizeMode="NoResize" FocusManager.FocusedElement="{Binding ElementName=_gameView}">
-    <Grid>        
-        <my:GameView x:Name="_gameView" Focusable="True" FocusVisualStyle="{x:Null}"></my:GameView>        
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="576"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        
+        <DockPanel Grid.Row="0">
+            <DockPanel.Background>
+                <ImageBrush ImageSource=".\Resources\ui\top-menu-background.png" />
+            </DockPanel.Background>
+        </DockPanel>
+        
+       
+         <my:GameView x:Name="_gameView" Grid.Row="1" FocusVisualStyle="{x:Null}" Focusable="True" />
+        
+                     
+        <Grid Grid.Row="2">
+            <Grid.Background>
+                <ImageBrush ImageSource=".\Resources\ui\bot-menu-background.png" />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="157*"/>
+                <ColumnDefinition Width="495*"/>
+                <ColumnDefinition Width="317*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
     </Grid>
 </Window>
