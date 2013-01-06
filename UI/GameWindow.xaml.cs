@@ -43,7 +43,9 @@ namespace UI
             if (e.Key == Key.Escape)
             {
                 var menu = new InGameMenuWindow();
+                Opacity = 0.5;
                 menu.ShowDialog();
+                Opacity = 1;
             }
         }
     }
