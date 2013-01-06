@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using INSAWars.Game;
 using UI.Views;
+using System.Windows.Threading;
 
 namespace UI
 {
@@ -34,13 +35,24 @@ namespace UI
 
             InitializeComponent();
             InitializeDataContexts();
+            InitializeClock();
 
             DrawMap();
         }
 
-        public void InitializeDataContexts()
+        private void InitializeDataContexts()
         {
             _turnLabel.DataContext = _gameView;
+            _playerInformation.DataContext = _game.CurrentPlayer;
+        }
+
+        private void InitializeClock()
+        {
+            var initial = DateTime.Now;
+            DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                _clock.Content = DateTime.Now.Subtract(initial).ToString(@"hh\:mm\:ss");
+            }, Dispatcher);
         }
 
         public void DrawMap()
@@ -62,6 +74,7 @@ namespace UI
         private void NextTurnClick(object sender, RoutedEventArgs e)
         {
             _game.NextTurn();
+            _playerInformation.DataContext = _game.CurrentPlayer;
             _gameControl.InvalidateVisual();
         }
     }

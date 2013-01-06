@@ -104,7 +104,6 @@
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\objects\pack\" />
     <Folder Include=".git\refs\tags\" />
-    <Folder Include="UI\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\MapConfiguration.cs" />

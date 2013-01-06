@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using INSAWars.Units;
+using INSAWars.MVVM;
+using System.ComponentModel;
 
 namespace INSAWars.Game
 {
     [Serializable]
-    public class Player
+    public class Player : ObservableObject
     {
         private bool isDead;
         private HashSet<City> cities;
@@ -30,6 +32,10 @@ namespace INSAWars.Game
         public string Name
         {
             get { return name; }
+            set
+            {
+                SetProperty(ref name, value);
+            }
         }
 
         public ICivilization Civilization
@@ -43,7 +49,7 @@ namespace INSAWars.Game
             cities = new HashSet<City>();
             units = new HashSet<Unit>();
             this.civilization = civilization;
-            this.name = name;
+            Name = name;
             Head = null;
         }
 
