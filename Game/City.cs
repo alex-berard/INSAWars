@@ -12,6 +12,8 @@ namespace INSAWars.Game
     [Serializable]
     public class City
     {
+        public const int radius = 3;
+
         private List<Case> territory;
         private List<Case> fields;
         private Case position;

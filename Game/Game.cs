@@ -111,7 +111,7 @@ namespace INSAWars.Game
             Player player = teacher.Player;
             Case position = teacher.Location;
 
-            City city = new City(position, player, name, map.TerritoryAround(position, 5));
+            City city = new City(position, player, name, map.TerritoryAround(position, City.radius));
 
             position.BuildCity(city);
             player.AddCity(city);
