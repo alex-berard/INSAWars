@@ -21,6 +21,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1">
             <Button Name="_createGame" Content="New game" Style="{StaticResource menuStyle}" Click="CreateGameButtonClick" />
+            <Button Content="Load Game" Click="ExitButtonClick" Style="{StaticResource menuStyle}"/>
             <Button Content="Exit" Click="ExitButtonClick" Style="{StaticResource menuStyle}"/>
         </StackPanel>
     </Grid>
