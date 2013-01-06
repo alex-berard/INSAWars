@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using INSAWars.Units;
 
 namespace INSAWars.Game
 {
@@ -31,9 +32,16 @@ namespace INSAWars.Game
         {
             List<Case> territory = new List<Case>();
 
-            for (int x = Math.Max(0, position.X - radius); x <= Math.Min(Size - 1, position.X + radius); x++)
+            for (int i = -radius; i <= radius; i++)
             {
-                int offset = (int)Math.Sqrt(radius - x * x);
+                int x = position.X + i;
+
+                if (x < 0 || x > Size - 1)
+                {
+                    continue;
+                }
+
+                int offset = (int)Math.Sqrt(radius - i * i);
 
                 for (int y = Math.Max(0, position.Y - offset); y <= Math.Min(Size - 1, position.Y + offset); y++)
                 {
@@ -49,10 +57,99 @@ namespace INSAWars.Game
             return territory;
         }
 
-        public Map(Case[,] cases, List<Case> startingPositions)
+        public Case BestCase(Case position, int radius)
+        {
+            int bestWeight = 0;
+            Case bestCase = null;
+
+            foreach (Case c in cases)
+            {
+                if (c.DistanceTo(position) <= radius)
+                {
+                    int weight = 0;
+
+                    foreach (Case field in TerritoryAround(c, City.radius))
+                    {
+                        weight += field.Food;
+                        weight += field.Iron;
+                    }
+
+                    if (weight > bestWeight)
+                    {
+                        bestCase = c;
+                        weight = bestWeight;
+                    }
+                }
+            }
+
+            return bestCase;
+        }
+
+        public List<Case> BestCases(Teacher teacher)
+        {
+            var casesWeights = new List<KeyValuePair<Case, double>>();
+
+            foreach (Case c in cases)
+            {
+                if (c.HasCity || (c.Occupant != null && c.Occupant != teacher.Player))
+                {
+                    continue;
+                }
+
+                if (c.DistanceTo(teacher.Location) <= teacher.MovementPoints * 3)
+                {
+                    double weight = 0;
+
+                    foreach (Case field in TerritoryAround(c, City.radius))
+                    {
+                        if (c.Occupant != null && c.Occupant != teacher.Player)
+                        {
+                            weight -= 10;
+                        }
+                        else if (c.HasCity)
+                        {
+                            weight -= 5;
+                        }
+                        else if (c.IsUsed)
+                        {
+                            weight -= 2;
+                        }
+                        else
+                        {
+                            weight += field.Units.Count();
+                            weight += field.Food;
+                            weight += field.Iron;
+                        }
+                    }
+
+                    if (weight > 0)
+                    {
+                        casesWeights.Add(new KeyValuePair<Case, double>(c, weight));
+                    }
+                }
+            }
+
+            casesWeights.Sort((a, b) => a.Value.CompareTo(b.Value));
+
+            var bestCases = new List<Case>();
+
+            for (int i = 0; i < 3 && i < casesWeights.Count; i++)
+            {
+                bestCases.Add(casesWeights[i].Key);
+            }
+
+            return bestCases;
+        }
+
+        public Map(Case[,] cases)
         {
             this.cases = cases;
-            this.startingPositions = new Stack<Case>(startingPositions);
+            startingPositions = new Stack<Case>();
+
+            startingPositions.Push(BestCase(cases[0, 0], 5));
+            startingPositions.Push(BestCase(cases[Size - 1, Size - 1], 5));
+            startingPositions.Push(BestCase(cases[Size - 1, 0], 5));
+            startingPositions.Push(BestCase(cases[0, Size - 1], 5));
         }
 
         public override string ToString()

@@ -26,6 +26,7 @@ namespace INSAWars.Game
                 }
             }
 
+            /*
             int[,] positions = perlinMap.GetStartingPositions(MapConfiguration.inaccessibleTerrains);
             for (int i = 0; i < positions.GetLength(0); i++)
             {
@@ -33,8 +34,9 @@ namespace INSAWars.Game
                 int y = positions[i, 1];
                 startingPositions.Add(cases[x, y]);
             }
+             * */
 
-            return new Map(cases, startingPositions);
+            return new Map(cases);
         }
     }
 }
