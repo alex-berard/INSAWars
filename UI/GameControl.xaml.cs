@@ -99,6 +99,12 @@ namespace UI
         protected override void OnRender(DrawingContext context)
         {
             base.OnRender(context);
+
+            if (_map == null)
+            {
+                return;
+            }
+
             DrawVisibleMap(context);
             DrawCases(context);
             DrawMapPosition(context);

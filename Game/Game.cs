@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using INSAWars.Units;
+using INSAWars.MVVM;
+using System.ComponentModel;
 
 namespace INSAWars.Game
 {
     [Serializable]
-    public class Game
+    public class Game : ObservableObject
     {
         public static Random random = new Random();
 
@@ -22,7 +24,13 @@ namespace INSAWars.Game
 
         public bool Over { get { return over; } }
 
-        public int NbTurns { get { return nbTurns; } }
+        public int NbTurns { 
+            get { return nbTurns; }
+            set
+            {
+                SetProperty(ref nbTurns, value);
+            }
+        }
 
         public Map Map { get { return map; } }
 
@@ -171,7 +179,7 @@ namespace INSAWars.Game
             }
             else
             {
-                nbTurns++;
+                NbTurns++;
                 // Puts the player to the end of the queue.
                 player = alivePlayers.Dequeue();
                 alivePlayers.Enqueue(player);

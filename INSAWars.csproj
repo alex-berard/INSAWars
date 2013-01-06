@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Game\MapConfiguration.cs" />
     <Compile Include="Game\Water.cs" />
+    <Compile Include="MVVM\ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
