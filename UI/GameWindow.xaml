@@ -9,17 +9,23 @@
             <RowDefinition Height="576"/>
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
-        
-        <DockPanel Grid.Row="0">
-            <DockPanel.Background>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="23*"/>
+                <ColumnDefinition Width="241*"/>
+                <ColumnDefinition Width="59*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
                 <ImageBrush ImageSource=".\Resources\ui\top-menu-background.png" />
-            </DockPanel.Background>
-        </DockPanel>
-        
-       
-         <my:GameView x:Name="_gameView" Grid.Row="1" FocusVisualStyle="{x:Null}" Focusable="True" />
-        
-                     
+            </Grid.Background>
+            
+             <Label Grid.Column="0" Name="_turnLabel" Content="{Binding Turns}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
+            <Button Grid.Column="2" Click="NextTurnClick" Content="Next turn" Focusable="False" VerticalAlignment="Center" Style="{StaticResource menuStyle}" FontSize="14" HorizontalAlignment="Right" Height="32"/>
+        </Grid>
+
+        <my:GameControl x:Name="_gameControl" Grid.Row="1" FocusVisualStyle="{x:Null}" Focusable="True" />
+
         <Grid Grid.Row="2">
             <Grid.Background>
                 <ImageBrush ImageSource=".\Resources\ui\bot-menu-background.png" />

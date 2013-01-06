@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using INSAWars.Game;
+using UI.Views;
 
 namespace UI
 {
@@ -22,20 +23,29 @@ namespace UI
     {
         private GameBuilder _builder;
         private Game _game;
+        private GameView _gameView;
 
         public GameWindow(GameBuilder builder)
         {
             _builder = builder;
             _builder.UseDefaultFrequencies();
             _game = _builder.Build();
+            _gameView = new GameView(_game);
 
             InitializeComponent();
+            InitializeDataContexts();
+
             DrawMap();
+        }
+
+        public void InitializeDataContexts()
+        {
+            _turnLabel.DataContext = _gameView;
         }
 
         public void DrawMap()
         {
-            _gameView.Map = _game.Map;
+            _gameControl.Map = _game.Map;
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
@@ -47,6 +57,12 @@ namespace UI
                 menu.ShowDialog();
                 Opacity = 1;
             }
+        }
+
+        private void NextTurnClick(object sender, RoutedEventArgs e)
+        {
+            _game.NextTurn();
+            _gameControl.InvalidateVisual();
         }
     }
 }
