@@ -20,13 +20,21 @@ namespace INSAWars.Units
         #endregion
 
         #region properties
-        public virtual int AttackPoints { get { return 0; } }
-        public virtual int DefensePoints { get { return 0; } }
+        public virtual int AttackBase { get { return 0; } }
+        public virtual int DefenseBase { get { return 0; } }
         public virtual int HitPoints { get { return 0; } }
         public virtual int MovementPoints { get { return 0; } }
 
-        public virtual int AttackBonus { get { return 1; } }
-        public virtual int DefenseBonus { get { return 1; } }
+        public virtual int AttackBonus {
+            get { return (player.Head != null && location.Contains(player.Head)) ? AttackBase / 2 : 0; }
+        }
+
+        public virtual int DefenseBonus {
+            get { return (player.Head != null && location.Contains(player.Head)) ? DefenseBase / 2 : 0; }
+        }
+
+        public virtual int AttackTotal { get { return AttackBase + AttackBonus; } }
+        public virtual int DefenseTotal { get { return DefenseBase + DefenseBonus; } }
 
         public Player Player { get { return player; } }
         public Case Location { get { return location; } }
@@ -52,7 +60,7 @@ namespace INSAWars.Units
         /// <param name="opponent">The unit to attack.</param>
         public void Attack(Unit opponent)
         {
-            if (opponent.DefensePoints == 0)
+            if (opponent.DefenseTotal == 0)
             {
                 opponent.Kill();
             }
@@ -62,7 +70,7 @@ namespace INSAWars.Units
 
             for (int i = 0; i < rounds; i++)
             {
-                double ratio = AttackPoints / opponent.DefensePoints;
+                double ratio = AttackTotal / opponent.DefenseTotal;
                 double proba = 0.5 * ratio;
 
                 if (Game.Game.random.NextDouble() < proba)
@@ -84,7 +92,7 @@ namespace INSAWars.Units
             }
         }
 
-        public void Kill()
+        public virtual void Kill()
         {
             player.RemoveUnit(this);
             location.RemoveUnit(this);

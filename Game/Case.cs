@@ -55,7 +55,7 @@ namespace INSAWars.Game
 
         public virtual IEnumerable<Unit> Units
         {
-            get { return units.OrderByDescending(unit => unit.DefensePoints); }
+            get { return units.OrderByDescending(unit => unit.DefenseBase); }
         }
 
         public virtual IEnumerable<Unit> Students
@@ -184,6 +184,11 @@ namespace INSAWars.Game
         public virtual void RemoveUnit(Unit unit)
         {
             units.Remove(unit);
+        }
+
+        public virtual bool Contains(Unit unit)
+        {
+            return units.Contains(unit);
         }
 
         public int DistanceTo(Case destination)

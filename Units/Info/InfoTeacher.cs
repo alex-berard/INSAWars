@@ -9,8 +9,8 @@ namespace INSAWars.Units.Info
     [Serializable]
     class InfoTeacher : Teacher
     {
-        public override int AttackPoints { get { return 0; } }
-        public override int DefensePoints { get { return 1; } }
+        public override int AttackBase { get { return 0; } }
+        public override int DefenseBase { get { return 1; } }
         public override int HitPoints { get { return 1; } }
         public override int MovementPoints { get { return 3; } }
 

@@ -68,7 +68,7 @@ namespace INSAWars.Game
 
         public bool CanAttack(Unit unit, Case c)
         {
-            return !unit.HasAttacked && unit.AttackPoints > 0 && !c.IsFree && c.Occupant != unit.Player;
+            return !unit.HasAttacked && unit.AttackTotal > 0 && !c.IsFree && c.Occupant != unit.Player;
         }
 
         public void MakeStudent(City city)

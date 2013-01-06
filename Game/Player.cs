@@ -20,6 +20,8 @@ namespace INSAWars.Game
             get { return cities.ToList(); }
         }
 
+        public Head Head { get; set; }
+
         public bool IsDead
         {
             get { return isDead; }
@@ -42,6 +44,7 @@ namespace INSAWars.Game
             units = new HashSet<Unit>();
             this.civilization = civilization;
             this.name = name;
+            Head = null;
         }
 
         public void AddCity(City city)
