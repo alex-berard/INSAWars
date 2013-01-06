@@ -16,8 +16,8 @@ namespace INSAWars.Units
         public virtual int StudentFoodCost { get { return 0; } }
         public virtual int TeacherFoodCost { get { return 0; } }
 
-        public abstract Head CreateHead(City city);
-        public abstract Student CreateStudent(City city);
-        public abstract Teacher CreateTeacher(City city);
+        public abstract Head CreateHead(Case position, Player player);
+        public abstract Student CreateStudent(Case position, Player player);
+        public abstract Teacher CreateTeacher(Case position, Player player);
     }
 }

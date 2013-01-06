@@ -1,8 +1,10 @@
-﻿using System;
+﻿#region usings
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using INSAWars.Units;
+#endregion
 
 namespace INSAWars.Game
 {
@@ -12,6 +14,7 @@ namespace INSAWars.Game
     [Serializable]
     public class City
     {
+        #region fields
         public const int radius = 3;
 
         private List<Case> territory;
@@ -27,7 +30,9 @@ namespace INSAWars.Game
         private string name;
 
         private List<Unit> pendingProductions;
+        #endregion
 
+        #region properties
         public int Food
         {
             get { return food; }
@@ -52,7 +57,9 @@ namespace INSAWars.Game
         {
             get { return player.Civilization.UnitFactory; }
         }
+        #endregion
 
+        #region constructors
         /// <summary>
         /// Creates a new city on a given case.
         /// </summary>
@@ -73,7 +80,9 @@ namespace INSAWars.Game
             iron = 0;
             requiredFood = 10;
         }
+        #endregion
 
+        #region methods
         public void Invade(Player invader)
         {
             player = invader;
@@ -103,7 +112,7 @@ namespace INSAWars.Game
 
         public void MakeStudent()
         {
-            Student unit = player.Civilization.UnitFactory.CreateStudent(this);
+            Student unit = player.Civilization.UnitFactory.CreateStudent(position, player);
             pendingProductions.Add(unit);
             food -= Factory.StudentFoodCost;
             iron -= Factory.StudentIronCost;
@@ -116,7 +125,7 @@ namespace INSAWars.Game
 
         public void MakeTeacher()
         {
-            Teacher unit = player.Civilization.UnitFactory.CreateTeacher(this);
+            Teacher unit = player.Civilization.UnitFactory.CreateTeacher(position, player);
             pendingProductions.Add(unit);
             food -= Factory.TeacherFoodCost;
             iron -= Factory.TeacherIronCost;
@@ -129,7 +138,7 @@ namespace INSAWars.Game
 
         public void MakeHead()
         {
-            Head unit = player.Civilization.UnitFactory.CreateHead(this);
+            Head unit = player.Civilization.UnitFactory.CreateHead(position, player);
             pendingProductions.Add(unit);
             food -= Factory.HeadFoodCost;
             iron -= Factory.HeadIronCost;
@@ -213,7 +222,8 @@ namespace INSAWars.Game
 
         public override string ToString()
         {
-            return "City \"" + name + "\" of [" + Player + "] at coordinates [" + position.X + ", " + position.Y + "]"; 
+            return "City \"" + name + "\" of [" + Player + "] at coordinates [" + position.X + ", " + position.Y + "]";
         }
+        #endregion
     }
 }

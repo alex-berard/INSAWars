@@ -9,19 +9,19 @@ namespace INSAWars.Units.EII
     [Serializable]
     class EIIUnitFactory : AbstractUnitFactory
     {
-        public override Head CreateHead(City city)
+        public override Head CreateHead(Case position, Player player)
         {
-            return new EIIHead(city.Position, city.Player);
+            return new EIIHead(position, player);
         }
 
-        public override Student CreateStudent(City city)
+        public override Student CreateStudent(Case position, Player player)
         {
-            return new EIIStudent(city.Position, city.Player);
+            return new EIIStudent(position, player);
         }
 
-        public override Teacher CreateTeacher(City city)
+        public override Teacher CreateTeacher(Case position, Player player)
         {
-            return new EIITeacher(city.Position, city.Player);
+            return new EIITeacher(position, player);
         }
     }
 }

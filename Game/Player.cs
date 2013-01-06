@@ -1,20 +1,25 @@
-﻿using System;
+﻿#region usings
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using INSAWars.Units;
+#endregion
 
 namespace INSAWars.Game
 {
     [Serializable]
     public class Player
     {
+        #region fields
         private bool isDead;
         private HashSet<City> cities;
         private ICivilization civilization;
         private string name;
         private HashSet<Unit> units;
+        #endregion
 
+        #region properties
         public List<City> Cities
         {
             get { return cities.ToList(); }
@@ -36,7 +41,9 @@ namespace INSAWars.Game
         {
             get { return civilization; }
         }
+        #endregion
 
+        #region constructors
         public Player(ICivilization civilization, string name)
         {
             isDead = false;
@@ -46,7 +53,9 @@ namespace INSAWars.Game
             this.name = name;
             Head = null;
         }
+        #endregion
 
+        #region methods
         public void AddCity(City city)
         {
             cities.Add(city);
@@ -56,8 +65,7 @@ namespace INSAWars.Game
         {
             cities.Remove(city);
 
-            // When a player has no city left he loses the game.
-            if (cities.Count == 0)
+            if (LoseCondition())
             {
                 Lose();
             }
@@ -71,12 +79,23 @@ namespace INSAWars.Game
         public void RemoveUnit(Unit unit)
         {
             units.Remove(unit);
+
+            if (LoseCondition())
+            {
+                Lose();
+            }
+        }
+
+        private bool LoseCondition()
+        {
+            return cities.Count == 0 && !units.ToList().Exists(item => item is Teacher);
         }
 
         public void Lose()
         {
             isDead = true;
 
+            // If the player has surrendered
             foreach (City city in cities)
             {
                 city.Destroy();
@@ -112,5 +131,6 @@ namespace INSAWars.Game
         {
             return "Player " + name + " (" + (isDead ? "dead" : "alive") + ")";
         }
+        #endregion
     }
 }
