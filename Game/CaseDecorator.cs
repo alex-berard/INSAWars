@@ -59,6 +59,30 @@ namespace INSAWars.Game
             get { return decoratedCase.Units; }
         }
 
+        public override IEnumerable<Unit> Students
+        {
+            get
+            {
+                return decoratedCase.Students;
+            }
+        }
+
+        public override IEnumerable<Unit> Teachers
+        {
+            get
+            {
+                return decoratedCase.Teachers;
+            }
+        }
+
+        public override Unit Head
+        {
+            get
+            {
+                return decoratedCase.Head;
+            }
+        }
+
         public CaseDecorator(Case decoratedCase)
         {
             this.decoratedCase = decoratedCase;

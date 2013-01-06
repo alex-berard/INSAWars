@@ -10,10 +10,12 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using INSAWars.Game;
+using INSAWars.Units;
 using UI.Drawing;
 
 namespace UI
@@ -67,8 +69,9 @@ namespace UI
         private int CaseCountY = (int)Math.Ceiling((double)VisibleHeight / CaseHeight);
 
         private const string FoodTexture = "FoodSmall";
-
         private const string IronTexture = "IronSmall";
+        private const string StudentTexture = "StudentSmall";
+            private const string TeacherTexture = "TeacherSmall";
 
         private Map _map;
 
@@ -98,13 +101,35 @@ namespace UI
             base.OnRender(context);
             DrawVisibleMap(context);
             DrawCases(context);
+            DrawMapPosition(context);
+        }
+
+        private void DrawMapPosition(DrawingContext context)
+        {
+            var myDoubleAnimation = new DoubleAnimation();
+            myDoubleAnimation.From = 1.0;
+            myDoubleAnimation.To = 0.0;
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(3));
+         
+            context.PushOpacity(1.0, myDoubleAnimation.CreateClock());
+            context.DrawRectangle(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2B2B2B")),
+                                  null, new Rect(702, 10, 248, 64));
+            var relativePositions = RelativePositions();
+            var position = new FormattedText(
+                        relativePositions.Item1.ToString() + "% / " + relativePositions.Item2.ToString() + "%",
+                        CultureInfo.GetCultureInfo("en-us"),
+                        FlowDirection.LeftToRight,
+                        new Typeface("Charlemagne STD"),
+                        36,
+                        Brushes.PaleVioletRed);
+            context.DrawText(position, new Point(712, 20));
         }
 
         /// <summary>
         /// Draws the visible portion of the map.
         /// </summary>
         /// <returns></returns>
-        protected void DrawVisibleMap(DrawingContext context)
+        private void DrawVisibleMap(DrawingContext context)
         {
             var rect = new Rect(0, 0, CaseWidth, CaseHeight);
             var origin = TopLeftCaseIndexes(OffsetX, OffsetY);
@@ -121,7 +146,7 @@ namespace UI
             }
         }
 
-        protected void DrawCases(DrawingContext context)
+        private void DrawCases(DrawingContext context)
         {
             var origin = TopLeftCaseIndexes(OffsetX, OffsetY);
 
@@ -134,14 +159,51 @@ namespace UI
             }
         }
 
-        protected void DrawCaseContent(DrawingContext context, Case c, Tuple<int, int> origin)
+        private void DrawCaseContent(DrawingContext context, Case c, Tuple<int, int> origin)
         {
             var drawer = new CaseDrawer(context, origin);
             DrawFood(c.Food, drawer);
             DrawIron(c.Iron, drawer);
+            DrawUnits(c, drawer);
         }
 
-        protected void DrawFood(int amount, CaseDrawer drawer)
+        private void DrawUnits(Case c, CaseDrawer drawer)
+        {
+            DrawStudents(c.Students, drawer);
+            DrawTeachers(c.Teachers, drawer);
+        }
+
+        private void DrawStudents(IEnumerable<Unit> students, CaseDrawer drawer)
+        {
+            if (students.Count() > 0)
+            {
+                var formattedText = new FormattedText(
+                        students.Count().ToString(),
+                        CultureInfo.GetCultureInfo("en-us"),
+                        FlowDirection.LeftToRight,
+                        new Typeface("Charlemagne STD"),
+                        12,
+                        Brushes.PaleVioletRed);
+                drawer.Draw(formattedText, (BitmapImage)FindResource(StudentTexture));
+            }
+        }
+
+        private void DrawTeachers(IEnumerable<Unit> teachers, CaseDrawer drawer)
+        {
+            if (teachers.Count() > 0)
+            {
+                var formattedText = new FormattedText(
+                        teachers.Count().ToString(),
+                        CultureInfo.GetCultureInfo("en-us"),
+                        FlowDirection.LeftToRight,
+                        new Typeface("Charlemagne STD"),
+                        12,
+                        Brushes.PaleVioletRed);
+                drawer.Draw(formattedText, (BitmapImage)FindResource(TeacherTexture));
+            }
+        }
+
+        private void DrawFood(int amount, CaseDrawer drawer)
         {
             if (amount > 0)
             {         
@@ -156,7 +218,7 @@ namespace UI
             }
         }
         
-        protected void DrawIron(int amount, CaseDrawer drawer)
+        private void DrawIron(int amount, CaseDrawer drawer)
         {
             if (amount > 0)
             {
@@ -177,7 +239,7 @@ namespace UI
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        protected Tuple<int, int> CaseOffset(int i, int j)
+        private Tuple<int, int> CaseOffset(int i, int j)
         {
             return new Tuple<int, int>(i * CaseWidth, j * CaseHeight);
         }
@@ -188,10 +250,16 @@ namespace UI
         /// <param name="offsetX">The current pixel X offset</param>
         /// <param name="offsetY">The current pixel Y offset</param>
         /// <returns>A tuple of indices for the map array corresponding to the origin case.</returns>
-        protected Tuple<int, int> TopLeftCaseIndexes(int offsetX, int offsetY)
+        private Tuple<int, int> TopLeftCaseIndexes(int offsetX, int offsetY)
         {
             return new Tuple<int, int>(offsetX / CaseWidth,
                                        offsetY / CaseHeight);
+        }
+
+        private Tuple<int, int> RelativePositions()
+        {
+            return new Tuple<int, int>((int)((double)OffsetX * 100 / (Width - (CaseCountX * CaseWidth))),
+                                       (int)((double)OffsetY * 100 / (Height - (CaseCountY * CaseHeight))));
         }
         
         #endregion
@@ -269,45 +337,45 @@ namespace UI
         #endregion
 
         #region PartialMap
-        protected bool CanMoveVisibleMapLeft()
+        private bool CanMoveVisibleMapLeft()
         {
             return OffsetX > 0;
         }
 
-        protected bool CanMoveVisibleMapRight()
+        private bool CanMoveVisibleMapRight()
         {
             return OffsetX + (CaseCountX * CaseWidth) <= Width - CaseWidth;
         }
 
-        protected bool CanMoveVisibleMapUp()
+        private bool CanMoveVisibleMapUp()
         {
             return OffsetY > 0;
         }
 
-        protected bool CanMoveVisibleMapDown()
+        private bool CanMoveVisibleMapDown()
         {
             return OffsetY + (CaseCountY * CaseHeight) <= Height - CaseHeight;
         }
 
-        protected void MoveVisibleMapLeft()
+        private void MoveVisibleMapLeft()
         {
             OffsetX -= MoveOffset;
             InvalidateVisual();
         }
 
-        protected void MoveVisibleMapRight()
+        private void MoveVisibleMapRight()
         {
             OffsetX += MoveOffset;
             InvalidateVisual();
         }
 
-        protected void MoveVisibleMapUp()
+        private void MoveVisibleMapUp()
         {
             OffsetY -= MoveOffset;
             InvalidateVisual();
         }
 
-        protected void MoveVisibleMapDown()
+        private void MoveVisibleMapDown()
         {
             OffsetY += MoveOffset;
             InvalidateVisual();
@@ -319,7 +387,7 @@ namespace UI
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        protected Case CaseAtPosition(double x, double y)
+        private Case CaseAtPosition(double x, double y)
         {
             int i = (int)(x / CaseWidth);
             int j = (int)(y / CaseHeight);

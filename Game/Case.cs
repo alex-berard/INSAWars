@@ -58,6 +58,21 @@ namespace INSAWars.Game
             get { return units.OrderByDescending(unit => unit.DefensePoints); }
         }
 
+        public virtual IEnumerable<Unit> Students
+        {
+            get { return units.Where(unit => unit.GetType() == typeof(Student)); }
+        }
+
+        public virtual IEnumerable<Unit> Teachers
+        {
+            get { return units.Where(unit => unit.GetType() == typeof(Teacher)); }
+        }
+
+        public virtual Unit Head
+        {
+            get { return units.Where(unit => unit.GetType() == typeof(Head)).First(); }
+        }
+
         /// <summary>
         /// The visible unit on this case (the unit with the highest defense).
         /// </summary>
@@ -95,7 +110,8 @@ namespace INSAWars.Game
 
         #region constructor
         public Case()
-        { }
+        {
+        }
 
         public Case(int x, int y)
         {
