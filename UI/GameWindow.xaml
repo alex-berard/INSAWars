@@ -20,7 +20,7 @@
                 <ImageBrush ImageSource=".\Resources\ui\top-menu-background.png" />
             </Grid.Background>
             
-             <Label Grid.Column="0" Name="_turnLabel" Content="{Binding Turns}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
+             <Label Focusable="False" Grid.Column="0" Name="_turnLabel" Content="{Binding Turns}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
             <Button Grid.Column="2" Click="NextTurnClick" Content="Next turn" Focusable="False" VerticalAlignment="Center" Style="{StaticResource menuStyle}" FontSize="14" HorizontalAlignment="Right" Height="32"/>
         </Grid>
 

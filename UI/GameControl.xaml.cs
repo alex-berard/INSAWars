@@ -267,7 +267,7 @@ namespace UI
         #region events
         /// <summary>
         /// Handles mouse clicks. When we click on a case,
-        /// we want to display some information about its content.
+        /// we want to display some information about its content and select it.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnMouseUp(MouseButtonEventArgs e)
