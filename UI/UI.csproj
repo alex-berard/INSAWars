@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Views\GameView.cs" />
+    <Compile Include="Views\PlayerView.cs" />
     <Page Include="ChooseMapSizePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
