@@ -127,15 +127,16 @@ namespace INSAWars.Game
 
         public void MakeHead()
         {
-            Teacher unit = player.Civilization.UnitFactory.CreateTeacher(this);
+            Head unit = player.Civilization.UnitFactory.CreateHead(this);
             pendingProductions.Add(unit);
             food -= Factory.HeadFoodCost;
             iron -= Factory.HeadIronCost;
+            player.Head = unit;
         }
 
         public bool CanMakeHead()
         {
-            return food >= Factory.HeadFoodCost && iron >= Factory.HeadIronCost;
+            return player.Head == null && food >= Factory.HeadFoodCost && iron >= Factory.HeadIronCost;
         }
 
         public void Expand()
