@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region usings
+using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -8,12 +9,14 @@ using System.Text;
 using INSAWars.Units;
 using INSAWars.MVVM;
 using System.ComponentModel;
+#endregion
 
 namespace INSAWars.Game
 {
     [Serializable]
     public class Game : ObservableObject
     {
+        #region members
         public static Random random = new Random();
 
         private List<Player> players;
@@ -21,7 +24,9 @@ namespace INSAWars.Game
         private Map map;
         private int nbTurns;
         private Boolean over;
+        #endregion
 
+        #region properties
         public bool Over { get { return over; } }
 
         public int NbTurns { 
@@ -35,7 +40,9 @@ namespace INSAWars.Game
         public Map Map { get { return map; } }
 
         public Player CurrentPlayer { get { return alivePlayers.Peek(); } }
+        #endregion
 
+        #region constructors
         /// <summary>
         /// Makes a new game with the given map and the given players.
         /// Players play turn by turn until only one player remains.
@@ -52,7 +59,9 @@ namespace INSAWars.Game
             this.over = false;
             this.nbTurns = 0;
         }
+        #endregion
 
+        #region methods
         public void Attack(Unit unit, Case c)
         {
             if (c.HasUnits)
@@ -140,7 +149,7 @@ namespace INSAWars.Game
 
         public bool CanMoveUnit(Unit unit, Case destination)
         {
-            // TODO: Check that the case is accessible
+            // TODO: Check that the case is accessible, pathfinding?
             if (unit.Location == destination ||
                 (destination.HasUnits && destination.Occupant != unit.Player) ||
                 (destination.HasCity && destination.Occupant != unit.Player))
@@ -224,5 +233,6 @@ namespace INSAWars.Game
             formatter.Serialize(stream, this);
             stream.Close();
         }
+        #endregion
     }
 }

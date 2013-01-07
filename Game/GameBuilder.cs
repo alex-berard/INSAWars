@@ -139,7 +139,12 @@ namespace INSAWars.Game
         private void initPlayer(Player player, Map map)
         {
             Case position = map.FreePosition;
-            player.AddCity(new City(position, player, "Main city of " + player.Name, map.TerritoryAround(position, City.radius)));
+            Teacher teacher = player.Civilization.UnitFactory.CreateTeacher(position, player);
+            Student student = player.Civilization.UnitFactory.CreateStudent(position, player);
+            player.AddUnit(teacher);
+            position.AddUnit(teacher);
+            player.AddUnit(student);
+            position.AddUnit(student);
         }
     }
 }

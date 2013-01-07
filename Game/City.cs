@@ -75,6 +75,7 @@ namespace INSAWars.Game
             this.fields.Add(this.position);
             this.pendingProductions = new List<Unit>();
             this.territory = territory;
+            this.territory.OrderByDescending(item => item.DistanceTo(position));
             population = 1;
             food = 0;
             iron = 0;
@@ -153,12 +154,22 @@ namespace INSAWars.Game
         public void Expand()
         {
             List<Case> freeTerritory = new List<Case>();
+            int distance = 0;
 
             foreach (Case c in territory)
             {
-                if (c.IsFree && !c.HasUnits || c.Occupant != Player)
+                if (c.IsFree && (!c.HasUnits || c.Occupant == Player))
                 {
-                    freeTerritory.Add(c);
+                    if (distance == 0)
+                    {
+                        distance = c.DistanceTo(position);
+                    }
+
+                    // Use in priority the closest cases.
+                    if (c.DistanceTo(position) == distance)
+                    {
+                        freeTerritory.Add(c);
+                    }
                 }
             }
 

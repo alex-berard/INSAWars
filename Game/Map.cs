@@ -69,7 +69,7 @@ namespace INSAWars.Game
         /// according to the location of resources and enemy units.
         /// TODO: test the algorithm to see if the weights are well-balanced...
         /// </summary>
-        /// <param name="teacher">Teacher building the city.</param>
+        /// <param name="teacher">Teacher who builds the city.</param>
         /// <returns>A list of the best 3 cases.</returns>
         public List<Case> BestCases(Teacher teacher)
         {
@@ -139,40 +139,6 @@ namespace INSAWars.Game
         }
 
         /// <summary>
-        /// Finds the best case in the given region. Used to place the initial cities of the players.
-        /// </summary>
-        /// <param name="position">Center point of the region.</param>
-        /// <param name="radius">Radius of the region around the point.</param>
-        /// <returns>The best case in the given region.</returns>
-        private Case BestCase(Case position, int radius)
-        {
-            int bestWeight = 0;
-            Case bestCase = null;
-
-            foreach (Case c in cases)
-            {
-                if (c.DistanceTo(position) <= radius)
-                {
-                    int weight = 0;
-
-                    foreach (Case field in TerritoryAround(c, City.radius))
-                    {
-                        weight += field.Food;
-                        weight += field.Iron;
-                    }
-
-                    if (weight > bestWeight)
-                    {
-                        bestCase = c;
-                        weight = bestWeight;
-                    }
-                }
-            }
-
-            return bestCase;
-        }
-
-        /// <summary>
         /// Creates a new map with the given cases array.
         /// </summary>
         /// <param name="cases">2D array of cases.</param>
@@ -182,10 +148,23 @@ namespace INSAWars.Game
             startingPositions = new Stack<Case>();
 
             // Initialize the player positions (up to 4 players) at the corners of the map.
-            startingPositions.Push(BestCase(cases[0, 0], 5));
-            startingPositions.Push(BestCase(cases[Size - 1, Size - 1], 5));
-            startingPositions.Push(BestCase(cases[Size - 1, 0], 5));
-            startingPositions.Push(BestCase(cases[0, Size - 1], 5));
+            startingPositions.Push(RandomCase(cases[0, 0], 5));
+            startingPositions.Push(RandomCase(cases[Size - 1, Size - 1], 5));
+            startingPositions.Push(RandomCase(cases[Size - 1, 0], 5));
+            startingPositions.Push(RandomCase(cases[0, Size - 1], 5));
+        }
+
+        /// <summary>
+        /// Returns a random case in the given region.
+        /// The region is delimited by a center position a maximum distance to this position.
+        /// </summary>
+        /// <param name="position">Center position.</param>
+        /// <param name="distance">Maximum distance.</param>
+        /// <returns></returns>
+        private Case RandomCase(Case position, int distance)
+        {
+            List<Case> cases = TerritoryAround(position, distance);
+            return cases[Game.random.Next() % cases.Count];
         }
 
         public override string ToString()
