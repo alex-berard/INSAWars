@@ -79,7 +79,7 @@ namespace INSAWars.Game
             mapConfig.terrains[(int) Terrains.DESERT] = 0.3;
             mapConfig.terrains[(int) Terrains.PLAIN] = 0.5;
             mapConfig.terrains[(int) Terrains.MOUNTAIN] = 0.2;
-            //mapConfig.terrains[(int)Terrains.WATER] = 0.1;
+            mapConfig.terrains[(int)Terrains.WATER] = 0;
             mapConfig.decorators[(int) Decorators.FOOD] = 0.2;
             mapConfig.decorators[(int) Decorators.IRON] = 0.2;
         }
