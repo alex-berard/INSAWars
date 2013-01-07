@@ -15,7 +15,7 @@ namespace INSAWars.Game
     public class City
     {
         #region fields
-        public const int radius = 3;
+        public const int radius = 2;
 
         private List<Case> territory;
         private List<Case> fields;
