@@ -71,9 +71,10 @@ namespace UI
         private const string FoodTexture = "FoodSmall";
         private const string IronTexture = "IronSmall";
         private const string StudentTexture = "StudentSmall";
-            private const string TeacherTexture = "TeacherSmall";
+        private const string TeacherTexture = "TeacherSmall";
 
         private Map _map;
+        private Case _selectedCase;
 
         #region constructor
         public GameControl()
@@ -92,6 +93,23 @@ namespace UI
                 Width = Map.Size * CaseWidth;
             }
         }
+        
+        public bool HasSelectedCase
+        {
+            get
+            {
+                return _selectedCase != null;
+            }
+        }
+
+        public Case SelectedCase
+        {
+            get
+            {
+                return _selectedCase;
+            }
+        }
+
         #endregion properties
 
         #region drawings
@@ -160,9 +178,21 @@ namespace UI
             {
                 for (int j = 0; j < CaseCountY; j++)
                 {
-                    DrawCaseContent(context, Map.GetCaseAt(i + origin.Item1, j + origin.Item2), CaseOffset(i, j));
+                    var c = Map.GetCaseAt(i + origin.Item1, j + origin.Item2);
+                    DrawCaseContent(context, c, CaseOffset(i, j));
+
+                    if (c == SelectedCase)
+                    {
+                        DrawCaseSelection(context, c, CaseOffset(i, j));
+                    }
                 }
             }
+        }
+
+        private void DrawCaseSelection(DrawingContext context, Case c, Tuple<int, int> origin)
+        {
+            context.DrawRectangle(null,
+                new Pen(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2B2B2B")), 2), new Rect(origin.Item1, origin.Item2, CaseWidth, CaseHeight));
         }
 
         private void DrawCaseContent(DrawingContext context, Case c, Tuple<int, int> origin)
@@ -281,7 +311,8 @@ namespace UI
             double x = e.GetPosition(this).X;
             double y = e.GetPosition(this).Y;
             Case c = CaseAtPosition(x + OffsetX, y + OffsetY);
-            System.Diagnostics.Debug.WriteLine("Case:" + c.X + "," + c.Y);
+            _selectedCase = c;
+            InvalidateVisual();
         }
 
         /// <summary>

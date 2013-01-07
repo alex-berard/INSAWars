@@ -22,7 +22,22 @@ namespace INSAWars.Game
             get { return cities.ToList(); }
         }
 
+        public int CitiesCount
+        {
+            get { return Cities.Count(); }
+        }
+
+        public List<Unit> Units
+        {
+            get { return units.ToList(); }
+        }
+
         public Head Head { get; set; }
+
+        public bool HasHead
+        {
+            get { return Head != null; }
+        }
 
         public bool IsDead
         {
@@ -51,16 +66,20 @@ namespace INSAWars.Game
             this.civilization = civilization;
             Name = name;
             Head = null;
+            OnPropertyChanged("CitiesCount");
+            OnPropertyChanged("Units");
         }
 
         public void AddCity(City city)
         {
             cities.Add(city);
+            OnPropertyChanged("CitiesCount");
         }
 
         public void RemoveCity(City city)
         {
             cities.Remove(city);
+            OnPropertyChanged("CitiesCount");
 
             // When a player has no city left he loses the game.
             if (cities.Count == 0)
@@ -72,11 +91,13 @@ namespace INSAWars.Game
         public void AddUnit(Unit unit)
         {
             units.Add(unit);
+            OnPropertyChanged("Units");
         }
 
         public void RemoveUnit(Unit unit)
         {
             units.Remove(unit);
+            OnPropertyChanged("Units");
         }
 
         public void Lose()

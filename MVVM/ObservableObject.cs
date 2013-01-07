@@ -17,7 +17,7 @@ namespace INSAWars.MVVM
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Notifies listeners that the property has changed.
+        /// Notifies listeners that the property has changed and sets the property to its new value.
         /// This solution is based on a new C#5 Attribute, [CallerMemberName], that allows us
         /// to avoid the use of a string to get the property name.
         /// </summary>
@@ -35,6 +35,22 @@ namespace INSAWars.MVVM
                 {
                     pc(this, new PropertyChangedEventArgs(propName));
                 }
+            }
+        }
+
+        /// <summary>
+        /// Notifies listeners that the property has changed. Does not sets a new value for the property.
+        /// This is useful for properties not backed by a private variable, but is a bit dirtier than the
+        /// more modern C#5 version.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="propName"></param>
+        protected void OnPropertyChanged(string propName)
+        {
+            var pc = PropertyChanged;
+            if (pc != null)
+            {
+                pc(this, new PropertyChangedEventArgs(propName));
             }
         }
 

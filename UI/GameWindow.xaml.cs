@@ -43,7 +43,7 @@ namespace UI
         private void InitializeDataContexts()
         {
             _turnLabel.DataContext = _gameView;
-            _playerInformation.DataContext = _game.CurrentPlayer;
+            _playerInformation.DataContext = new PlayerView(_game.CurrentPlayer);
         }
 
         private void InitializeClock()
@@ -74,7 +74,7 @@ namespace UI
         private void NextTurnClick(object sender, RoutedEventArgs e)
         {
             _game.NextTurn();
-            _playerInformation.DataContext = _game.CurrentPlayer;
+            _playerInformation.DataContext = new PlayerView(_game.CurrentPlayer);
             _gameControl.InvalidateVisual();
         }
     }

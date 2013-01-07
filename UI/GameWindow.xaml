@@ -3,33 +3,12 @@
         xmlns:my="clr-namespace:UI"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
         Title="INSAWars" WindowStartupLocation="CenterScreen" Height="768" Width="975" ResizeMode="NoResize" FocusManager.FocusedElement="{Binding ElementName=_gameControl}">
-    
-    <Window.Resources>
-        <BitmapImage x:Key="Plain" UriSource="./Resources/textures/plain.png" />
-        <BitmapImage x:Key="Water" UriSource="./Resources/textures/water.png" />
-        <BitmapImage x:Key="Desert" UriSource="./Resources/textures/desert.png" />
-        <BitmapImage x:Key="Mountain" UriSource="./Resources/textures/mountain.png" />
 
-        <BitmapImage x:Key="FoodSmall" UriSource="./Resources/icons/16x16/food.png" />
-        <BitmapImage x:Key="FoodBig" UriSource="./Resources/icons/32x32/food.png" />
-        <BitmapImage x:Key="IronSmall" UriSource="./Resources/icons/16x16/iron.png" />
-        <BitmapImage x:Key="IronBig" UriSource="./Resources/icons/32x32/iron.png" />
-
-        <BitmapImage x:Key="CitySmall" UriSource="./Resources/icons/16x16/city.png" />
-        <BitmapImage x:Key="CityBig" UriSource="./Resources/icons/32x32/city.png" />
-
-        <BitmapImage x:Key="BossSmall" UriSource="./Resources/icons/16x16/boss.png" />
-        <BitmapImage x:Key="BossBig" UriSource="./Resources/icons/32x32/boss.png" />
-        <BitmapImage x:Key="StudentSmall" UriSource="./Resources/icons/16x16/student.png" />
-        <BitmapImage x:Key="StudentBig" UriSource="./Resources/icons/32x32/student.png" />
-        <BitmapImage x:Key="TeacherSmall" UriSource="./Resources/icons/16x16/teacher.png" />
-        <BitmapImage x:Key="TeacherBig" UriSource="./Resources/icons/32x32/teacher.png" />
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="576"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="130"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -55,30 +34,41 @@
                 <ImageBrush ImageSource=".\Resources\ui\bot-menu-background.png" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="157*"/>
-                <ColumnDefinition Width="495*"/>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="502*"/>
                 <ColumnDefinition Width="317*"/>
             </Grid.ColumnDefinitions>
             
-            <StackPanel Name="_playerInformation">
-                <Label Content="{Binding Name}" FontFamily="Charlemagne STD" FontSize="18" Margin="10" Foreground="#FFEEEEEE" />
-                <StackPanel Orientation="Horizontal" Margin="10, 0, 10, 10">
-                    <Image Source="{StaticResource CitySmall}" Width="16" Height="16" />
-                    <Label Content="{Binding CitiesCount}"  FontFamily="Charlemagne STD" FontSize="18" Foreground="#FFEEEEEE" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10, 0, 10, 10">
-                    <Image Source="{StaticResource BossSmall}" Width="16" Height="16" />
-                    <Label Content="{Binding HeadCount}"  FontFamily="Charlemagne STD" FontSize="18" Foreground="#FFEEEEEE" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10, 0, 10, 10">
-                    <Image Source="{StaticResource TeacherSmall}" Width="16" Height="16" />
-                    <Label Content="{Binding TeachersCount}"  FontFamily="Charlemagne STD" FontSize="18" Foreground="#FFEEEEEE" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10, 0, 10, 10">
-                    <Image Source="{StaticResource StudentSmall}" Width="16" Height="16" />
-                    <Label Content="{Binding StudentsCount}"  FontFamily="Charlemagne STD" FontSize="18" Foreground="#FFEEEEEE" />
-                </StackPanel>
-            </StackPanel>
+            <Grid Name="_playerInformation" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="{Binding Name}" FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="27*"/>
+                        <ColumnDefinition Width="130*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Image SnapsToDevicePixels="True" Width="16px" Height="16px" Source="./Resources/icons/16x16/city.png" Stretch="None" />
+                    <Label Grid.Column="1" Content="{Binding CitiesCount}" FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
+                    <Image Grid.Row="1" Source="./Resources/icons/16x16/boss.png" Stretch="None" Width="16" Height="16"/>
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding HeadCount}"  FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
+                    <Image Grid.Row="2" Source="./Resources/icons/16x16/teacher.png" Width="16" Height="16" Stretch="None" />
+                    <Label Grid.Row="2" Grid.Column="1" Content="{Binding TeachersCount}"  FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
+                    <Image Grid.Row="3" Source="./Resources/icons/16x16/student.png" Width="16" Height="16" Stretch="None" />
+                    <Label Grid.Row="3" Grid.Column="1" Content="{Binding StudentsCount}"  FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1">
+                
+            </Grid>
         </Grid>
     </Grid>
 </Window>
