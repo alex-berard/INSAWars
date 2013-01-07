@@ -57,6 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CaseSelectionEventArgs.cs" />
+    <Compile Include="Views\CaseView.cs" />
     <Compile Include="Views\GameView.cs" />
     <Compile Include="Views\PlayerView.cs" />
     <Page Include="ChooseMapSizePage.xaml">

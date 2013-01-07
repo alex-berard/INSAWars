@@ -27,7 +27,7 @@ namespace INSAWars.Game
 
         public override string ToString()
         {
-            return "Desert (" + x + ", " + y + ")";
+            return "Desert";
         }
     }
 }

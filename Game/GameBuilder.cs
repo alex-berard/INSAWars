@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using INSAWrapper;
 using INSAWars.Units;
+using INSAWars.Units.Info;
 using INSAWars.Game;
 
 namespace INSAWars.Game
@@ -109,6 +110,10 @@ namespace INSAWars.Game
                 Player player = new Player(entry.Value, entry.Key);
                 players.Add(player);
                 initPlayer(player, map);
+                var c = map.GetCaseAt(player.Name.Count(), player.Name.Count());
+                c.AddUnit(player.Civilization.UnitFactory.CreateStudent(c, player));
+                c.AddUnit(player.Civilization.UnitFactory.CreateTeacher(c, player));
+                
             }
 
             return new Game(map, players);

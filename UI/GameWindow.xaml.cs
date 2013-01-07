@@ -37,7 +37,14 @@ namespace UI
             InitializeDataContexts();
             InitializeClock();
 
+            _gameControl.CaseSelected += _gameControl_CaseSelected;
+
             DrawMap();
+        }
+
+        void _gameControl_CaseSelected(object sender, CaseSelectionEventArgs e)
+        {
+            _caseInformation.DataContext = (e.IsDeselection ? null : new CaseView(e.SelectedCase));
         }
 
         private void InitializeDataContexts()

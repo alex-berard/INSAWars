@@ -29,7 +29,7 @@ namespace INSAWars.Game
 
         public override string ToString()
         {
-            return "Water (" + x + ", " + y + ")";
+            return "Water";
         }
     }
 }

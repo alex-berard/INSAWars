@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using INSAWars.Units;
 using Drawing = System.Drawing;
+using INSAWars.MVVM;
+using System.ComponentModel;
 #endregion
 
 namespace INSAWars.Game
 {
     [Serializable]
-    public abstract class Case
+    public abstract class Case : ObservableObject
     {
         #region fields
         protected int x;

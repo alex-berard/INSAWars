@@ -56,7 +56,7 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Image SnapsToDevicePixels="True" Width="16px" Height="16px" Source="./Resources/icons/16x16/city.png" Stretch="None" />
+                    <Image Width="16px" Height="16px" Source="./Resources/icons/16x16/city.png" Stretch="None" />
                     <Label Grid.Column="1" Content="{Binding CitiesCount}" FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
                     <Image Grid.Row="1" Source="./Resources/icons/16x16/boss.png" Stretch="None" Width="16" Height="16"/>
                     <Label Grid.Row="1" Grid.Column="1" Content="{Binding HeadCount}"  FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
@@ -66,9 +66,49 @@
                     <Label Grid.Row="3" Grid.Column="1" Content="{Binding StudentsCount}"  FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
                 </Grid>
             </Grid>
-            <Grid Grid.Column="1">
-                
-            </Grid>
+            <Grid Name="_caseInformation" Grid.Column="1">
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=DataContext, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="151*"/>
+                    <ColumnDefinition Width="86*"/>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="180*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="18*"/>
+                    <RowDefinition Height="47*"/>
+                </Grid.RowDefinitions>
+                <Label Content="{Binding Type}" FontFamily="Charlemagne STD" FontSize="16" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Image Source="./Resources/icons/32x32/food.png" Width="32" Height="32" Stretch="None" />
+                    <Label Content="{Binding Food}" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                    <Image Visibility="{Binding Path=Iron, TargetNullValue=Collapsed}" Source="./Resources/icons/32x32/iron.png" Width="32" Height="32" Stretch="None"/>
+                    <Label Content="{Binding Iron}" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                </StackPanel>
+                <ListBox Name="Units" ItemsSource="{Binding Units}" Margin="10" Grid.Row="1" Grid.ColumnSpan="4">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="2" Padding="4" BorderBrush="Black" BorderThickness="1">
+                                <StackPanel Orientation="Horizontal" TextBlock.FontSize="16">
+                                    <TextBlock Foreground="Black" FontWeight="Bold" Text="{Binding Type}" />
+                                    <TextBlock Margin="10,0,0,0" Foreground="Blue" Text="{Binding RemainingHitPoints}" />
+                                    <TextBlock Margin="20,0,0,0" Foreground="Red" Text="{Binding RemainingMovementPoints}"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>            
         </Grid>
     </Grid>
 </Window>

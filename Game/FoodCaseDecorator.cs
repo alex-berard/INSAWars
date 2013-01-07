@@ -28,7 +28,7 @@ namespace INSAWars.Game
 
         public override string ToString()
         {
-            return decoratedCase.ToString() + " + food";
+            return decoratedCase.ToString();
         }
     }
 }

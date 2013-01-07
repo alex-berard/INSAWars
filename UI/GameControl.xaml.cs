@@ -68,6 +68,9 @@ namespace UI
         /// </summary>
         private int CaseCountY = (int)Math.Ceiling((double)VisibleHeight / CaseHeight);
 
+        public delegate void CaseSelectionHandler(object sender, CaseSelectionEventArgs e);
+        public event CaseSelectionHandler CaseSelected;
+
         private const string FoodTexture = "FoodSmall";
         private const string IronTexture = "IronSmall";
         private const string StudentTexture = "StudentSmall";
@@ -308,10 +311,24 @@ namespace UI
         /// <param name="e"></param>
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
-            double x = e.GetPosition(this).X;
-            double y = e.GetPosition(this).Y;
-            Case c = CaseAtPosition(x + OffsetX, y + OffsetY);
-            _selectedCase = c;
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                double x = e.GetPosition(this).X;
+                double y = e.GetPosition(this).Y;
+                Case c = CaseAtPosition(x + OffsetX, y + OffsetY);
+                _selectedCase = c;
+            }
+            else
+            {
+                _selectedCase = null;
+            }
+
+            var handler = CaseSelected;
+
+            if (handler != null)
+            {
+                handler(this, new CaseSelectionEventArgs(_selectedCase));
+            }
             InvalidateVisual();
         }
 
