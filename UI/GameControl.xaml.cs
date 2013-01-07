@@ -76,7 +76,7 @@ namespace UI
         private const string StudentTexture = "StudentSmall";
         private const string TeacherTexture = "TeacherSmall";
 
-        private Map _map;
+        private Game _game;
         private Case _selectedCase;
 
         #region constructor
@@ -87,14 +87,20 @@ namespace UI
         #endregion constructor
 
         #region properties
-        public Map Map
+        public Game Game
         {
-            get { return _map; }
             set {
-                _map = value;
+                _game = value;
+                Map = _game.Map;
                 Height = Map.Size * CaseHeight;
                 Width = Map.Size * CaseWidth;
             }
+        }
+
+        private Map Map
+        {
+            get;
+            set;
         }
         
         public bool HasSelectedCase
@@ -121,7 +127,7 @@ namespace UI
         {
             base.OnRender(context);
 
-            if (_map == null)
+            if (Map == null)
             {
                 return;
             }
@@ -203,7 +209,16 @@ namespace UI
             var drawer = new CaseDrawer(context, origin);
             DrawFood(c.Food, drawer);
             DrawIron(c.Iron, drawer);
-            DrawUnits(c, drawer);
+
+            if (_game.IsVisible(c))
+            {
+                DrawUnits(c, drawer);
+            }
+            else { 
+                DrawFogOfWar(context, origin);
+            }
+
+            
         }
 
         private void DrawUnits(Case c, CaseDrawer drawer)
@@ -222,8 +237,8 @@ namespace UI
                         FlowDirection.LeftToRight,
                         new Typeface("Charlemagne STD"),
                         12,
-                        Brushes.PaleVioletRed);
-                drawer.Draw(formattedText, (BitmapImage)FindResource(StudentTexture));
+                        Brushes.White);
+                drawer.Draw((BitmapImage)FindResource(StudentTexture), formattedText);
             }
         }
 
@@ -237,8 +252,8 @@ namespace UI
                         FlowDirection.LeftToRight,
                         new Typeface("Charlemagne STD"),
                         12,
-                        Brushes.PaleVioletRed);
-                drawer.Draw(formattedText, (BitmapImage)FindResource(TeacherTexture));
+                        Brushes.White);
+                drawer.Draw((BitmapImage)FindResource(TeacherTexture), formattedText);
             }
         }
 
@@ -246,14 +261,7 @@ namespace UI
         {
             if (amount > 0)
             {         
-                var formattedText = new FormattedText(
-                    amount.ToString(),
-                    CultureInfo.GetCultureInfo("en-us"),
-                    FlowDirection.LeftToRight,
-                    new Typeface("Charlemagne STD"),
-                    12,
-                    Brushes.PaleVioletRed);
-                drawer.Draw(formattedText, (BitmapImage)FindResource(FoodTexture));
+                drawer.Draw((BitmapImage)FindResource(FoodTexture));
             }
         }
         
@@ -261,15 +269,14 @@ namespace UI
         {
             if (amount > 0)
             {
-                var formattedText = new FormattedText(
-                    amount.ToString(),
-                    CultureInfo.GetCultureInfo("en-us"),
-                    FlowDirection.LeftToRight,
-                    new Typeface("Charlemagne STD"),
-                    12,
-                    Brushes.Red);
-                drawer.Draw(formattedText, (BitmapImage)FindResource(IronTexture));
+                drawer.Draw((BitmapImage)FindResource(IronTexture));
             }
+        }
+
+        private void DrawFogOfWar(DrawingContext context, Tuple<int, int> origin)
+        {
+            context.DrawRectangle(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#552B2B2B")),
+                                  null, new Rect(origin.Item1, origin.Item2, CaseWidth, CaseHeight));
         }
 
         /// <summary>
@@ -318,7 +325,12 @@ namespace UI
                 double x = e.GetPosition(this).X;
                 double y = e.GetPosition(this).Y;
                 Case c = CaseAtPosition(x + OffsetX, y + OffsetY);
-                _selectedCase = c;
+
+                if (_game.IsVisible(c))
+                {
+                    _selectedCase = c;
+                }
+               
             }
             else
             {

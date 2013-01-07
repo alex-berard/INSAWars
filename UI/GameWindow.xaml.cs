@@ -64,7 +64,7 @@ namespace UI
 
         public void DrawMap()
         {
-            _gameControl.Map = _game.Map;
+            _gameControl.Game = _game;
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
