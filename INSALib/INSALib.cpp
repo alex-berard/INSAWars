@@ -152,18 +152,6 @@ void smoothen(vector<vector<double>>& perlinMap)
 	}
 }
 
-vector<pair<int, int>> PerlinMap::getStartingPositions(vector<int> inaccessibleTerrains)
-{
-	// TODO: do not place players on the water + randomize
-	vector<pair<int, int>> positions;
-	positions.push_back(pair<int, int>(0, 0));
-	positions.push_back(pair<int, int>(width - 1, height - 1));
-	positions.push_back(pair<int, int>(width - 1, 0));
-	positions.push_back(pair<int, int>(0, height - 1));
-
-	return positions;
-}
-
 Distribution::Distribution(vector<double>& terrains, vector<double>& decorators) : terrains(terrains), decorators(decorators)
 {
 	// Arrange the weights into a cumulative distribution.
@@ -177,7 +165,6 @@ bool compPositionsHeights(pair<pair<int, int>, double> p1, pair<pair<int, int>, 
 	return p1.second < p2.second;
 }
 
-// TODO: smooth
 vector<vector<pair<int, int>>> Distribution::createMap(vector<vector<double>>& perlinMap)
 {
 	vector<vector<pair<int, int>>> map;

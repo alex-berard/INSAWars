@@ -46,13 +46,6 @@ public:
 	PerlinMap(int height, int width, int octaves, double persistance, Distribution* distr);
 	int getTerrain(int x, int y);
 	int getDecorator(int x, int y);
-
-	/**
-	 * @param nbPlayers number of players on the map (2 or 4).
-	 * @param inaccessibleTerrains list of terrains on which units cannot be moved and cities built (typically water).
-	 * @return positions of the players on the map.
-	 */
-	vector<pair<int, int>> getStartingPositions(vector<int> inaccessibleTerrains);
 private:
 	Distribution* distr;
 	int width;

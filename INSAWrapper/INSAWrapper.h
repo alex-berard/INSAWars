@@ -41,27 +41,6 @@ namespace INSAWrapper {
 			delete map;
 		}
 
-		array<int, 2>^ GetStartingPositions(array<int>^ inaccessibleTerrains)
-		{
-			vector<int> inaccessibleTerrains_c;
-			for (int i = 0; i < inaccessibleTerrains->Length; i++)
-			{
-				int terrain = inaccessibleTerrains[i];
-				inaccessibleTerrains_c.push_back(terrain);
-			}
-
-			vector<pair<int, int>> positions_c = map->getStartingPositions(inaccessibleTerrains_c);
-			array<int, 2>^ positions = gcnew array<int, 2>(positions_c.size(), 2);;
-
-			for (int i = 0; i < positions_c.size(); i++)
-			{
-				positions[i, 0] = positions_c[i].first;
-				positions[i, 1] = positions_c[i].second;
-			}
-
-			return positions;
-		}
-
 		int GetTerrain(int x, int y)
 		{
 			return map->getTerrain(x, y);

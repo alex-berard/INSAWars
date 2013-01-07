@@ -9,19 +9,19 @@ namespace INSAWars.Units.Info
     [Serializable]
     class InfoUnitFactory : AbstractUnitFactory
     {
-        public override Head CreateHead(City city)
+        public override Head CreateHead(Case position, Player player)
         {
-            return new InfoHead(city.Position, city.Player);
+            return new InfoHead(position, player);
         }
 
-        public override Student CreateStudent(City city)
+        public override Student CreateStudent(Case position, Player player)
         {
-            return new InfoStudent(city.Position, city.Player);
+            return new InfoStudent(position, player);
         }
 
-        public override Teacher CreateTeacher(City city)
+        public override Teacher CreateTeacher(Case position, Player player)
         {
-            return new InfoTeacher(city.Position, city.Player);
+            return new InfoTeacher(position, player);
         }
     }
 }
