@@ -13,5 +13,10 @@ namespace INSAWars.Units
             : base(location, player)
         {
         }
+
+        public override string ToString()
+        {
+            return "Teacher";
+        }
     }
 }

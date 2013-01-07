@@ -7,7 +7,6 @@ using INSAWars.Game;
 using INSAWars.MVVM;
 using System.ComponentModel;
 using INSAWars.Units;
-using INSAWars.Units.Info;
 
 namespace UI.Views
 {
@@ -16,14 +15,18 @@ namespace UI.Views
         private string _type;
         private int _food;
         private int _iron;
-        private List<Unit> _units;
+        private List<UnitView> _units;
+        private UnitView _selectedUnitView;
+        private bool _selectedUnitCanMove;
 
         public CaseView(Case c)
         {           
-            Units = c.Units.ToList();
+            Units = c.Units.Select(u => new UnitView(u)).ToList();
             Type = c.ToString();
             Food = c.Food;
             Iron = c.Iron;
+            SelectedUnitCanMove = false;
+            SelectedUnitView = null;
         }
 
         public string Type
@@ -53,12 +56,31 @@ namespace UI.Views
             }
         }
 
-        public List<Unit> Units
+        public List<UnitView> Units
         {
             get { return _units; }
             set
             {
                 SetProperty(ref _units, value);
+            }
+        }
+
+        public UnitView SelectedUnitView
+        {
+            get { return _selectedUnitView; }
+            set
+            {
+                SetProperty(ref _selectedUnitView, value);
+                SelectedUnitCanMove = value != null;
+            }
+        }
+
+        public bool SelectedUnitCanMove
+        {
+            get { return _selectedUnitCanMove; }
+            set
+            {
+                SetProperty(ref _selectedUnitCanMove, value);
             }
         }
     }

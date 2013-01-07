@@ -311,6 +311,8 @@ namespace UI
         /// <param name="e"></param>
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
+            var oldCase = _selectedCase;
+
             if (e.ChangedButton == MouseButton.Left)
             {
                 double x = e.GetPosition(this).X;
@@ -325,10 +327,12 @@ namespace UI
 
             var handler = CaseSelected;
 
-            if (handler != null)
+            if (handler != null && oldCase != _selectedCase)
             {
                 handler(this, new CaseSelectionEventArgs(_selectedCase));
             }
+
+            FocusManager.SetFocusedElement(Application.Current.MainWindow, this);
             InvalidateVisual();
         }
 

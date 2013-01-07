@@ -31,8 +31,8 @@ namespace UI.Views
                         CitiesCount = ((Player)sender).CitiesCount;
                         break;
                     case "Units":
-                        TeachersCount = ((Player)sender).Units.Where(u => u.GetType() == typeof(Teacher)).Count();
-                        StudentsCount = ((Player)sender).Units.Where(u => u.GetType() == typeof(Student)).Count();
+                        TeachersCount = ((Player)sender).Units.Where(u => u is Teacher).Count();
+                        StudentsCount = ((Player)sender).Units.Where(u => u is Student).Count();
                         HeadCount = (((Player)sender).HasHead ? 1 : 0);
                         break;
                     default:
@@ -43,8 +43,8 @@ namespace UI.Views
 
             Name = p.Name;
             CitiesCount = p.CitiesCount;
-            TeachersCount = p.Units.Where(u => u.GetType() == typeof(Teacher)).Count();
-            StudentsCount = p.Units.Where(u => u.GetType() == typeof(Student)).Count();
+            TeachersCount = p.Units.Where(u => u is Teacher).Count();
+            StudentsCount = p.Units.Where(u => u is Student).Count();
             HeadCount = (p.HasHead ? 1 : 0);
         }
 

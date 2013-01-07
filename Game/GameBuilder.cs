@@ -109,11 +109,7 @@ namespace INSAWars.Game
             {
                 Player player = new Player(entry.Value, entry.Key);
                 players.Add(player);
-                initPlayer(player, map);
-                var c = map.GetCaseAt(player.Name.Count(), player.Name.Count());
-                c.AddUnit(player.Civilization.UnitFactory.CreateStudent(c, player));
-                c.AddUnit(player.Civilization.UnitFactory.CreateTeacher(c, player));
-                
+                initPlayer(player, map);                
             }
 
             return new Game(map, players);

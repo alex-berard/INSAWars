@@ -27,5 +27,10 @@ namespace INSAWars.Units
             base.Kill();
             player.Head = null;
         }
+
+        public override string ToString()
+        {
+            return "Head";
+        }
     }
 }

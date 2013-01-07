@@ -61,6 +61,7 @@
     <Compile Include="Views\CaseView.cs" />
     <Compile Include="Views\GameView.cs" />
     <Compile Include="Views\PlayerView.cs" />
+    <Compile Include="Views\UnitView.cs" />
     <Page Include="ChooseMapSizePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

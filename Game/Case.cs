@@ -62,17 +62,17 @@ namespace INSAWars.Game
 
         public virtual IEnumerable<Unit> Students
         {
-            get { return units.Where(unit => unit.GetType() == typeof(Student)); }
+            get { return units.Where(unit => unit is Student); }
         }
 
         public virtual IEnumerable<Unit> Teachers
         {
-            get { return units.Where(unit => unit.GetType() == typeof(Teacher)); }
+            get { return units.Where(unit => unit is Teacher); }
         }
 
         public virtual Unit Head
         {
-            get { return units.Where(unit => unit.GetType() == typeof(Head)).First(); }
+            get { return units.Where(unit => unit is Head).First(); }
         }
 
         /// <summary>

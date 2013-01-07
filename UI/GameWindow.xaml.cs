@@ -44,7 +44,7 @@ namespace UI
 
         void _gameControl_CaseSelected(object sender, CaseSelectionEventArgs e)
         {
-            _caseInformation.DataContext = (e.IsDeselection ? null : new CaseView(e.SelectedCase));
+            _caseInformation.DataContext = _unitActions.DataContext = (e.IsDeselection ? null : new CaseView(e.SelectedCase));
         }
 
         private void InitializeDataContexts()
