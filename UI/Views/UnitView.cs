@@ -31,6 +31,21 @@ namespace UI.Views
             RemainingHitPoints = unit.RemainingHitPoints;
             RemainingMovementPoints = unit.RemainingMovementPoints;
             Type = unit.ToString();
+
+            unit.PropertyChanged += new PropertyChangedEventHandler(delegate(object sender, PropertyChangedEventArgs args)
+            {
+                switch (args.PropertyName)
+                {
+                    case "RemainingMovementPoints":
+                        RemainingMovementPoints = ((Unit)sender).RemainingMovementPoints;
+                        break;
+                    case "RemainingHitPoints":
+                        RemainingHitPoints = ((Unit)sender).RemainingHitPoints;
+                        break;
+                    default:
+                        break;
+                }
+            });
         }
 
         public Unit Unit

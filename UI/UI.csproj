@@ -59,9 +59,13 @@
     </ApplicationDefinition>
     <Compile Include="CaseClickedEventArgs.cs" />
     <Compile Include="CaseSelectedEventArgs.cs" />
+    <Compile Include="Commands\AttackCommand.cs" />
     <Compile Include="Commands\CaseCommand.cs" />
     <Compile Include="Commands\MoveUnitCommand.cs" />
     <Compile Include="Commands\SelectCaseCommand.cs" />
+    <Compile Include="GameOverWindow.xaml.cs">
+      <DependentUpon>GameOverWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CaseView.cs" />
     <Compile Include="Views\GameView.cs" />
     <Compile Include="Views\PlayerView.cs" />
@@ -75,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GameControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameOverWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

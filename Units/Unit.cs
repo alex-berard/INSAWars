@@ -5,18 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using INSAWars.MVVM;
+using System.ComponentModel;
 #endregion
 
 namespace INSAWars.Units
 {
     [Serializable]
-    public abstract class Unit
+    public abstract class Unit : ObservableObject
     {
         #region fields
-        protected Player player;
-        protected Case location;
-        protected int remainingHitPoints;
-        protected int remainingMovementPoints;
+        protected Player _player;
+        protected Case _location;
+        protected int _remainingHitPoints;
+        protected int _remainingMovementPoints;
         #endregion
 
         #region properties
@@ -26,20 +28,32 @@ namespace INSAWars.Units
         public virtual int MovementPoints { get { return 0; } }
 
         public virtual int AttackBonus {
-            get { return (player.Head != null && location.Contains(player.Head)) ? AttackBase / 2 : 0; }
+            get { return (_player.Head != null && _location.Contains(_player.Head)) ? AttackBase / 2 : 0; }
         }
 
         public virtual int DefenseBonus {
-            get { return (player.Head != null && location.Contains(player.Head)) ? DefenseBase / 2 : 0; }
+            get { return (_player.Head != null && _location.Contains(_player.Head)) ? DefenseBase / 2 : 0; }
         }
 
         public virtual int AttackTotal { get { return AttackBase + AttackBonus; } }
         public virtual int DefenseTotal { get { return DefenseBase + DefenseBonus; } }
 
-        public Player Player { get { return player; } }
-        public Case Location { get { return location; } }
-        public int RemainingHitPoints { get { return remainingHitPoints; } }
-        public int RemainingMovementPoints { get { return remainingMovementPoints;  } }
+        public Player Player { get { return _player; } }
+        public Case Location { get { return _location; } }
+        public int RemainingHitPoints {
+            get { return _remainingHitPoints; }
+            set
+            {
+                SetProperty(ref _remainingHitPoints, value);
+            }
+        }
+        public int RemainingMovementPoints {
+            get { return _remainingMovementPoints;  }
+            set
+            {
+                SetProperty(ref _remainingMovementPoints, value);
+            }
+        }
         public bool HasAttacked { get; set; }
         public string Texture { get; set; }
         #endregion
@@ -47,18 +61,40 @@ namespace INSAWars.Units
         #region constructors
         public Unit(Case location, Player player)
         {
-            this.location = location;
-            this.player = player;
+            this._location = location;
+            this._player = player;
             Reset();
         }
         #endregion
 
         #region methods
+
+        public void Attack(Case c)
+        {
+            if (c.HasUnits)
+            {
+                Unit opponent = c.MostDefensiveUnit;
+
+                // Seize the territory, move the unit onto it.
+                if (!c.HasUnits || Attack(opponent))
+                {
+                    MoveTo(c);
+                }
+            }
+            else
+            {
+                MoveTo(c);
+            }
+
+            HasAttacked = true;
+        }
+
         /// <summary>
-        /// Makes this unit attack an other one.
+        /// Starts an attack on another unit.
         /// </summary>
-        /// <param name="opponent">The unit to attack.</param>
-        public void Attack(Unit opponent)
+        /// <param name="opponent"></param>
+        /// <returns></returns>
+        protected bool Attack(Unit opponent)
         {
             if (opponent.DefenseTotal == 0)
             {
@@ -75,36 +111,36 @@ namespace INSAWars.Units
 
                 if (Game.Game.random.NextDouble() < proba)
                 {
-                    if (--opponent.remainingHitPoints == 0)
+                    if (--opponent.RemainingHitPoints == 0)
                     {
                         opponent.Kill();
-                        return;
+                        return true;
                     }
                 }
                 else
                 {
-                    if (--remainingHitPoints == 0)
+                    if (--RemainingHitPoints == 0)
                     {
                         Kill();
-                        return;
+                        return false;
                     }
                 }
             }
+            return false;
         }
 
         public virtual void Kill()
         {
-            player.RemoveUnit(this);
-            location.RemoveUnit(this);
+            _player.RemoveUnit(this);
+            _location.RemoveUnit(this);
         }
 
         public void MoveTo(Case destination)
         {
-            location.RemoveUnit(this);
-            location = destination;
+            _location.RemoveUnit(this);
             destination.AddUnit(this);
-
-            remainingMovementPoints = Math.Max(0, remainingMovementPoints - location.DistanceTo(destination));
+            RemainingMovementPoints = Math.Max(0, RemainingMovementPoints - _location.DistanceTo(destination));
+            _location = destination;
         }
 
         public bool CanMoveTo(Case destination)
@@ -124,18 +160,25 @@ namespace INSAWars.Units
             return RemainingMovementPoints > 0;
         }
 
+        public bool CanAttack(Case c)
+        {
+            return CanAttack() && Location.DistanceTo(c) == 1;
+        }
+
         public bool CanAttack()
         {
             return !HasAttacked && AttackTotal > 0;
         }
+
+        public abstract bool CanBuildCity();
 
         /// <summary>
         /// Resets the hit points and movement points (to call at the beginning of a new turn).
         /// </summary>
         public void Reset()
         {
-            remainingHitPoints = HitPoints;
-            remainingMovementPoints = MovementPoints;
+            RemainingHitPoints = HitPoints;
+            RemainingMovementPoints = MovementPoints;
             HasAttacked = false;
         }
         #endregion

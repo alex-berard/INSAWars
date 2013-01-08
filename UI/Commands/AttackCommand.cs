@@ -8,25 +8,23 @@ using INSAWars.Units;
 
 namespace UI.Commands
 {
-    public class MoveUnitCommand : CaseCommand
+    public class AttackCommand : CaseCommand
     {
         private Unit _unit;
-        private Game _game;
 
-        public MoveUnitCommand(Game game, Unit unit)
+        public AttackCommand(Unit u)
         {
-            _unit = unit;
-            _game = game;
+            _unit = u;
         }
 
         public override void Execute(Case selectedCase)
         {
-            _unit.MoveTo(selectedCase);
+            _unit.Attack(selectedCase);
         }
 
         public override bool CanExectute(Case selectedCase)
         {
-            return _unit.CanMoveTo(selectedCase) && _game.IsVisible(selectedCase);
+            return _unit.CanAttack(selectedCase);
         }
     }
 }

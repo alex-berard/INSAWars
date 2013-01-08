@@ -25,7 +25,12 @@ namespace INSAWars.Units
         public override void Kill()
         {
             base.Kill();
-            player.Head = null;
+            _player.Head = null;
+        }
+
+        public override bool CanBuildCity()
+        {
+            return false;
         }
 
         public override string ToString()

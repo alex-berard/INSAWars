@@ -14,6 +14,11 @@ namespace INSAWars.Units
         {
         }
 
+        public override bool CanBuildCity()
+        {
+            return false;
+        }
+
         public override string ToString()
         {
             return "Student";
