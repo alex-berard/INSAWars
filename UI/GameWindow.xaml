@@ -110,17 +110,17 @@
                                     <TextBlock Foreground="Black" Margin="5, 0, 5, 0" FontWeight="Bold" Text="{Binding Type}" />
                                     <TextBlock Foreground="Blue" Margin="5, 0, 5, 0">
                                         <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0}/{1}">
-                                                <Binding Path="MovementPoints" />
+                                            <MultiBinding StringFormat="{}{0}/{1}">                                                
                                                 <Binding Path="RemainingMovementPoints" />
+                                                <Binding Path="MovementPoints" />
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
                                     <TextBlock Foreground="Red" Margin="5, 0, 5, 0">
                                         <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0}/{1}">
-                                                <Binding Path="HitPoints" />
+                                            <MultiBinding StringFormat="{}{0}/{1}">                                                
                                                 <Binding Path="RemainingHitPoints" />
+                                                <Binding Path="HitPoints" />
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
@@ -148,7 +148,7 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Button Content="Move" Focusable="False" Visibility="{Binding SelectedUnitCanMove, Converter={StaticResource BoolToVisibilityConverter}}" Click="MoveClicked" />
-                <Button Grid.Column="1" Focusable="False" Content="Attack" Visibility="{Binding SelectedUnitCanAttack, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <Button Grid.Column="1" Focusable="False" Content="Attack" Visibility="{Binding SelectedUnitCanAttack, Converter={StaticResource BoolToVisibilityConverter}}" Click="AttackClicked" />
                 <Button Grid.Column="1" Focusable="False" Content="Build City" Visibility="{Binding SelectedUnitCanBuildCity, Converter={StaticResource BoolToVisibilityConverter}}" />
             </Grid>
         </Grid>

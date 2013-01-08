@@ -59,6 +59,7 @@ namespace UI
 
         private void CaseClicked(object sender, CaseClickedEventArgs e)
         {
+            
             switch (_state)
             {
                 case CommandState.Selecting:
@@ -74,8 +75,8 @@ namespace UI
 
                     break;
                 case CommandState.Moving:
-                    var unit = ((UnitView)_units.SelectedItem).Unit;
-                    var move = new MoveUnitCommand(unit);
+                    var unitToMove = ((UnitView)_units.SelectedItem).Unit;
+                    var move = new MoveUnitCommand(unitToMove);
 
                     if (move.CanExectute(e.ClickedCase))
                     {
@@ -89,6 +90,22 @@ namespace UI
                         _gameControl.DisplayInvalidCommandOn(e.ClickedCase);
                     }
 
+                    break;
+                case CommandState.Attacking:
+                    var attackWithUnit = ((UnitView)_units.SelectedItem).Unit;
+                    var attack = new AttackCommand(attackWithUnit);
+
+                    if (attack.CanExectute(e.ClickedCase))
+                    {
+                        attack.Execute(e.ClickedCase);
+                        _state = CommandState.Selecting;
+                        Cursor = Cursors.Arrow;
+                        _gameControl.SelectCase(e.ClickedCase);
+                    }
+                    else
+                    {
+                        _gameControl.DisplayInvalidCommandOn(e.ClickedCase);
+                    }
                     break;
                 default:
                     _state = CommandState.Selecting;
@@ -139,6 +156,12 @@ namespace UI
         {
             _state = CommandState.Moving;
             Cursor = Cursors.Hand;
+        }
+
+        private void AttackClicked(object sender, RoutedEventArgs e)
+        {
+            _state = CommandState.Attacking;
+            Cursor = Cursors.Cross;
         }
     }
 }

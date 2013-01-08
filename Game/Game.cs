@@ -62,31 +62,6 @@ namespace INSAWars.Game
         #endregion
 
         #region methods
-        public void Attack(Unit unit, Case c)
-        {
-            if (c.HasUnits)
-            {
-                Unit opponent = c.MostDefensiveUnit;
-                unit.Attack(opponent);
-
-                // Seize the territory, move the unit onto it.
-                if (!c.HasUnits)
-                {
-                    unit.MoveTo(c);
-                }
-            }
-            else
-            {
-                unit.MoveTo(c);
-            }
-
-            unit.HasAttacked = true;
-        }
-
-        public bool CanAttack(Unit unit, Case c)
-        {
-            return !unit.HasAttacked && unit.AttackTotal > 0 && !c.IsFree && c.Occupant != unit.Player;
-        }
 
         public void MakeStudent(City city)
         {

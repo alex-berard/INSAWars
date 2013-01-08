@@ -187,7 +187,7 @@ namespace UI
             var myDoubleAnimation = new DoubleAnimation();
             myDoubleAnimation.From = 1.0;
             myDoubleAnimation.To = 0.0;
-            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(3));
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
             
             context.PushOpacity(1.0, myDoubleAnimation.CreateClock());
             context.DrawRectangle(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#55FF2B2B")),
