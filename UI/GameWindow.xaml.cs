@@ -76,7 +76,7 @@ namespace UI
                     break;
                 case CommandState.Moving:
                     var unitToMove = ((UnitView)_units.SelectedItem).Unit;
-                    var move = new MoveUnitCommand(unitToMove);
+                    var move = new MoveUnitCommand(_game, unitToMove);
 
                     if (move.CanExectute(e.ClickedCase))
                     {
