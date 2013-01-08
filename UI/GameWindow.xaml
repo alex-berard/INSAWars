@@ -124,6 +124,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="./Resources/icons/16x16/city.png" Width="16" Height="16" Stretch="None"/>
+                            <TextBlock Text="{Binding City.Population}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="./Resources/icons/16x16/food.png" Width="16" Height="16" Stretch="None"/>
