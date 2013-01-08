@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using INSAWars.Units;
+using INSAWars.MVVM;
+using System.ComponentModel;
 #endregion
 
 namespace INSAWars.Game
@@ -12,7 +14,7 @@ namespace INSAWars.Game
     /// 
     /// </summary>
     [Serializable]
-    public class City
+    public class City : ObservableObject
     {
         #region fields
         public const int radius = 2;
@@ -21,11 +23,11 @@ namespace INSAWars.Game
         private List<Case> fields;
         private Case position;
         private Player player;
-        private int population;
+        private int _population;
         
-        private int food;
-        private int requiredFood;
-        private int iron;
+        private int _food;
+        private int _requiredFood;
+        private int _iron;
 
         private string name;
 
@@ -35,12 +37,29 @@ namespace INSAWars.Game
         #region properties
         public int Food
         {
-            get { return food; }
+            get { return _food; }
+            set
+            {
+                SetProperty(ref _food, value);
+            }
         }
 
         public int Iron
         {
-            get { return iron; }
+            get { return _iron; }
+            set
+            {
+                SetProperty(ref _iron, value);
+            }
+        }
+
+        public int Population
+        {
+            get { return _population; }
+            set
+            {
+                SetProperty(ref _population, value);
+            }
         }
 
         public Player Player
@@ -76,10 +95,10 @@ namespace INSAWars.Game
             this.pendingProductions = new List<Unit>();
             this.territory = territory;
             this.territory.OrderByDescending(item => item.DistanceTo(position));
-            population = 1;
-            food = 0;
-            iron = 0;
-            requiredFood = 10;
+            _population = 1;
+            _food = 0;
+            _iron = 0;
+            _requiredFood = 10;
         }
         #endregion
 
@@ -115,40 +134,40 @@ namespace INSAWars.Game
         {
             Student unit = player.Civilization.UnitFactory.CreateStudent(position, player);
             pendingProductions.Add(unit);
-            food -= Factory.StudentFoodCost;
-            iron -= Factory.StudentIronCost;
+            _food -= Factory.StudentFoodCost;
+            _iron -= Factory.StudentIronCost;
         }
 
         public bool CanMakeStudent()
         {
-            return food >= Factory.StudentFoodCost && iron >= Factory.StudentIronCost;
+            return _food >= Factory.StudentFoodCost && _iron >= Factory.StudentIronCost;
         }
 
         public void MakeTeacher()
         {
             Teacher unit = player.Civilization.UnitFactory.CreateTeacher(position, player);
             pendingProductions.Add(unit);
-            food -= Factory.TeacherFoodCost;
-            iron -= Factory.TeacherIronCost;
+            _food -= Factory.TeacherFoodCost;
+            _iron -= Factory.TeacherIronCost;
         }
 
         public bool CanMakeTeacher()
         {
-            return food >= Factory.TeacherFoodCost && iron >= Factory.TeacherIronCost;
+            return _food >= Factory.TeacherFoodCost && _iron >= Factory.TeacherIronCost;
         }
 
         public void MakeHead()
         {
             Head unit = player.Civilization.UnitFactory.CreateHead(position, player);
             pendingProductions.Add(unit);
-            food -= Factory.HeadFoodCost;
-            iron -= Factory.HeadIronCost;
+            _food -= Factory.HeadFoodCost;
+            _iron -= Factory.HeadIronCost;
             player.Head = unit;
         }
 
         public bool CanMakeHead()
         {
-            return player.Head == null && food >= Factory.HeadFoodCost && iron >= Factory.HeadIronCost;
+            return player.Head == null && _food >= Factory.HeadFoodCost && _iron >= Factory.HeadIronCost;
         }
 
         public void Expand()
@@ -181,23 +200,23 @@ namespace INSAWars.Game
                 fields.Add(field);
                 field.Use(this);
 
-                population++;
-                food -= requiredFood;
-                requiredFood += requiredFood / 2;
+                Population++;
+                Food -= _requiredFood;
+                _requiredFood += _requiredFood / 2;
             }
         }
 
         public void RemoveField(Case field)
         {
-            population--;
-            requiredFood = requiredFood * 2 / 3;
+            Population--;
+            _requiredFood = _requiredFood * 2 / 3;
             fields.Remove(field);
 
         }
 
         public bool CanExpand()
         {
-            return food >= requiredFood && fields.Count < territory.Count;
+            return _food >= _requiredFood && fields.Count < territory.Count;
         }
 
         public void NextTurn()
@@ -214,14 +233,14 @@ namespace INSAWars.Game
                 position.AddUnit(unit);
             }
 
-            pendingProductions = new List<Unit>();
+            pendingProductions.Clear();
         }
 
         private void CollectResources()
         {
             foreach (Case c in fields) {
-                food += c.Food;
-                iron += c.Iron;
+                _food += c.Food;
+                _iron += c.Iron;
             }
         }
 

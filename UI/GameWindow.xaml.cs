@@ -191,6 +191,8 @@ namespace UI
         {
             _game.NextTurn();
             _playerInformation.DataContext = new PlayerView(_game.CurrentPlayer);
+            _state = CommandState.Selecting;
+            Cursor = Cursors.Arrow;
             _gameControl.ClearCaseSelection();
         }
 
@@ -208,8 +210,11 @@ namespace UI
 
         private void BuildCityClicked(object sender, RoutedEventArgs e)
         {
+            _state = CommandState.Selecting;
+            Cursor = Cursors.Arrow;
             var builder = ((UnitView)_units.SelectedItem).Unit;
             _game.BuildCity(builder);
+            _gameControl.ClearCaseSelection();
         }
     }
 }

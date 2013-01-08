@@ -15,6 +15,8 @@ namespace UI.Views
         private string _type;
         private int _food;
         private int _iron;
+        private bool _hasCity;
+        private CityView _city;
         private List<UnitView> _units;
         private UnitView _selectedUnitView;
         private bool _selectedUnitCanMove;
@@ -25,7 +27,36 @@ namespace UI.Views
         public CaseView(Game g, Case c)
         {
             _game = g;
+
+            c.PropertyChanged += new PropertyChangedEventHandler(delegate(object sender, PropertyChangedEventArgs args)
+            {
+                var updatedCase = (Case) sender;
+
+                switch (args.PropertyName)
+                {
+                    case "Units":
+                        Units = updatedCase.Units.Select(u => new UnitView(u)).ToList();
+                        break;
+                    case "HasCity":
+                        HasCity = updatedCase.HasCity;
+                        break;
+                    case "City":
+                        if (updatedCase.City != null)
+                        {
+                            City = new CityView(updatedCase.City);
+                        }                        
+                        break;
+                    default:
+                        break;
+                }
+            });
+
             Units = c.Units.Select(u => new UnitView(u)).ToList();
+            HasCity = c.HasCity;
+            if (c.City != null)
+            {
+                City = new CityView(c.City);
+            }
             Type = c.ToString();
             Food = c.Food;
             Iron = c.Iron;
@@ -44,6 +75,15 @@ namespace UI.Views
             }
         }
 
+        public CityView City
+        {
+            get { return _city; }
+            set
+            {
+                SetProperty(ref _city, value);
+            }
+        }
+
         public int Food
         {
             get { return _food; }
@@ -59,6 +99,15 @@ namespace UI.Views
             set
             {
                 SetProperty(ref _iron, value);
+            }
+        }
+
+        public bool HasCity
+        {
+            get { return _hasCity; }
+            set
+            {
+                SetProperty(ref _hasCity, value);
             }
         }
 
