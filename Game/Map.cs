@@ -40,7 +40,6 @@ namespace INSAWars.Game
 
             for (int x = Math.Max(0, position.X - distance); x <= Math.Min(Size - 1, position.X + distance); x++)
             {
-
                 for (int y = Math.Max(0, position.Y - distance); y <= Math.Min(Size - 1, position.Y + distance); y++)
                 {
                     Case c = GetCaseAt(x, y);

@@ -27,8 +27,6 @@ namespace INSAWars.Game
         private int requiredFood;
         private int iron;
 
-        private string name;
-
         private List<Unit> pendingProductions;
         #endregion
 
@@ -66,11 +64,10 @@ namespace INSAWars.Game
         /// <param name="position">The position of the city.</param>
         /// <param name="player">The player to whom the city belongs.</param>
         /// <param name="name">The name of the city (defined by the player).</param>
-        public City(Case position, Player player, string name, List<Case> territory)
+        public City(Case position, Player player, List<Case> territory)
         {
             this.position = position;
             this.player = player;
-            this.name = name;
             this.fields = new List<Case>();
             this.fields.Add(this.position);
             this.pendingProductions = new List<Unit>();
@@ -233,7 +230,7 @@ namespace INSAWars.Game
 
         public override string ToString()
         {
-            return "City \"" + name + "\" of [" + Player + "] at coordinates [" + position.X + ", " + position.Y + "]";
+            return "City of [" + Player + "] at coordinates [" + position.X + ", " + position.Y + "]";
         }
         #endregion
     }
