@@ -106,6 +106,7 @@
     <Folder Include=".git\refs\tags\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\GameOverEventArgs.cs" />
     <Compile Include="Game\MapConfiguration.cs" />
     <Compile Include="Game\Water.cs" />
     <Compile Include="MVVM\ObservableObject.cs" />

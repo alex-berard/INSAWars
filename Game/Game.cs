@@ -23,11 +23,19 @@ namespace INSAWars.Game
         private Queue<Player> alivePlayers;
         private Map map;
         private int nbTurns;
-        private Boolean over;
+        private Boolean _over;
+        #endregion
+
+        #region events
+        public delegate void GameOver(object sender, GameOverEventArgs e);
+        public event GameOver GameIsOver;
         #endregion
 
         #region properties
-        public bool Over { get { return over; } }
+        public bool Over
+        { 
+            get { return _over; }
+        }
 
         public int NbTurns { 
             get { return nbTurns; }
@@ -56,7 +64,7 @@ namespace INSAWars.Game
 
             this.map = map;
 
-            this.over = false;
+            this._over = false;
             this.nbTurns = 0;
         }
         #endregion
@@ -158,7 +166,14 @@ namespace INSAWars.Game
             // If there are less than 1 alive player left, then the game is over.
             if (alivePlayers.Count <= 1)
             {
-                over = true;
+                _over = true;
+
+                var handler = GameIsOver;
+                if (handler != null)
+                {
+                    handler(this, new GameOverEventArgs(alivePlayers.First()));
+                }
+
                 return;
             }
             else

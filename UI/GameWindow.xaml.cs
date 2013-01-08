@@ -44,10 +44,19 @@ namespace UI
             _gameView = new GameView(_game);
             _state = CommandState.Selecting;
 
+            _game.GameIsOver += _game_GameIsOver;
+
             InitializeComponent();
             InitializeGameControl();
             InitializeDataContexts();
             InitializeClock();
+        }
+
+        void _game_GameIsOver(object sender, GameOverEventArgs e)
+        {
+            var menu = new GameOverWindow(e.Winner.Name);
+            Opacity = 0.5;
+            menu.ShowDialog();
         }
 
         private void InitializeGameControl()
