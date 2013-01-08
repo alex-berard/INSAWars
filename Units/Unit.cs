@@ -55,7 +55,7 @@ namespace INSAWars.Units
             }
         }
         public bool HasAttacked { get; set; }
-        public string Texture { get; set; }
+        public virtual string Texture { get; set; }
         #endregion
 
         #region constructors

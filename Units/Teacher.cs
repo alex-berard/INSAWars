@@ -19,6 +19,11 @@ namespace INSAWars.Units
             return !Location.HasCity;
         }
 
+        public override string Texture
+        {
+            get { return "Teacher"; }
+        }
+
         public override string ToString()
         {
             return "Teacher";

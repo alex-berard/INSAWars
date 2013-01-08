@@ -19,6 +19,11 @@ namespace INSAWars.Units
             return false;
         }
 
+        public override string Texture
+        {
+            get { return "Student"; }
+        }
+
         public override string ToString()
         {
             return "Student";

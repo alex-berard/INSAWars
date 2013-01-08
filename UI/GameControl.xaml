@@ -17,14 +17,16 @@
         <BitmapImage x:Key="IronBig" UriSource="./Resources/icons/32x32/iron.png" />
         
         <BitmapImage x:Key="CitySmall" UriSource="./Resources/icons/16x16/city.png" />
-        <BitmapImage x:Key="CityBig" UriSource="./Resources/icons/32x32/city.png" />
+        <BitmapImage x:Key="CityBig" UriSource="./Resources/textures/city.png" />
+        <BitmapImage x:Key="FieldSmall" UriSource="./Resources/icons/16x16/field.png" />
+        <BitmapImage x:Key="FieldBig" UriSource="./Resources/textures/field.png" />
 
-        <BitmapImage x:Key="BossSmall" UriSource="./Resources/icons/16x16/boss.png" />
-        <BitmapImage x:Key="BossBig" UriSource="./Resources/icons/32x32/boss.png" />
+        <BitmapImage x:Key="HeadSmall" UriSource="./Resources/icons/16x16/head.png" />
+        <BitmapImage x:Key="HeadBig" UriSource="./Resources/textures/head.png" />
         <BitmapImage x:Key="StudentSmall" UriSource="./Resources/icons/16x16/student.png" />
-        <BitmapImage x:Key="StudentBig" UriSource="./Resources/icons/32x32/student.png" />
+        <BitmapImage x:Key="StudentBig" UriSource="./Resources/textures/student.png" />
         <BitmapImage x:Key="TeacherSmall" UriSource="./Resources/icons/16x16/teacher.png" />
-        <BitmapImage x:Key="TeacherBig" UriSource="./Resources/icons/32x32/teacher.png" />
+        <BitmapImage x:Key="TeacherBig" UriSource="./Resources/textures/teacher.png" />
 
     </UserControl.Resources>
 </UserControl>

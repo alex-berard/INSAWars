@@ -33,6 +33,11 @@ namespace INSAWars.Units
             return false;
         }
 
+        public override string Texture
+        {
+            get { return "Head"; }
+        }
+
         public override string ToString()
         {
             return "Head";

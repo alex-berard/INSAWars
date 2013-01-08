@@ -175,28 +175,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icons\16x16\boss.png" />
-    <Resource Include="Resources\icons\16x16\city.png" />
-    <Resource Include="Resources\icons\16x16\food.png" />
-    <Resource Include="Resources\icons\16x16\iron.png" />
-    <Resource Include="Resources\icons\16x16\student.png" />
-    <Resource Include="Resources\icons\16x16\teacher.png" />
-    <Resource Include="Resources\icons\32x32\boss.png" />
-    <Resource Include="Resources\icons\32x32\city.png" />
-    <Resource Include="Resources\icons\32x32\food.png" />
-    <Resource Include="Resources\icons\32x32\iron.png" />
-    <Resource Include="Resources\icons\32x32\student.png" />
-    <Resource Include="Resources\icons\32x32\teacher.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\ui\background.png" />
     <SplashScreen Include="Resources\ui\splash.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\textures\desert.png" />
-    <Resource Include="Resources\textures\mountain.png" />
-    <Resource Include="Resources\textures\plain.png" />
-    <Resource Include="Resources\textures\water.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\ui\top-menu-background.png" />
@@ -207,7 +187,28 @@
   <ItemGroup>
     <Resource Include="Resources\ui\ingame-menu-background.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\icons\16x16\city.png" />
+    <Resource Include="Resources\icons\16x16\field.png" />
+    <Resource Include="Resources\icons\16x16\food.png" />
+    <Resource Include="Resources\icons\16x16\head.png" />
+    <Resource Include="Resources\icons\16x16\heart.png" />
+    <Resource Include="Resources\icons\16x16\iron.png" />
+    <Resource Include="Resources\icons\16x16\shield.png" />
+    <Resource Include="Resources\icons\16x16\shoe.png" />
+    <Resource Include="Resources\icons\16x16\student.png" />
+    <Resource Include="Resources\icons\16x16\sword.png" />
+    <Resource Include="Resources\icons\16x16\teacher.png" />
+    <Resource Include="Resources\textures\city.png" />
+    <Resource Include="Resources\textures\desert.png" />
+    <Resource Include="Resources\textures\field.png" />
+    <Resource Include="Resources\textures\head.png" />
+    <Resource Include="Resources\textures\mountain.png" />
+    <Resource Include="Resources\textures\plain.png" />
+    <Resource Include="Resources\textures\student.png" />
+    <Resource Include="Resources\textures\teacher.png" />
+    <Resource Include="Resources\textures\water.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\cursors\attack.cur" />
     <Resource Include="Resources\cursors\move.cur" />

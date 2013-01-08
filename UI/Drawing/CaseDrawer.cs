@@ -37,33 +37,32 @@ namespace UI.Drawing
             if (_itemCount < 4)
             {
                 DrawLeft(icon, text);
-            }
-            else
-            {
-                DrawRight(icon, text);
-            }
-
-            _itemCount++;
+                _itemCount++;
+            }     
         }
 
         private void DrawLeft(BitmapImage icon, FormattedText text = null)
         {
-            _context.DrawImage(icon, new Rect(_origin.Item1,
-                                                    _origin.Item2 + _itemCount * ItemHeight,
+            _context.DrawImage(icon, new Rect(_origin.Item1 + 8,
+                                                    _origin.Item2 + 8 + _itemCount * ItemHeight,
                                                     16, 16));
             if (text != null)
             {
-                _context.DrawText(text, new Point(_origin.Item1 + 20, _origin.Item2 + _itemCount * ItemHeight));
+                _context.DrawText(text, new Point(_origin.Item1 + 28, _origin.Item2 + 8 + _itemCount * ItemHeight));
             }
         }
 
-        private void DrawRight(BitmapImage icon, FormattedText text = null)
+        public void DrawMainItem(BitmapImage icon)
         {
+            _context.DrawImage(icon, new Rect(_origin.Item1,
+                                                    _origin.Item2,
+                                                    96, 96));
         }
 
         public void Clear()
         {
             _itemCount = 0;
         }
+   
     }
 }

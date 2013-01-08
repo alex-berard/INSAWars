@@ -73,8 +73,16 @@ namespace UI
 
         private const string FoodTexture = "FoodSmall";
         private const string IronTexture = "IronSmall";
-        private const string StudentTexture = "StudentSmall";
-        private const string TeacherTexture = "TeacherSmall";
+
+        private const string StudentSmallTexture = "StudentSmall";
+        private const string TeacherSmallTexture = "TeacherSmall";
+        private const string HeadSmallTexture = "HeadSmall";
+        private const string TeacherBigTexture = "TeacherBig";
+        private const string StudentBigTexture = "StudentBig";
+        private const string HeadBigTexture = "HeadBig";
+
+        private const string FieldTexture = "FieldBig";
+        private const string CityTexture = "CityBig";
 
         private Game _game;
         private Case _selectedCase;
@@ -297,11 +305,42 @@ namespace UI
 
             if (_game.IsVisible(c))
             {
-                DrawUnits(c, drawer);
+                if (c.HasCity)
+                {
+                    DrawCity(drawer);
+                    DrawUnits(c, drawer);
+                }
+                else if (c.IsUsed)
+                {
+                    DrawField(drawer);
+                }
+                else
+                {
+                    DrawMostDefensiveUnit(c, drawer);
+                    DrawUnits(c, drawer);
+                }
             }
             else { 
                 DrawFogOfWar(context, origin);
             } 
+        }
+
+        private void DrawMostDefensiveUnit(Case c, CaseDrawer drawer)
+        {
+            if (c.HasUnits)
+            {
+                drawer.DrawMainItem((BitmapImage)FindResource(c.MostDefensiveUnit.Texture + "Big"));
+            }
+        }
+
+        private void DrawField(CaseDrawer drawer)
+        {
+            drawer.DrawMainItem((BitmapImage)FindResource(FieldTexture));
+        }
+
+        private void DrawCity(CaseDrawer drawer)
+        {
+            drawer.DrawMainItem((BitmapImage)FindResource(CityTexture));
         }
 
         private void DrawUnits(Case c, CaseDrawer drawer)
@@ -321,7 +360,7 @@ namespace UI
                         new Typeface("Charlemagne STD"),
                         12,
                         Brushes.White);
-                drawer.Draw((BitmapImage)FindResource(StudentTexture), formattedText);
+                drawer.Draw((BitmapImage)FindResource(StudentSmallTexture), formattedText);
             }
         }
 
@@ -336,7 +375,7 @@ namespace UI
                         new Typeface("Charlemagne STD"),
                         12,
                         Brushes.White);
-                drawer.Draw((BitmapImage)FindResource(TeacherTexture), formattedText);
+                drawer.Draw((BitmapImage)FindResource(TeacherSmallTexture), formattedText);
             }
         }
 
