@@ -163,13 +163,13 @@ namespace UI
         private void MoveClicked(object sender, RoutedEventArgs e)
         {
             _state = CommandState.Moving;
-            Cursor = Cursors.Hand;
+            Cursor = ((FrameworkElement)this.Resources["MoveCursor"]).Cursor;
         }
 
         private void AttackClicked(object sender, RoutedEventArgs e)
         {
             _state = CommandState.Attacking;
-            Cursor = Cursors.Cross;
+            Cursor = ((FrameworkElement)this.Resources["AttackCursor"]).Cursor;
         }
 
         private void BuildCityClicked(object sender, RoutedEventArgs e)

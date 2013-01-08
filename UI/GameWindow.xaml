@@ -2,8 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:my="clr-namespace:UI"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
-        Title="INSAWars" KeyboardNavigation.DirectionalNavigation="None" WindowStartupLocation="CenterScreen" Height="768" Width="975" ResizeMode="NoResize" FocusManager.FocusedElement="{Binding ElementName=_gameControl}">
-
+        Title="INSAWars" WindowStartupLocation="CenterScreen" Height="768" Width="975" ResizeMode="NoResize" FocusManager.FocusedElement="{Binding ElementName=_gameControl}">
+    <Window.Resources>
+        <FrameworkElement x:Key="AttackCursor" Cursor="Resources/cursors/attack.cur"/>
+        <FrameworkElement x:Key="MoveCursor" Cursor="Resources/cursors/move.cur"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
