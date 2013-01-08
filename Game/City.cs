@@ -91,7 +91,7 @@ namespace INSAWars.Game
             this.fields.Add(this.position);
             this.pendingProductions = new List<Unit>();
             this.territory = territory;
-            this.territory.OrderByDescending(item => item.DistanceTo(position));
+            this.territory = territory.OrderBy(item => item.DistanceTo(position)).ToList();
             _population = 1;
             _food = 0;
             _iron = 0;
@@ -220,6 +220,11 @@ namespace INSAWars.Game
         {
             CollectResources();
             HandleProduction();
+
+            if (CanExpand())
+            {
+                Expand();
+            }
         }
 
         private void HandleProduction()

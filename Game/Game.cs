@@ -142,7 +142,7 @@ namespace INSAWars.Game
         {
             foreach (Case _c in map.TerritoryAround(c, 3))
             {
-                if (_c.HasCity && _c.Occupant == CurrentPlayer)
+                if ((_c.HasCity || _c.IsUsed) && _c.Occupant == CurrentPlayer)
                 {
                     return true;
                 }
