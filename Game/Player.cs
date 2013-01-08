@@ -122,12 +122,12 @@ namespace INSAWars.Game
             isDead = true;
 
             // If the player has surrendered
-            foreach (City city in cities)
+            foreach (City city in cities.ToList())
             {
                 city.Destroy();
             }
 
-            foreach (Unit unit in units)
+            foreach (Unit unit in units.ToList())
             {
                 unit.Kill();
             }
