@@ -78,6 +78,9 @@ namespace UI
 
         private Game _game;
         private Case _selectedCase;
+
+        private Case _displayInvalidCommandOn;
+
     #endregion
 
         #region events
@@ -170,6 +173,26 @@ namespace UI
             DrawVisibleMap(context);
             DrawCases(context);
             DrawMapPosition(context);
+
+            if (_displayInvalidCommandOn != null)
+            {
+                DrawInvalidCommand(context);
+                _displayInvalidCommandOn = null;
+            }
+        }
+
+        private void DrawInvalidCommand(DrawingContext context)
+        {
+            var origin = CaseVisibleOffset(_displayInvalidCommandOn.X, _displayInvalidCommandOn.Y);
+            var myDoubleAnimation = new DoubleAnimation();
+            myDoubleAnimation.From = 1.0;
+            myDoubleAnimation.To = 0.0;
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(3));
+            
+            context.PushOpacity(1.0, myDoubleAnimation.CreateClock());
+            context.DrawRectangle(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#55FF2B2B")),
+                null, new Rect(origin.Item1, origin.Item2, CaseWidth, CaseHeight));
+            context.Pop();
         }
 
         private void DrawMapPosition(DrawingContext context)
@@ -191,6 +214,7 @@ namespace UI
                         36,
                         new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF9C9C8F")));
             context.DrawText(position, new Point(712, 20));
+            context.Pop();
         }
 
         /// <summary>
@@ -251,9 +275,7 @@ namespace UI
             }
             else { 
                 DrawFogOfWar(context, origin);
-            }
-
-            
+            } 
         }
 
         private void DrawUnits(Case c, CaseDrawer drawer)
@@ -322,24 +344,30 @@ namespace UI
         /// <returns></returns>
         private Tuple<int, int> CaseOffset(int i, int j)
         {
-            return new Tuple<int, int>(i * CaseWidth, j * CaseHeight);
+            return Tuple.Create(i * CaseWidth, j * CaseHeight);
+        }
+
+        private Tuple<int, int> CaseVisibleOffset(int i, int j)
+        {
+            var origin = CaseOffset(i, j);
+            return Tuple.Create(origin.Item1 - OffsetX, origin.Item2 - OffsetY);
         }
 
         /// <summary>
-        /// Determines the indexes of the top left case according to the current offset.
+        /// Determines the indexes of the top left case according to the given offset.
         /// </summary>
         /// <param name="offsetX">The current pixel X offset</param>
         /// <param name="offsetY">The current pixel Y offset</param>
         /// <returns>A tuple of indices for the map array corresponding to the origin case.</returns>
         private Tuple<int, int> TopLeftCaseIndexes(int offsetX, int offsetY)
         {
-            return new Tuple<int, int>(offsetX / CaseWidth,
+            return Tuple.Create(offsetX / CaseWidth,
                                        offsetY / CaseHeight);
         }
 
         private Tuple<int, int> RelativePositions()
         {
-            return new Tuple<int, int>((int)((double)OffsetX * 100 / (Width - (CaseCountX * CaseWidth))),
+            return Tuple.Create((int)((double)OffsetX * 100 / (Width - (CaseCountX * CaseWidth))),
                                        (int)((double)OffsetY * 100 / (Height - (CaseCountY * CaseHeight))));
         }
         
@@ -512,9 +540,10 @@ namespace UI
 
         #endregion
 
-        public void DisplayInvalidCommandOn(Case p)
+        public void DisplayInvalidCommandOn(Case c)
         {
-            throw new NotImplementedException();
+            _displayInvalidCommandOn = c;
+            InvalidateVisual();
         }
     }
 }
