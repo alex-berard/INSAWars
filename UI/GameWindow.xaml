@@ -99,7 +99,7 @@
                     <Label Content="{Binding Food}" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="2">
-                    <Image Visibility="{Binding Path=Iron, TargetNullValue=Collapsed}" Source="./Resources/icons/32x32/iron.png" Width="32" Height="32" Stretch="None"/>
+                    <Image Source="./Resources/icons/32x32/iron.png" Width="32" Height="32" Stretch="None"/>
                     <Label Content="{Binding Iron}" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                 </StackPanel>
                 <ListBox KeyboardNavigation.DirectionalNavigation="None" HorizontalContentAlignment="Stretch" Name="_units" FocusVisualStyle="{x:Null}" Focusable="False" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnitView, Mode=OneWayToSource}" Margin="10" Grid.Row="1" Grid.ColumnSpan="4">
@@ -149,7 +149,7 @@
                 </Grid.ColumnDefinitions>
                 <Button Content="Move" Focusable="False" Visibility="{Binding SelectedUnitCanMove, Converter={StaticResource BoolToVisibilityConverter}}" Click="MoveClicked" />
                 <Button Grid.Column="1" Focusable="False" Content="Attack" Visibility="{Binding SelectedUnitCanAttack, Converter={StaticResource BoolToVisibilityConverter}}" Click="AttackClicked" />
-                <Button Grid.Column="1" Focusable="False" Content="Build City" Visibility="{Binding SelectedUnitCanBuildCity, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <Button Grid.Column="1" Focusable="False" Content="Build City" Visibility="{Binding SelectedUnitCanBuildCity, Converter={StaticResource BoolToVisibilityConverter}}" Click="BuildCityClicked" />
             </Grid>
         </Grid>
     </Grid>

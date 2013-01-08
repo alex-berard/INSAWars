@@ -28,6 +28,11 @@ namespace INSAWars.Units
             _player.Head = null;
         }
 
+        public override bool CanBuildCity()
+        {
+            return false;
+        }
+
         public override string ToString()
         {
             return "Head";

@@ -106,41 +106,18 @@ namespace INSAWars.Game
         /// </summary>
         /// <param name="name">Name of the city.</param>
         /// <param name="teacher">Teacher building the city.</param>
-        public void BuildCity(string name, Teacher teacher)
+        public void BuildCity(Unit teacher)
         {
             Player player = teacher.Player;
             Case position = teacher.Location;
 
-            City city = new City(position, player, name, map.TerritoryAround(position, City.radius));
+            City city = new City(position, player, "", map.TerritoryAround(position, City.radius));
 
             position.BuildCity(city);
             player.AddCity(city);
 
             // The teacher sacrifices himself to build the city (may he rest in peace).
             teacher.Kill();
-        }
-
-        public bool CanBuildCity(Teacher teacher)
-        {
-            return !teacher.Location.HasCity;
-        }
-
-        public void MoveUnit(Unit unit, Case destination)
-        {
-            unit.MoveTo(destination);
-        }
-
-        public bool CanMoveUnit(Unit unit, Case destination)
-        {
-            // TODO: Check that the case is accessible, pathfinding?
-            if (unit.Location == destination ||
-                (destination.HasUnits && destination.Occupant != unit.Player) ||
-                (destination.HasCity && destination.Occupant != unit.Player))
-            {
-                return false;
-            }
-
-            return unit.RemainingMovementPoints >= unit.Location.DistanceTo(destination);
         }
 
         /// <summary>

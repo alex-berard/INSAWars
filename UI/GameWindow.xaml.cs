@@ -31,7 +31,6 @@ namespace UI
         private enum CommandState
         {
             Attacking,
-            BuildingCity,
             Moving,
             Selecting           
         };
@@ -171,6 +170,12 @@ namespace UI
         {
             _state = CommandState.Attacking;
             Cursor = Cursors.Cross;
+        }
+
+        private void BuildCityClicked(object sender, RoutedEventArgs e)
+        {
+            var builder = ((UnitView)_units.SelectedItem).Unit;
+            _game.BuildCity(builder);
         }
     }
 }

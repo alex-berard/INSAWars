@@ -14,6 +14,11 @@ namespace INSAWars.Units
         {
         }
 
+        public override bool CanBuildCity()
+        {
+            return !Location.HasCity;
+        }
+
         public override string ToString()
         {
             return "Teacher";

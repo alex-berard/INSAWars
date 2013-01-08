@@ -170,6 +170,8 @@ namespace INSAWars.Units
             return !HasAttacked && AttackTotal > 0;
         }
 
+        public abstract bool CanBuildCity();
+
         /// <summary>
         /// Resets the hit points and movement points (to call at the beginning of a new turn).
         /// </summary>
