@@ -213,7 +213,7 @@ namespace UI
             var myDoubleAnimation = new DoubleAnimation();
             myDoubleAnimation.From = 1.0;
             myDoubleAnimation.To = 0.0;
-            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(3));
             
             context.PushOpacity(1.0, myDoubleAnimation.CreateClock());
             context.DrawRectangle(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#55FF2B2B")),
@@ -423,23 +423,14 @@ namespace UI
             }            
         }
 
-        // TODO: BUGGY FIX OR DROP
         public void MoveVisibleMapToSelectedCase()
         {
             if (_selectedCase != null)
             {
-                OffsetX = _selectedCase.X * CaseWidth;
-                OffsetY = _selectedCase.Y * CaseHeight;
-
-                if (OffsetX > Width - CaseCountX * CaseWidth)
-                {
-                    OffsetX -= (CaseCountX * CaseWidth) + 2 * CaseWidth;
-                }
-
-                if (OffsetY > Height - CaseCountY * CaseWidth)
-                {
-                    OffsetY -= (CaseCountY * CaseHeight) + 2 * CaseHeight;
-                }
+                OffsetX = Math.Max(0, _selectedCase.X - (CaseCountX - 1) / 2) * CaseWidth;
+                OffsetX = Math.Min(CaseWidth * (Map.Size - CaseCountX), OffsetX);
+                OffsetY = Math.Max(0, _selectedCase.Y - (CaseCountY - 1) / 2) * CaseHeight;
+                OffsetY = Math.Min(CaseHeight * (Map.Size - CaseCountY), OffsetY);
 
                 InvalidateVisual();
             }
