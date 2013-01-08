@@ -438,23 +438,14 @@ namespace UI
             }
         }
 
-        // TODO: BUGGY FIX OR DROP
         private void MoveVisibleMapToSelectedCase()
         {
             if (_selectedCase != null)
             {
-                OffsetX = _selectedCase.X * CaseWidth;
-                OffsetY = _selectedCase.Y * CaseHeight;
-
-                if (OffsetX > Width - CaseCountX * CaseWidth)
-                {
-                    OffsetX -= (CaseCountX * CaseWidth) + 2 * CaseWidth;
-                }
-
-                if (OffsetY > Height - CaseCountY * CaseWidth)
-                {
-                    OffsetY -= (CaseCountY * CaseHeight) + 2 * CaseHeight;
-                }
+                OffsetX = Math.Max(0, _selectedCase.X - (CaseCountX - 1) / 2) * CaseWidth;
+                OffsetX = Math.Min(CaseWidth * (Map.Size - CaseCountX), OffsetX);
+                OffsetY = Math.Max(0, _selectedCase.Y - (CaseCountY - 1) / 2) * CaseHeight;
+                OffsetY = Math.Min(CaseHeight * (Map.Size - CaseCountY), OffsetY);
 
                 InvalidateVisual();
             }
