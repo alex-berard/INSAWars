@@ -24,13 +24,13 @@
                 <ImageBrush ImageSource=".\Resources\ui\top-menu-background.png" />
             </Grid.Background>
             
-            <Label Focusable="False" Grid.Column="1" Name="_turnLabel" Content="{Binding Turns}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
-            <Label Focusable="False" Grid.Column="0" Name="_clock" Content="{Binding Clock}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
+            <Label Grid.Column="1" Name="_turnLabel" Content="{Binding Turns}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
+            <Label Grid.Column="0" Name="_clock" Content="{Binding Clock}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
 
-            <Button Grid.Column="2" Click="NextTurnClick" Content="Next turn" Focusable="False" VerticalAlignment="Center" Style="{StaticResource menuStyle}" FontSize="14" HorizontalAlignment="Right" Height="32"/>
+            <Button Grid.Column="2" Click="NextTurnClick" Content="Next turn" VerticalAlignment="Center" Style="{StaticResource menuStyle}" FontSize="14" HorizontalAlignment="Right" Height="32"/>
         </Grid>
 
-        <my:GameControl x:Name="_gameControl" Grid.Row="1" FocusVisualStyle="{x:Null}" Focusable="True" />
+        <my:GameControl x:Name="_gameControl" Grid.Row="1" />
 
         <Grid Grid.Row="2">
             <Grid.Background>
@@ -133,7 +133,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-            <Grid KeyboardNavigation.DirectionalNavigation="None" Name="_unitActions" Grid.Column="2">
+            <Grid Name="_unitActions" Grid.Column="2">
                 <Grid.Style>
                     <Style TargetType="{x:Type Grid}">
                         <Style.Triggers>
@@ -150,9 +150,9 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Move" Focusable="False" Visibility="{Binding SelectedUnitCanMove, Converter={StaticResource BoolToVisibilityConverter}}" Click="MoveClicked" />
-                <Button Grid.Column="1" Focusable="False" Content="Attack" Visibility="{Binding SelectedUnitCanAttack, Converter={StaticResource BoolToVisibilityConverter}}" Click="AttackClicked" />
-                <Button Grid.Column="1" Focusable="False" Content="Build City" Visibility="{Binding SelectedUnitCanBuildCity, Converter={StaticResource BoolToVisibilityConverter}}" Click="BuildCityClicked" />
+                <Button Content="Move" Visibility="{Binding SelectedUnitCanMove, Converter={StaticResource BoolToVisibilityConverter}}" Click="MoveClicked" />
+                <Button Grid.Column="1" Content="Attack" Visibility="{Binding SelectedUnitCanAttack, Converter={StaticResource BoolToVisibilityConverter}}" Click="AttackClicked" />
+                <Button Grid.Column="1" Content="Build City" Visibility="{Binding SelectedUnitCanBuildCity, Converter={StaticResource BoolToVisibilityConverter}}" Click="BuildCityClicked" />
             </Grid>
         </Grid>
     </Grid>

@@ -56,11 +56,11 @@ namespace UI
         /// <summary>
         /// The current X offset.
         /// </summary>
-        private int OffsetX = 0;
+        private int _offsetX = 0;
         /// <summary>
         /// The current Y offset.
         /// </summary>
-        private int OffsetY = 0;
+        private int _offsetY = 0;
 
         /// <summary>
         /// The number of cases we can display at any given moment on the X axis.
@@ -80,6 +80,7 @@ namespace UI
         private Case _selectedCase;
 
         private Case _displayInvalidCommandOn;
+        private bool _visibleMapMoved;
 
     #endregion
 
@@ -114,6 +115,26 @@ namespace UI
         {
             get;
             set;
+        }
+
+        private int OffsetX
+        {
+            get { return _offsetX; }
+            set
+            {
+                _offsetX = value;
+                _visibleMapMoved = true;
+            }
+        }
+
+        private int OffsetY
+        {
+            get { return _offsetY; }
+            set
+            {
+                _offsetY = value;
+                _visibleMapMoved = true;
+            }
         }
         
         public bool HasSelectedCase
@@ -172,7 +193,12 @@ namespace UI
 
             DrawVisibleMap(context);
             DrawCases(context);
-            DrawMapPosition(context);
+
+            if (_visibleMapMoved)
+            {
+                DrawMapPosition(context);
+                _visibleMapMoved = false;
+            }            
 
             if (_displayInvalidCommandOn != null)
             {
@@ -397,49 +423,8 @@ namespace UI
             }            
         }
 
-        /// <summary>
-        /// Handles key inputs. Mainly used to move the visible portion of the map.
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.Left:
-                    if (CanMoveVisibleMapLeft())
-                    {
-                        MoveVisibleMapLeft();
-                    }
-                    break;
-                case Key.Right:
-                    
-                    if (CanMoveVisibleMapRight())
-                    {
-                        MoveVisibleMapRight();
-                    }
-                    break;
-                case Key.Up:
-                    if (CanMoveVisibleMapUp())
-                    {
-                        MoveVisibleMapUp();
-                    }
-                    break;
-                case Key.Down:
-                    if (CanMoveVisibleMapDown())
-                    {
-                        MoveVisibleMapDown();
-                    }
-                    break;
-                case Key.Space:
-                    MoveVisibleMapToSelectedCase();
-                    break;
-                default:
-                    break;
-            }
-        }
-
         // TODO: BUGGY FIX OR DROP
-        private void MoveVisibleMapToSelectedCase()
+        public void MoveVisibleMapToSelectedCase()
         {
             if (_selectedCase != null)
             {
@@ -481,45 +466,45 @@ namespace UI
         #endregion
 
         #region visible map handling
-        private bool CanMoveVisibleMapLeft()
+        public bool CanMoveVisibleMapLeft()
         {
             return OffsetX > 0;
         }
 
-        private bool CanMoveVisibleMapRight()
+        public bool CanMoveVisibleMapRight()
         {
             return OffsetX + (CaseCountX * CaseWidth) <= Width - CaseWidth;
         }
 
-        private bool CanMoveVisibleMapUp()
+        public bool CanMoveVisibleMapUp()
         {
             return OffsetY > 0;
         }
 
-        private bool CanMoveVisibleMapDown()
+        public bool CanMoveVisibleMapDown()
         {
             return OffsetY + (CaseCountY * CaseHeight) <= Height - CaseHeight;
         }
 
-        private void MoveVisibleMapLeft()
+        public void MoveVisibleMapLeft()
         {
             OffsetX -= MoveOffset;
             InvalidateVisual();
         }
 
-        private void MoveVisibleMapRight()
+        public void MoveVisibleMapRight()
         {
             OffsetX += MoveOffset;
             InvalidateVisual();
         }
 
-        private void MoveVisibleMapUp()
+        public void MoveVisibleMapUp()
         {
             OffsetY -= MoveOffset;
             InvalidateVisual();
         }
 
-        private void MoveVisibleMapDown()
+        public void MoveVisibleMapDown()
         {
             OffsetY += MoveOffset;
             InvalidateVisual();

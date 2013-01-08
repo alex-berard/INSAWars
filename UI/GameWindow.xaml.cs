@@ -144,12 +144,46 @@ namespace UI
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
+            e.Handled = true;
+            switch (e.Key)
             {
-                var menu = new InGameMenuWindow();
-                Opacity = 0.5;
-                menu.ShowDialog();
-                Opacity = 1;
+                case Key.Escape:
+                    var menu = new InGameMenuWindow();
+                    Opacity = 0.5;
+                    menu.ShowDialog();
+                    Opacity = 1;
+                    break;
+                case Key.Left:
+                    if (_gameControl.CanMoveVisibleMapLeft())
+                    {
+                        _gameControl.MoveVisibleMapLeft();
+                    }
+                    break;
+                case Key.Right:
+
+                    if (_gameControl.CanMoveVisibleMapRight())
+                    {
+                        _gameControl.MoveVisibleMapRight();
+                    }
+                    break;
+                case Key.Up:
+                    if (_gameControl.CanMoveVisibleMapUp())
+                    {
+                        _gameControl.MoveVisibleMapUp();
+                    }
+                    break;
+                case Key.Down:
+                    if (_gameControl.CanMoveVisibleMapDown())
+                    {
+                        _gameControl.MoveVisibleMapDown();
+                    }
+                    break;
+                case Key.Space:
+                    _gameControl.MoveVisibleMapToSelectedCase();
+                    break;
+                default:
+                    e.Handled = false;
+                    break;
             }
         }
 
