@@ -77,7 +77,7 @@ namespace INSAWars.Game
                 double weight = 0;
 
                 // Check the status of each field of the city to be built.
-                foreach (Case field in TerritoryAround(c, City.radius))
+                foreach (Case field in TerritoryAround(c, City.Radius))
                 {
                     if (c.Occupant != null && c.Occupant != teacher.Player)
                     {

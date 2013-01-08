@@ -227,8 +227,8 @@ namespace UI
 
         private void MakeTeacherClicked(object sender, RoutedEventArgs e)
         {
-            var c = (Case)_caseInformation.DataContext;
-            var command = new MakeStudentCommand(c);
+            var c = ((CaseView)_caseInformation.DataContext).Case;
+            var command = new MakeTeacherCommand(c);
 
             if (command.CanExecute())
             {
@@ -242,7 +242,7 @@ namespace UI
 
         private void MakeStudentClicked(object sender, RoutedEventArgs e)
         {
-            var c = (Case)_caseInformation.DataContext;
+            var c = ((CaseView)_caseInformation.DataContext).Case;
             var command = new MakeStudentCommand(c);
 
             if (command.CanExecute())
@@ -257,8 +257,8 @@ namespace UI
 
         private void MakeHeadClicked(object sender, RoutedEventArgs e)
         {
-            var c = (Case)_caseInformation.DataContext;
-            var command = new MakeStudentCommand(c);
+            var c = ((CaseView)_caseInformation.DataContext).Case;
+            var command = new MakeHeadCommand(c);
 
             if (command.CanExecute())
             {

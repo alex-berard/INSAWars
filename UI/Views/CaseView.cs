@@ -23,10 +23,12 @@ namespace UI.Views
         private bool _selectedUnitCanBuildCity;
         private bool _selectedUnitCanAttack;
         private Game _game;
+        private Case _case;
 
         public CaseView(Game g, Case c)
         {
             _game = g;
+            _case = c;
 
             c.PropertyChanged += new PropertyChangedEventHandler(delegate(object sender, PropertyChangedEventArgs args)
             {
@@ -64,6 +66,11 @@ namespace UI.Views
             SelectedUnitCanBuildCity = false;
             SelectedUnitCanAttack = false;
             SelectedUnitView = null;
+        }
+
+        public Case Case
+        {
+            get { return _case; }
         }
 
         public string Type

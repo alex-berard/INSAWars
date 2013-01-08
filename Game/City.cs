@@ -10,14 +10,12 @@ using System.ComponentModel;
 
 namespace INSAWars.Game
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     [Serializable]
     public class City : ObservableObject
     {
         #region fields
-        public const int radius = 2;
+        public const int Radius = 2;
 
         private List<Case> territory;
         private List<Case> fields;
@@ -131,8 +129,8 @@ namespace INSAWars.Game
         {
             Student unit = player.Civilization.UnitFactory.CreateStudent(position, player);
             pendingProductions.Add(unit);
-            _food -= Factory.StudentFoodCost;
-            _iron -= Factory.StudentIronCost;
+            Food -= Factory.StudentFoodCost;
+            Iron -= Factory.StudentIronCost;
         }
 
         public bool CanMakeStudent()
@@ -144,8 +142,8 @@ namespace INSAWars.Game
         {
             Teacher unit = player.Civilization.UnitFactory.CreateTeacher(position, player);
             pendingProductions.Add(unit);
-            _food -= Factory.TeacherFoodCost;
-            _iron -= Factory.TeacherIronCost;
+            Food -= Factory.TeacherFoodCost;
+            Iron -= Factory.TeacherIronCost;
         }
 
         public bool CanMakeTeacher()
@@ -157,8 +155,8 @@ namespace INSAWars.Game
         {
             Head unit = player.Civilization.UnitFactory.CreateHead(position, player);
             pendingProductions.Add(unit);
-            _food -= Factory.HeadFoodCost;
-            _iron -= Factory.HeadIronCost;
+            Food -= Factory.HeadFoodCost;
+            Iron -= Factory.HeadIronCost;
             player.Head = unit;
         }
 

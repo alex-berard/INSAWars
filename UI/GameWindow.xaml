@@ -81,7 +81,7 @@
                     <Style TargetType="{x:Type Grid}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=DataContext, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
-                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Visibility" Value="Hidden"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -111,34 +111,34 @@
                             <Style TargetType="{x:Type Grid}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=HasCity}" Value="False">
-                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Visibility" Value="Hidden"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Grid.Style>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="35*"/>
-                            <ColumnDefinition Width="42*"/>
-                            <ColumnDefinition Width="36*"/>
-                            <ColumnDefinition Width="41*"/>
                             <ColumnDefinition Width="39*"/>
-                            <ColumnDefinition Width="42*"/>
-                            <ColumnDefinition Width="54*"/>
+                            <ColumnDefinition Width="64*"/>
+                            <ColumnDefinition Width="71*"/>
+                            <ColumnDefinition Width="36*"/>
+                            <ColumnDefinition Width="39*"/>
+                            <ColumnDefinition Width="40*"/>
+             
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4" Height="28">
                             <Image Source="./Resources/icons/16x16/city.png" Width="16" Height="16" Stretch="None"/>
                             <TextBlock Text="{Binding City.Population}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4" Height="28">
                             <Image Source="./Resources/icons/16x16/food.png" Width="16" Height="16" Stretch="None"/>
                             <TextBlock Text="{Binding City.Food}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                         </StackPanel>
-                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4">
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4" Height="28">
                             <Image Source="./Resources/icons/16x16/iron.png" Width="16" Height="16" Stretch="None"/>
                             <TextBlock Text="{Binding City.Iron}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                         </StackPanel>  
                         <Button Grid.Column="3" Content="T" Click="MakeTeacherClicked" />
-                        <Button Grid.Column="4" Content="E" Click="MakeStudentClicked" />
+                        <Button Grid.Column="4" Content="S" Click="MakeStudentClicked" />
                         <Button Grid.Column="5" Content="H" Click="MakeHeadClicked" />
                     </Grid>                    
                 </Grid>
