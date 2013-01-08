@@ -18,14 +18,20 @@ namespace UI.Views
         private List<UnitView> _units;
         private UnitView _selectedUnitView;
         private bool _selectedUnitCanMove;
+        private bool _selectedUnitCanBuildCity;
+        private bool _selectedUnitCanAttack;
+        private Game _game;
 
-        public CaseView(Case c)
-        {           
+        public CaseView(Game g, Case c)
+        {
+            _game = g;
             Units = c.Units.Select(u => new UnitView(u)).ToList();
             Type = c.ToString();
             Food = c.Food;
             Iron = c.Iron;
             SelectedUnitCanMove = false;
+            SelectedUnitCanBuildCity = false;
+            SelectedUnitCanAttack = false;
             SelectedUnitView = null;
         }
 
@@ -71,7 +77,9 @@ namespace UI.Views
             set
             {
                 SetProperty(ref _selectedUnitView, value);
-                SelectedUnitCanMove = value != null;
+                SelectedUnitCanMove = (value != null) && (value.Unit.Player == _game.CurrentPlayer) && value.Unit.CanMove();
+                SelectedUnitCanBuildCity = (value != null) && (value.Unit.Player == _game.CurrentPlayer) && value.Unit is Teacher;
+                SelectedUnitCanAttack = (value != null) && (value.Unit.Player == _game.CurrentPlayer) && value.Unit.CanAttack();
             }
         }
 
@@ -81,6 +89,24 @@ namespace UI.Views
             set
             {
                 SetProperty(ref _selectedUnitCanMove, value);
+            }
+        }
+
+        public bool SelectedUnitCanBuildCity
+        {
+            get { return _selectedUnitCanBuildCity; }
+            set
+            {
+                SetProperty(ref _selectedUnitCanBuildCity, value);
+            }
+        }
+
+        public bool SelectedUnitCanAttack
+        {
+            get { return _selectedUnitCanAttack; }
+            set
+            {
+                SetProperty(ref _selectedUnitCanAttack, value);
             }
         }
     }

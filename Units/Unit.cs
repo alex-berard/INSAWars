@@ -107,6 +107,28 @@ namespace INSAWars.Units
             remainingMovementPoints = Math.Max(0, remainingMovementPoints - location.DistanceTo(destination));
         }
 
+        public bool CanMoveTo(Case destination)
+        {
+            if (Location == destination ||
+                (destination.HasUnits && destination.Occupant != Player) ||
+                (destination.HasCity && destination.Occupant != Player))
+            {
+                return false;
+            }
+
+            return RemainingMovementPoints >= Location.DistanceTo(destination);
+        }
+
+        public bool CanMove()
+        {
+            return RemainingMovementPoints > 0;
+        }
+
+        public bool CanAttack()
+        {
+            return !HasAttacked && AttackTotal > 0;
+        }
+
         /// <summary>
         /// Resets the hit points and movement points (to call at the beginning of a new turn).
         /// </summary>

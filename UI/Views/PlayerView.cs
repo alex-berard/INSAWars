@@ -13,6 +13,7 @@ namespace UI.Views
     public class PlayerView : ObservableObject
     {
         private string _name;
+        private string _civilization;
         private int _citiesCount;
         private int _headCount;
         private int _teachersCount;
@@ -24,9 +25,6 @@ namespace UI.Views
             {
                 switch (args.PropertyName)
                 {
-                    case "Name":
-                        Name = ((Player)sender).Name;
-                        break;
                     case "CitiesCount":
                         CitiesCount = ((Player)sender).CitiesCount;
                         break;
@@ -41,11 +39,21 @@ namespace UI.Views
                 
             });
 
+            Civilization = p.Civilization.ToString();
             Name = p.Name;
             CitiesCount = p.CitiesCount;
             TeachersCount = p.Units.Where(u => u is Teacher).Count();
             StudentsCount = p.Units.Where(u => u is Student).Count();
             HeadCount = (p.HasHead ? 1 : 0);
+        }
+
+        public string Civilization
+        {
+            get { return _civilization; }
+            set
+            {
+                SetProperty(ref _civilization, value);
+            }
         }
 
         public string Name

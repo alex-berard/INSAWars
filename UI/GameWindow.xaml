@@ -44,7 +44,14 @@
                     <RowDefinition Height="24"/>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="{Binding Name}" FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
+                <TextBlock Grid.Row="0" FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} ({1})">
+                            <Binding Path="Name" />
+                            <Binding Path="Civilization" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="27*"/>
@@ -140,8 +147,9 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Move" Focusable="False" Visibility="{Binding SelectedUnitCanMove, Converter={StaticResource BoolToVisibilityConverter}}" />
-                <Button Grid.Column="1" Focusable="False" Content="Attack" />
+                <Button Content="Move" Focusable="False" Visibility="{Binding SelectedUnitCanMove, Converter={StaticResource BoolToVisibilityConverter}}" Click="MoveClicked" />
+                <Button Grid.Column="1" Focusable="False" Content="Attack" Visibility="{Binding SelectedUnitCanAttack, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <Button Grid.Column="1" Focusable="False" Content="Build City" Visibility="{Binding SelectedUnitCanBuildCity, Converter={StaticResource BoolToVisibilityConverter}}" />
             </Grid>
         </Grid>
     </Grid>

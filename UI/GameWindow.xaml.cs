@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using INSAWars.Game;
 using UI.Views;
+using UI.Commands;
 using System.Windows.Threading;
 
 namespace UI
@@ -25,6 +26,15 @@ namespace UI
         private GameBuilder _builder;
         private Game _game;
         private GameView _gameView;
+        private CommandState _state;
+
+        private enum CommandState
+        {
+            Attacking,
+            BuildingCity,
+            Moving,
+            Selecting           
+        };
 
         public GameWindow(GameBuilder builder)
         {
@@ -32,19 +42,64 @@ namespace UI
             _builder.UseDefaultFrequencies();
             _game = _builder.Build();
             _gameView = new GameView(_game);
+            _state = CommandState.Selecting;
 
             InitializeComponent();
+            InitializeGameControl();
             InitializeDataContexts();
             InitializeClock();
-
-            _gameControl.CaseSelected += _gameControl_CaseSelected;
-
-            DrawMap();
         }
 
-        void _gameControl_CaseSelected(object sender, CaseSelectionEventArgs e)
+        private void InitializeGameControl()
         {
-            _caseInformation.DataContext = _unitActions.DataContext = (e.IsDeselection ? null : new CaseView(e.SelectedCase));
+            _gameControl.Game = _game;
+            _gameControl.CaseClicked += CaseClicked;
+            _gameControl.CaseSelected += CaseSelected;
+        }
+
+        private void CaseClicked(object sender, CaseClickedEventArgs e)
+        {
+            switch (_state)
+            {
+                case CommandState.Selecting:
+                    var select = new SelectCaseCommand(_game, _gameControl);
+                    if (select.CanExectute(e.ClickedCase))
+                    {
+                        select.Execute(e.ClickedCase);
+                    }
+                    else
+                    {
+                        _gameControl.DisplayInvalidCommandOn(e.ClickedCase);
+                    }
+
+                    break;
+                case CommandState.Moving:
+                    var unit = ((UnitView)_units.SelectedItem).Unit;
+                    var move = new MoveUnitCommand(unit);
+
+                    if (move.CanExectute(e.ClickedCase))
+                    {
+                        move.Execute(e.ClickedCase);
+                        _state = CommandState.Selecting;
+                        Cursor = Cursors.Arrow;
+                        _gameControl.SelectCase(e.ClickedCase);
+                    }
+                    else
+                    {
+                        _gameControl.DisplayInvalidCommandOn(e.ClickedCase);
+                    }
+
+                    break;
+                default:
+                    _state = CommandState.Selecting;
+                    CaseClicked(sender, e);
+                    break;
+            }
+        }
+
+        private void CaseSelected(object sender, CaseSelectedEventArgs e)
+        {
+            _caseInformation.DataContext = _unitActions.DataContext = (e.IsDeselection ? null : new CaseView(_game, e.SelectedCase));
         }
 
         private void InitializeDataContexts()
@@ -62,11 +117,6 @@ namespace UI
             }, Dispatcher);
         }
 
-        public void DrawMap()
-        {
-            _gameControl.Game = _game;
-        }
-
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -82,7 +132,13 @@ namespace UI
         {
             _game.NextTurn();
             _playerInformation.DataContext = new PlayerView(_game.CurrentPlayer);
-            _gameControl.InvalidateVisual();
+            _gameControl.ClearCaseSelection();
+        }
+
+        private void MoveClicked(object sender, RoutedEventArgs e)
+        {
+            _state = CommandState.Moving;
+            Cursor = Cursors.Hand;
         }
     }
 }

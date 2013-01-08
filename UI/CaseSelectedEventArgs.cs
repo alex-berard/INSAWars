@@ -6,11 +6,11 @@ using INSAWars.Game;
 
 namespace UI
 {
-    public class CaseSelectionEventArgs : EventArgs
+    public class CaseSelectedEventArgs : EventArgs
     {
         private readonly Case _case;
 
-        public CaseSelectionEventArgs(Case c)
+        public CaseSelectedEventArgs(Case c)
         {
             _case = c;
         }

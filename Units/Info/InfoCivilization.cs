@@ -14,5 +14,10 @@ namespace INSAWars.Units.Info
         {
             get { return new InfoUnitFactory(); }
         }
+
+        public override string ToString()
+        {
+            return "Info";
+        }
     }
 }

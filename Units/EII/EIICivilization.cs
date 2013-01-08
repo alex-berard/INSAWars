@@ -12,5 +12,10 @@ namespace INSAWars.Units.EII
         {
             get { return new EIIUnitFactory(); }
         }
+
+        public override string ToString()
+        {
+            return "EII";
+        }
     }
 }

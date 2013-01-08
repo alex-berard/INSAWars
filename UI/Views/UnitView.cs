@@ -18,11 +18,12 @@ namespace UI.Views
         private int _movementPoints; 
         private int _remainingHitPoints;
         private int _remainingMovementPoints;
-        private string _type;        
+        private string _type;
+        private Unit _unit;
 
         public UnitView(Unit unit)
         {
-
+            Unit = unit;
             Attack = unit.AttackTotal;
             Defense = unit.DefenseTotal;
             HitPoints = unit.HitPoints;
@@ -30,6 +31,12 @@ namespace UI.Views
             RemainingHitPoints = unit.RemainingHitPoints;
             RemainingMovementPoints = unit.RemainingMovementPoints;
             Type = unit.ToString();
+        }
+
+        public Unit Unit
+        {
+            set;
+            get;
         }
 
         public int Attack

@@ -20,11 +20,14 @@ using UI.Drawing;
 
 namespace UI
 {
+    
     /// <summary>
     /// Interaction logic for GameView.xaml
     /// </summary>
     public partial class GameControl : UserControl
     {
+
+        #region variables
         /// <summary>
         /// Width of a case's texture, in pixels.
         /// </summary>
@@ -68,9 +71,6 @@ namespace UI
         /// </summary>
         private int CaseCountY = (int)Math.Ceiling((double)VisibleHeight / CaseHeight);
 
-        public delegate void CaseSelectionHandler(object sender, CaseSelectionEventArgs e);
-        public event CaseSelectionHandler CaseSelected;
-
         private const string FoodTexture = "FoodSmall";
         private const string IronTexture = "IronSmall";
         private const string StudentTexture = "StudentSmall";
@@ -78,6 +78,16 @@ namespace UI
 
         private Game _game;
         private Case _selectedCase;
+    #endregion
+
+        #region events
+            public delegate void CaseClickedHandler(object sender, CaseClickedEventArgs e);
+            public event CaseClickedHandler CaseClicked;
+
+            public delegate void CaseSelectedHandler(object sender, CaseSelectedEventArgs e);
+            public event CaseSelectedHandler CaseSelected;
+
+        #endregion
 
         #region constructor
         public GameControl()
@@ -117,9 +127,34 @@ namespace UI
             {
                 return _selectedCase;
             }
+
+            private set
+            {
+                var handler = CaseSelected;
+
+                if (handler != null && _selectedCase != value)
+                {
+                    handler(this, new CaseSelectedEventArgs(value));
+                }
+
+                _selectedCase = value;
+                InvalidateVisual();
+            }
         }
 
         #endregion properties
+
+        #region methods
+        public void SelectCase(Case c)
+        {
+            SelectedCase = c;
+        }
+
+        public void ClearCaseSelection()
+        {
+            SelectedCase = null;
+        }
+        #endregion
 
         #region drawings
 
@@ -312,40 +347,26 @@ namespace UI
 
         #region events
         /// <summary>
-        /// Handles mouse clicks. When we click on a case,
-        /// we want to display some information about its content and select it.
-        /// </summary>
+        /// Handles mouse clicks.
         /// <param name="e"></param>
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
-            var oldCase = _selectedCase;
-
             if (e.ChangedButton == MouseButton.Left)
             {
                 double x = e.GetPosition(this).X;
                 double y = e.GetPosition(this).Y;
                 Case c = CaseAtPosition(x + OffsetX, y + OffsetY);
 
-                if (_game.IsVisible(c))
+                var handler = CaseClicked;
+
+                if (handler != null && _selectedCase != c)
                 {
-                    _selectedCase = c;
+                    handler(this, new CaseClickedEventArgs(c));
                 }
-               
-            }
-            else
-            {
-                _selectedCase = null;
-            }
 
-            var handler = CaseSelected;
-
-            if (handler != null && oldCase != _selectedCase)
-            {
-                handler(this, new CaseSelectionEventArgs(_selectedCase));
-            }
-
-            FocusManager.SetFocusedElement(Application.Current.MainWindow, this);
-            InvalidateVisual();
+                FocusManager.SetFocusedElement(Application.Current.MainWindow, this);
+                InvalidateVisual();
+            }            
         }
 
         /// <summary>
@@ -381,8 +402,33 @@ namespace UI
                         MoveVisibleMapDown();
                     }
                     break;
+                case Key.Space:
+                    MoveVisibleMapToSelectedCase();
+                    break;
                 default:
                     break;
+            }
+        }
+
+        // TODO: BUGGY FIX OR DROP
+        private void MoveVisibleMapToSelectedCase()
+        {
+            if (_selectedCase != null)
+            {
+                OffsetX = _selectedCase.X * CaseWidth;
+                OffsetY = _selectedCase.Y * CaseHeight;
+
+                if (OffsetX > Width - CaseCountX * CaseWidth)
+                {
+                    OffsetX -= (CaseCountX * CaseWidth) + 2 * CaseWidth;
+                }
+
+                if (OffsetY > Height - CaseCountY * CaseWidth)
+                {
+                    OffsetY -= (CaseCountY * CaseHeight) + 2 * CaseHeight;
+                }
+
+                InvalidateVisual();
             }
         }
 
@@ -406,7 +452,7 @@ namespace UI
         
         #endregion
 
-        #region PartialMap
+        #region visible map handling
         private bool CanMoveVisibleMapLeft()
         {
             return OffsetX > 0;
@@ -465,5 +511,10 @@ namespace UI
         }
 
         #endregion
+
+        public void DisplayInvalidCommandOn(Case p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
