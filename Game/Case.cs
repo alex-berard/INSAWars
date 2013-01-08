@@ -19,7 +19,7 @@ namespace INSAWars.Game
         protected int y;
         protected CaseStatus status;
         protected City _city;
-        protected HashSet<Unit> units;
+        protected List<Unit> units;
         protected Player occupant;
         #endregion
 
@@ -56,7 +56,6 @@ namespace INSAWars.Game
 
         public virtual Player Occupant
         {
-            // TODO: assign and update
             get { return occupant; }
         }
 
@@ -125,7 +124,7 @@ namespace INSAWars.Game
             this.x = x;
             this.y = y;
             status = CaseStatus.FREE;
-            units = new HashSet<Unit>();
+            units = new List<Unit>();
         }
         #endregion
 

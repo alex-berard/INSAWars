@@ -162,7 +162,7 @@ namespace INSAWars.Units
 
         public bool CanAttack(Case c)
         {
-            return CanAttack() && Location.DistanceTo(c) == 1;
+            return CanAttack() && Location.DistanceTo(c) == 1 && _remainingMovementPoints >= 1;
         }
 
         public bool CanAttack()

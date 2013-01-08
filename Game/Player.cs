@@ -15,16 +15,16 @@ namespace INSAWars.Game
     {
         #region fields
         private bool isDead;
-        private HashSet<City> cities;
+        private List<City> cities;
         private ICivilization civilization;
         private string name;
-        private HashSet<Unit> units;
+        private List<Unit> units;
         #endregion
 
         #region properties
         public List<City> Cities
         {
-            get { return cities.ToList(); }
+            get { return cities; }
         }
 
         public int CitiesCount
@@ -34,7 +34,7 @@ namespace INSAWars.Game
 
         public List<Unit> Units
         {
-            get { return units.ToList(); }
+            get { return units; }
         }
 
         public Head Head { get; set; }
@@ -68,8 +68,8 @@ namespace INSAWars.Game
         public Player(ICivilization civilization, string name)
         {
             isDead = false;
-            cities = new HashSet<City>();
-            units = new HashSet<Unit>();
+            cities = new List<City>();
+            units = new List<Unit>();
             this.civilization = civilization;
             Name = name;
             Head = null;
@@ -122,12 +122,12 @@ namespace INSAWars.Game
             isDead = true;
 
             // If the player has surrendered
-            foreach (City city in cities.ToList())
+            foreach (City city in new List<City>(cities))
             {
                 city.Destroy();
             }
 
-            foreach (Unit unit in units.ToList())
+            foreach (Unit unit in new List<Unit>(units))
             {
                 unit.Kill();
             }
