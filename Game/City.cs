@@ -86,9 +86,9 @@ namespace INSAWars.Game
         #region methods
         public void Invade(Player invader)
         {
-            player = invader;
             player.RemoveCity(this);
             invader.AddCity(this);
+            player = invader;
 
             foreach (Case field in fields.ToList())
             {
