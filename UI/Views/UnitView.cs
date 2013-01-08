@@ -9,6 +9,9 @@ using INSAWars.Units;
 
 namespace UI.Views
 {
+    /// <summary>
+    /// Defines a ViewModel for Unit.
+    /// </summary>
     public class UnitView : ObservableObject
     {
 
@@ -19,7 +22,6 @@ namespace UI.Views
         private int _remainingHitPoints;
         private int _remainingMovementPoints;
         private string _type;
-        private Unit _unit;
 
         public UnitView(Unit unit)
         {

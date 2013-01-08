@@ -16,6 +16,10 @@ using System.Windows.Shapes;
 
 namespace UI.Drawing
 {
+    /// <summary>
+    /// Provides utilities to draw icons and text on a case.
+    /// Draws up to 4 inline items and 1 main item.  
+    /// </summary>
     public class CaseDrawer
     {
         private const int ItemWidth = 48;
@@ -32,6 +36,11 @@ namespace UI.Drawing
             _origin = origin;
         }
 
+        /// <summary>
+        /// Draws the given icon (and text if provided) on the next line.
+        /// </summary>
+        /// <param name="icon"></param>
+        /// <param name="text"></param>
         public void Draw(BitmapImage icon, FormattedText text=null)
         {
             if (_itemCount < 4)
@@ -52,6 +61,10 @@ namespace UI.Drawing
             }
         }
 
+        /// <summary>
+        /// Draws an icon on the entire case.
+        /// </summary>
+        /// <param name="icon"></param>
         public void DrawMainItem(BitmapImage icon)
         {
             _context.DrawImage(icon, new Rect(_origin.Item1,
@@ -59,6 +72,9 @@ namespace UI.Drawing
                                                     96, 96));
         }
 
+        /// <summary>
+        /// Resets the number of items.
+        /// </summary>
         public void Clear()
         {
             _itemCount = 0;

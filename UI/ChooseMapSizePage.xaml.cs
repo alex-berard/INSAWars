@@ -17,7 +17,7 @@ using INSAWars.Game;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for ChooseMapSizePage.xaml
+    /// Provides controls to let the user choose the map's size.
     /// </summary>
     public partial class ChooseMapSizePage : Page
     {
@@ -30,17 +30,28 @@ namespace UI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Go to the previous page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
+        /// <summary>
+        /// Creates the game's window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextButtonClick(object sender, RoutedEventArgs e)
         {
             _builder.SetSize(_mapSize.Text);
+            _builder.UseDefaultFrequencies();
 
             var main = Application.Current.MainWindow;
-            var game = new GameWindow(_builder);            
+            var game = new GameWindow(_builder.Build());            
             Application.Current.MainWindow = game;
             main.Close();
             game.Show();

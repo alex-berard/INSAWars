@@ -9,6 +9,9 @@ using System.ComponentModel;
 
 namespace UI.Views
 {
+    /// <summary>
+    /// Defines a ViewModel for Game.
+    /// </summary>
     public class GameView : ObservableObject
     {
         private Game _game;
@@ -17,11 +20,12 @@ namespace UI.Views
         public GameView(Game game)
         {
             _game = game;
+            Turns = TurnLabel(_game.NbTurns);
+
             _game.PropertyChanged += new PropertyChangedEventHandler(delegate(object sender, PropertyChangedEventArgs args)
             {
                 Turns = TurnLabel(_game.NbTurns);
             });
-           Turns = TurnLabel(_game.NbTurns);
         }
 
         public string Turns

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace INSAWars.Game
 {
+    /// <summary>
+    /// Adds food to a given case.
+    /// </summary>
     [Serializable]
     public class FoodCaseDecorator : CaseDecorator
     {

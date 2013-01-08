@@ -184,17 +184,31 @@ namespace INSAWars.Game
             occupant = unit.Player;
         }
 
+        /// <summary>
+        /// Removes a unit from this case.
+        /// </summary>
+        /// <param name="unit"></param>
         public virtual void RemoveUnit(Unit unit)
         {
             units.Remove(unit);
             OnPropertyChanged("Units");
         }
 
+        /// <summary>
+        /// Returns true if the case contains the given unit.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
         public virtual bool Contains(Unit unit)
         {
             return units.Contains(unit);
         }
 
+        /// <summary>
+        /// Returns the distance to the given case.
+        /// </summary>
+        /// <param name="destination"></param>
+        /// <returns></returns>
         public int DistanceTo(Case destination)
         {
             return Math.Abs(destination.X - X) + Math.Abs(destination.Y - Y);

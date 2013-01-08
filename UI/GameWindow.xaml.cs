@@ -19,45 +19,67 @@ using System.Windows.Threading;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for GameWindow.xaml
+    /// Provides the main interaction logic between the GameControl (that is responsible for graphics rendering)
+    /// and the game's general UI.
     /// </summary>
     public partial class GameWindow : Window
     {
-        private GameBuilder _builder;
         private Game _game;
         private GameView _gameView;
         private CommandState _state;
 
+        /// <summary>
+        /// Provides a nice way of dealing with the UI's current state.
+        /// </summary>
         private enum CommandState
         {
-            Attacking,
-            Moving,
-            Selecting           
+            Attacking, // The player can attack a case.
+            Moving, // The player can move a unit.
+            Selecting // The player can select a new case.
         };
 
-        public GameWindow(GameBuilder builder)
+        /// <summary>
+        /// Creates a new GameWindow from the given Game.
+        /// </summary>
+        /// <param name="builder"></param>
+        public GameWindow(Game game)
         {
-            _builder = builder;
-            _builder.UseDefaultFrequencies();
-            _game = _builder.Build();
-            _gameView = new GameView(_game);
-            _state = CommandState.Selecting;
+            _game = game;
+            _game.GameIsOver += GameIsOver;
 
-            _game.GameIsOver += _game_GameIsOver;
+            _gameView = new GameView(_game);
 
             InitializeComponent();
             InitializeGameControl();
             InitializeDataContexts();
             InitializeClock();
+            ResetUIState();
         }
 
-        void _game_GameIsOver(object sender, GameOverEventArgs e)
+        /// <summary>
+        /// Initializes the game's clock.
+        /// </summary>
+        private void InitializeClock()
         {
-            var menu = new GameOverWindow(e.Winner.Name);
-            Opacity = 0.5;
-            menu.ShowDialog();
+            var initial = DateTime.Now;
+            DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                _clock.Content = DateTime.Now.Subtract(initial).ToString(@"hh\:mm\:ss");
+            }, Dispatcher);
         }
 
+        /// <summary>
+        /// Initializes the data contexts of UI elements.
+        /// </summary>
+        private void InitializeDataContexts()
+        {
+            _turnLabel.DataContext = _gameView;
+            _playerInformation.DataContext = new PlayerView(_game.CurrentPlayer);
+        }
+
+        /// <summary>
+        /// Initializes the game control and subscribe to its events.
+        /// </summary>
         private void InitializeGameControl()
         {
             _gameControl.Game = _game;
@@ -65,9 +87,36 @@ namespace UI
             _gameControl.CaseSelected += CaseSelected;
         }
 
+        /// <summary>
+        /// Displays a dialog with the winner's name.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GameIsOver(object sender, GameOverEventArgs e)
+        {
+            var menu = new GameOverWindow(e.Winner.Name);
+            Opacity = 0.5;
+            menu.ShowDialog();
+        }
+
+        /// <summary>
+        /// Resets the UI state to the basic state, which is selecting a case.
+        /// </summary>
+        private void ResetUIState()
+        {
+            _state = CommandState.Selecting;
+            Cursor = Cursors.Arrow;
+        }
+
+       /// <summary>
+       /// Provides a very basic finite-state machine to control the interactions
+       /// with the game. When a case is clicked, there are several possible
+       /// actions according to the UI's current state.
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void CaseClicked(object sender, CaseClickedEventArgs e)
         {
-            
             switch (_state)
             {
                 case CommandState.Selecting:
@@ -89,8 +138,7 @@ namespace UI
                     if (move.CanExectute(e.ClickedCase))
                     {
                         move.Execute(e.ClickedCase);
-                        _state = CommandState.Selecting;
-                        Cursor = Cursors.Arrow;
+                        ResetUIState();
                         _gameControl.SelectCase(e.ClickedCase);
                     }
                     else
@@ -106,8 +154,7 @@ namespace UI
                     if (attack.CanExectute(e.ClickedCase))
                     {
                         attack.Execute(e.ClickedCase);
-                        _state = CommandState.Selecting;
-                        Cursor = Cursors.Arrow;
+                        ResetUIState();
                         _gameControl.SelectCase(e.ClickedCase);
                     }
                     else
@@ -122,26 +169,20 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// Updates data contexts when a new case is selected.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CaseSelected(object sender, CaseSelectedEventArgs e)
         {
             _caseInformation.DataContext = _unitActions.DataContext = (e.IsDeselection ? null : new CaseView(_game, e.SelectedCase));
         }
 
-        private void InitializeDataContexts()
-        {
-            _turnLabel.DataContext = _gameView;
-            _playerInformation.DataContext = new PlayerView(_game.CurrentPlayer);
-        }
-
-        private void InitializeClock()
-        {
-            var initial = DateTime.Now;
-            DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            {
-                _clock.Content = DateTime.Now.Subtract(initial).ToString(@"hh\:mm\:ss");
-            }, Dispatcher);
-        }
-
+        /// <summary>
+        /// Provides keyboard interaction for the UI.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             e.Handled = true;
@@ -187,20 +228,23 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// Resets the UI's state when the user clicks with the mouse's right button.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Right)
             {
-                _state = CommandState.Selecting;
-                Cursor = Cursors.Arrow;
+                ResetUIState();
             }
         }
-        private void NextTurnClick(object sender, RoutedEventArgs e)
+
+        private void NextTurnClicked(object sender, RoutedEventArgs e)
         {
             _game.NextTurn();
             _playerInformation.DataContext = new PlayerView(_game.CurrentPlayer);
-            _state = CommandState.Selecting;
-            Cursor = Cursors.Arrow;
+            ResetUIState();
             _gameControl.ClearCaseSelection();
         }
 

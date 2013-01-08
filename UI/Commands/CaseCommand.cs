@@ -7,6 +7,9 @@ using INSAWars.Game;
 
 namespace UI.Commands
 {
+    /// <summary>
+    /// Provides the basis for a Command Pattern related to Case commands.
+    /// </summary>
     public abstract class CaseCommand
     {
         public abstract void Execute(Case selectedCase);

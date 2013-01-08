@@ -8,11 +8,19 @@ using INSAWars.Units;
 
 namespace UI.Commands
 {
+    /// <summary>
+    /// Provides a command to move a unit.
+    /// </summary>
     public class MoveUnitCommand : CaseCommand
     {
         private Unit _unit;
         private Game _game;
 
+        /// <summary>
+        /// Note: ideally, this class should not be coupled to Game. Refactoring needed.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="unit"></param>
         public MoveUnitCommand(Game game, Unit unit)
         {
             _unit = unit;

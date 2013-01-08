@@ -79,12 +79,20 @@ namespace INSAWars.Game
         #endregion
 
         #region methods
+        /// <summary>
+        /// Adds a city.
+        /// </summary>
+        /// <param name="city"></param>
         public void AddCity(City city)
         {
             cities.Add(city);
             OnPropertyChanged("CitiesCount");
         }
 
+        /// <summary>
+        /// Removes a city.
+        /// </summary>
+        /// <param name="city"></param>
         public void RemoveCity(City city)
         {
             cities.Remove(city);
@@ -96,12 +104,20 @@ namespace INSAWars.Game
             }
         }
 
+        /// <summary>
+        /// Adds a unit.
+        /// </summary>
+        /// <param name="unit"></param>
         public void AddUnit(Unit unit)
         {
             units.Add(unit);
             OnPropertyChanged("Units");
         }
 
+        /// <summary>
+        /// Removes a unit.
+        /// </summary>
+        /// <param name="unit"></param>
         public void RemoveUnit(Unit unit)
         {
             units.Remove(unit);
@@ -112,11 +128,19 @@ namespace INSAWars.Game
             }
         }
 
+        /// <summary>
+        /// Returns true if the player has no way to get back into the game, and thus has lost.
+        /// A player has lost if he has no city and no teacher left alive.
+        /// </summary>
+        /// <returns></returns>
         private bool LoseCondition()
         {
             return cities.Count == 0 && !units.ToList().Exists(item => item is Teacher);
         }
 
+        /// <summary>
+        /// Kills the player and its units and destroys its cities.
+        /// </summary>
         public void Lose()
         {
             isDead = true;
@@ -133,6 +157,9 @@ namespace INSAWars.Game
             }
         }
 
+        /// <summary>
+        /// Updates the player's cities and units.
+        /// </summary>
         public void NextTurn()
         {
             foreach (City city in cities)

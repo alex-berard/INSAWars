@@ -16,9 +16,9 @@
             <RowDefinition Height="191*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1">
-            <Button x:Name="_newGame" Content="Back to main menu" Style="{StaticResource menuStyle}" FontSize="18" Click="NewGameButtonClick" />
-            <Button x:Name="_saveGame" Content="Save game" Style="{StaticResource menuStyle}" FontSize="18" Click="SaveGameButtonClick" Margin="10" />
-            <Button x:Name="_exit" Content="Exit" Style="{StaticResource menuStyle}" FontSize="18" Click="ExitButtonClick" Margin="10" />
+            <Button x:Name="_newGame" Content="Back to main menu" Style="{StaticResource menuStyle}" FontSize="18" Click="BackToMainMenuClicked" />
+            <Button x:Name="_saveGame" Content="Save game" Style="{StaticResource menuStyle}" FontSize="18" Click="SaveGameClicked" Margin="10" />
+            <Button x:Name="_exit" Content="Exit" Style="{StaticResource menuStyle}" FontSize="18" Click="ExitClicked" Margin="10" />
         </StackPanel>
     </Grid>
     

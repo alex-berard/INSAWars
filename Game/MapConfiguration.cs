@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace INSAWars.Game
 {
+    /// <summary>
+    /// Defines a map configuration in order to generate different kind of maps (more or less plains for example).
+    /// </summary>
     public class MapConfiguration
     {
         public int octaves = 6;

@@ -27,7 +27,7 @@
             <Label Grid.Column="1" Name="_turnLabel" Content="{Binding Turns}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
             <Label Grid.Column="0" Name="_clock" Content="{Binding Clock}" VerticalAlignment="Center" FontFamily="Charlemagne Std" Foreground="White" Height="24" />
 
-            <Button Grid.Column="2" Click="NextTurnClick" Content="Next turn" VerticalAlignment="Center" Style="{StaticResource menuStyle}" FontSize="14" HorizontalAlignment="Right" Height="32"/>
+            <Button Grid.Column="2" Click="NextTurnClicked" Content="Next turn" VerticalAlignment="Center" Style="{StaticResource menuStyle}" FontSize="14" HorizontalAlignment="Right" Height="32"/>
         </Grid>
 
         <my:GameControl x:Name="_gameControl" Grid.Row="1" />

@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <TextBlock Name="_winnerAcclaim" Text=" has won the game!" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" Foreground="White" FontFamily="Charlemagne STD"/>
         <StackPanel Grid.Row="2">
-            <Button x:Name="_newGame" Content="Back to main menu" Style="{StaticResource menuStyle}" FontSize="18" Click="NewGameButtonClick" />
+            <Button x:Name="_newGame" Content="Back to main menu" Style="{StaticResource menuStyle}" FontSize="18" Click="NewGameClicked" />
             <Button x:Name="_exit" Content="Exit" Style="{StaticResource menuStyle}" FontSize="18" Click="ExitButtonClick" Margin="10" />
         </StackPanel>
         

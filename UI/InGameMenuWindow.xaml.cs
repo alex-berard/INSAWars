@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for InGameMenuWindow.xaml
+    /// The in-game menu provides actions to create a new game, save the curent game or exit the application.
     /// </summary>
     public partial class InGameMenuWindow : Window
     {
@@ -24,18 +24,34 @@ namespace UI
             InitializeComponent();
         }
 
-        private void SaveGameButtonClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Shows the user a new page to save the current game to a file.
+        /// Not implemented yet.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveGameClicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void ExitButtonClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Exits the application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExitClicked(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();
             Close();
         }
 
-        private void NewGameButtonClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Creates a new Main Window to start a new game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackToMainMenuClicked(object sender, RoutedEventArgs e)
         {
             var window = new MainWindow();
             var gameWindow = Application.Current.MainWindow;
@@ -45,6 +61,10 @@ namespace UI
             Close();
         }
 
+        /// <summary>
+        /// Hides the menu if the player pushes Escape.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)

@@ -18,7 +18,7 @@ using INSAWars.Units;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for ChoosePlayersPage.xaml
+    /// Provides controls to personnalize players' name and civilization.
     /// </summary>
     public partial class ChoosePlayersPage : Page
     {
@@ -31,6 +31,10 @@ namespace UI
             HideUnusedPlayers();
         }
 
+        /// <summary>
+        /// Hides the controls that we do not need, according to number
+        /// of players the user previously selected.
+        /// </summary>
         private void HideUnusedPlayers()
         {
             if (_playerCount < 3)
@@ -43,6 +47,14 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// Adds a player to the game builder if the control is visible, that is, if
+        /// there is enough players to make use of this control.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="player"></param>
+        /// <param name="name"></param>
+        /// <param name="civilization"></param>
         private void AddPlayerToGameBuilder(GameBuilder builder, StackPanel player, TextBox name, ComboBox civilization)
         {
             if (player.Visibility == Visibility.Visible)
@@ -51,11 +63,21 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// Go to the previous page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }        
 
+        /// <summary>
+        /// Adds players to the game builder and navigate to the next page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextButtonClick(object sender, RoutedEventArgs e)
         {
             var builder = new GameBuilder();

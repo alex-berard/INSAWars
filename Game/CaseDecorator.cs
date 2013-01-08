@@ -7,7 +7,7 @@ using INSAWars.Units;
 namespace INSAWars.Game
 {
     /// <summary>
-    /// Adds an amount of food or iron to a case.
+    /// Defines a Decorator Pattern for cases.
     /// </summary>
     [Serializable]
     public abstract class CaseDecorator : Case

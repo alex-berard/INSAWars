@@ -7,6 +7,9 @@ using INSAWars.Game;
 
 namespace UI.Commands
 {
+    /// <summary>
+    /// Provides a command to make a Teacher unit.
+    /// </summary>
     public class MakeTeacherCommand : BasicCommand
     {
         private Case _case;

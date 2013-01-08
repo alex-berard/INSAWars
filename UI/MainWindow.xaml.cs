@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Hosts the pages.
     /// </summary>
     public partial class MainWindow : NavigationWindow
     {

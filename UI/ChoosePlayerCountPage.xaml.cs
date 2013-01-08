@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for NumberOfPlayerPage.xaml
+    /// Provides controls to choose the number of players.
     /// </summary>
     public partial class ChoosePlayerCountPage : Page
     {
@@ -25,11 +25,22 @@ namespace UI
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// Go to the previous page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
+        /// <summary>
+        /// Go to the next page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ChoosePlayersPage(int.Parse(_numberOfPlayers.Text)));

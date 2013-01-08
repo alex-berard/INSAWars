@@ -23,6 +23,9 @@ namespace INSAWars.Game
             return cases[x, y];
         }
 
+        /// <summary>
+        /// Returns the next free case.
+        /// </summary>
         public Case FreePosition
         {
             get { return startingPositions.Pop(); }

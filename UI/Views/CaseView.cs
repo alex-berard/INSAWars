@@ -10,6 +10,9 @@ using INSAWars.Units;
 
 namespace UI.Views
 {
+    /// <summary>
+    /// Defines a ViewModel for Case.
+    /// </summary>
     public class CaseView : ObservableObject
     {
         private string _type;
@@ -18,10 +21,12 @@ namespace UI.Views
         private bool _hasCity;
         private CityView _city;
         private List<UnitView> _units;
+
         private UnitView _selectedUnitView;
         private bool _selectedUnitCanMove;
         private bool _selectedUnitCanBuildCity;
         private bool _selectedUnitCanAttack;
+
         private Game _game;
         private Case _case;
 
@@ -30,9 +35,25 @@ namespace UI.Views
             _game = g;
             _case = c;
 
+            Units = c.Units.Select(u => new UnitView(u)).ToList();
+            HasCity = c.HasCity;
+
+            if (c.City != null)
+            {
+                City = new CityView(c.City);
+            }
+
+            Type = c.ToString();
+            Food = c.Food;
+            Iron = c.Iron;
+            SelectedUnitCanMove = false;
+            SelectedUnitCanBuildCity = false;
+            SelectedUnitCanAttack = false;
+            SelectedUnitView = null;
+
             c.PropertyChanged += new PropertyChangedEventHandler(delegate(object sender, PropertyChangedEventArgs args)
             {
-                var updatedCase = (Case) sender;
+                var updatedCase = (Case)sender;
 
                 switch (args.PropertyName)
                 {
@@ -43,29 +64,16 @@ namespace UI.Views
                         HasCity = updatedCase.HasCity;
                         break;
                     case "City":
+                        // The new city could be null, we need to update only if it's not null
                         if (updatedCase.City != null)
                         {
                             City = new CityView(updatedCase.City);
-                        }                        
+                        }
                         break;
                     default:
                         break;
                 }
             });
-
-            Units = c.Units.Select(u => new UnitView(u)).ToList();
-            HasCity = c.HasCity;
-            if (c.City != null)
-            {
-                City = new CityView(c.City);
-            }
-            Type = c.ToString();
-            Food = c.Food;
-            Iron = c.Iron;
-            SelectedUnitCanMove = false;
-            SelectedUnitCanBuildCity = false;
-            SelectedUnitCanAttack = false;
-            SelectedUnitView = null;
         }
 
         public Case Case

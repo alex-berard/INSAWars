@@ -13,6 +13,9 @@ using System.ComponentModel;
 
 namespace INSAWars.Game
 {
+    /// <summary>
+    /// Defines a game and some utilities methods.
+    /// </summary>
     [Serializable]
     public class Game : ObservableObject
     {
@@ -52,7 +55,7 @@ namespace INSAWars.Game
 
         #region constructors
         /// <summary>
-        /// Makes a new game with the given map and the given players.
+        /// Creates a new game with the given map and the given players.
         /// Players play turn by turn until only one player remains.
         /// </summary>
         /// <param name="map">Map of the game.</param>
@@ -73,6 +76,7 @@ namespace INSAWars.Game
 
         /// <summary>
         /// Builds a city on the case on which the given teacher stands.
+        /// Note: this should not be in this class. Refactoring needed.
         /// </summary>
         /// <param name="name">Name of the city.</param>
         /// <param name="teacher">Teacher building the city.</param>
@@ -135,6 +139,7 @@ namespace INSAWars.Game
 
         /// <summary>
         /// Tells wether or not the given case is visible by the current player.
+        /// Note: this should not be in this class. Refactoring needed.
         /// </summary>
         /// <param name="c">Given case</param>
         /// <returns>True if the case is in the field of view of the current player, false otherwise.</returns>

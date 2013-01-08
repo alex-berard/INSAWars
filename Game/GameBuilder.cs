@@ -12,6 +12,9 @@ using INSAWars.Game;
 
 namespace INSAWars.Game
 {
+    /// <summary>
+    /// Defines a Builder Pattern to build a new game step by step.
+    /// </summary>
     public class GameBuilder
     {
         private MapGenerator mapGenerator;
@@ -53,11 +56,6 @@ namespace INSAWars.Game
         public void AddPlayer(string name, string civ)
         {
             players.Add(name, CivilizationFactory.GetCivilizationByName(civ));
-        }
-
-        public void RemovePlayer(string name)
-        {
-            players.Remove(name);
         }
 
         /// <summary>
@@ -132,6 +130,11 @@ namespace INSAWars.Game
             return game;
         }
 
+        /// <summary>
+        /// Initializes a player with default values : a teacher and a student.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="map"></param>
         private void initPlayer(Player player, Map map)
         {
             Case position = map.FreePosition;

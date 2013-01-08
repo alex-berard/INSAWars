@@ -7,11 +7,19 @@ using INSAWars.Game;
 
 namespace UI.Commands
 {
+    /// <summary>
+    /// Provides a command to select a case.
+    /// </summary>
     public class SelectCaseCommand : CaseCommand
     {
         private Game _game;
         private GameControl _control;
         
+        /// <summary>
+        /// Note: ideally, this class should not be coupled to Game. Refactoring needed.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="control"></param>
         public SelectCaseCommand(Game g, GameControl control)
         {
             _game = g;

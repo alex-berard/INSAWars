@@ -10,6 +10,9 @@ using System.ComponentModel;
 
 namespace UI.Views
 {
+    /// <summary>
+    /// Defines a ViewModel for Player.
+    /// </summary>
     public class PlayerView : ObservableObject
     {
         private string _name;
@@ -21,6 +24,13 @@ namespace UI.Views
 
         public PlayerView(Player p)
         {
+            Civilization = p.Civilization.ToString();
+            Name = p.Name;
+            CitiesCount = p.CitiesCount;
+            TeachersCount = p.Units.Where(u => u is Teacher).Count();
+            StudentsCount = p.Units.Where(u => u is Student).Count();
+            HeadCount = (p.HasHead ? 1 : 0);
+
             p.PropertyChanged += new PropertyChangedEventHandler(delegate(object sender, PropertyChangedEventArgs args)
             {
                 switch (args.PropertyName)
@@ -38,13 +48,6 @@ namespace UI.Views
                 }
                 
             });
-
-            Civilization = p.Civilization.ToString();
-            Name = p.Name;
-            CitiesCount = p.CitiesCount;
-            TeachersCount = p.Units.Where(u => u is Teacher).Count();
-            StudentsCount = p.Units.Where(u => u is Student).Count();
-            HeadCount = (p.HasHead ? 1 : 0);
         }
 
         public string Civilization

@@ -22,7 +22,7 @@ namespace UI
 {
     
     /// <summary>
-    /// Interaction logic for GameView.xaml
+    /// Handles the game's graphics.
     /// </summary>
     public partial class GameControl : UserControl
     {
@@ -93,12 +93,11 @@ namespace UI
     #endregion
 
         #region events
-            public delegate void CaseClickedHandler(object sender, CaseClickedEventArgs e);
-            public event CaseClickedHandler CaseClicked;
+        public delegate void CaseClickedHandler(object sender, CaseClickedEventArgs e);
+        public event CaseClickedHandler CaseClicked;
 
-            public delegate void CaseSelectedHandler(object sender, CaseSelectedEventArgs e);
-            public event CaseSelectedHandler CaseSelected;
-
+        public delegate void CaseSelectedHandler(object sender, CaseSelectedEventArgs e);
+        public event CaseSelectedHandler CaseSelected;
         #endregion
 
         #region constructor
@@ -189,6 +188,16 @@ namespace UI
         #endregion
 
         #region drawings
+
+        /// <summary>
+        /// Displays an animated red rectangle on the given case.
+        /// </summary>
+        /// <param name="c"></param>
+        public void DisplayInvalidCommandOn(Case c)
+        {
+            _displayInvalidCommandOn = c;
+            InvalidateVisual();
+        }
 
         protected override void OnRender(DrawingContext context)
         {
@@ -429,6 +438,10 @@ namespace UI
                                        offsetY / CaseHeight);
         }
 
+        /// <summary>
+        /// Determines the current relative positions of the map.
+        /// </summary>
+        /// <returns></returns>
         private Tuple<int, int> RelativePositions()
         {
             return Tuple.Create((int)((double)OffsetX * 100 / (Width - (CaseCountX * CaseWidth))),
@@ -439,7 +452,7 @@ namespace UI
 
         #region events
         /// <summary>
-        /// Handles mouse clicks.
+        /// Handles mouse left clicks.
         /// <param name="e"></param>
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
@@ -461,6 +474,9 @@ namespace UI
             }            
         }
 
+        /// <summary>
+        /// Moves the visible map to make sure the selected case is visible.
+        /// </summary>
         public void MoveVisibleMapToSelectedCase()
         {
             if (_selectedCase != null)
@@ -474,6 +490,10 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// Handles mouse wheel to move the visible map vertically.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
@@ -554,10 +574,6 @@ namespace UI
 
         #endregion
 
-        public void DisplayInvalidCommandOn(Case c)
-        {
-            _displayInvalidCommandOn = c;
-            InvalidateVisual();
-        }
+       
     }
 }

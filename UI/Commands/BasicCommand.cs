@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace UI.Commands
 {
+    /// <summary>
+    /// Provides the basis for a (very basic) Command Pattern.
+    /// </summary>
     public abstract class BasicCommand
     {
         public abstract void Execute();

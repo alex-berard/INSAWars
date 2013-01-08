@@ -5,6 +5,9 @@ using System.Text;
 
 namespace INSAWars.Game
 {
+    /// <summary>
+    /// Adds iron to a given case.
+    /// </summary>
     [Serializable]
     public class IronCaseDecorator : CaseDecorator
     {
@@ -16,10 +19,5 @@ namespace INSAWars.Game
 
         public IronCaseDecorator(Case decoratedCase)
             : base(decoratedCase) {}
-
-        public override string ToString()
-        {
-            return decoratedCase.ToString();
-        }
     }
 }

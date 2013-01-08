@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Provides buttons to start a new game, load an existing game or exit the application.
     /// </summary>
     public partial class HomePage : Page
     {
@@ -25,11 +25,21 @@ namespace UI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Navigates to a new page to create a new game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateGameButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ChoosePlayerCountPage());
         }
 
+        /// <summary>
+        /// Exits the game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitButtonClick(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();

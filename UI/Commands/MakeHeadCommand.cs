@@ -7,6 +7,9 @@ using INSAWars.Game;
 
 namespace UI.Commands
 {
+    /// <summary>
+    /// Provides a command to create a new Head unit.
+    /// </summary>
     public class MakeHeadCommand : BasicCommand
     {
         private Case _case;
