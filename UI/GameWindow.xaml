@@ -81,7 +81,7 @@
                     <Style TargetType="{x:Type Grid}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=DataContext, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
-                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -111,7 +111,7 @@
                             <Style TargetType="{x:Type Grid}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=HasCity}" Value="False">
-                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -120,20 +120,26 @@
                             <ColumnDefinition Width="35*"/>
                             <ColumnDefinition Width="42*"/>
                             <ColumnDefinition Width="36*"/>
-                            <ColumnDefinition Width="176*"/>
+                            <ColumnDefinition Width="41*"/>
+                            <ColumnDefinition Width="39*"/>
+                            <ColumnDefinition Width="42*"/>
+                            <ColumnDefinition Width="54*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4">
                             <Image Source="./Resources/icons/16x16/city.png" Width="16" Height="16" Stretch="None"/>
                             <TextBlock Text="{Binding City.Population}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4">
                             <Image Source="./Resources/icons/16x16/food.png" Width="16" Height="16" Stretch="None"/>
                             <TextBlock Text="{Binding City.Food}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                         </StackPanel>
-                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4">
                             <Image Source="./Resources/icons/16x16/iron.png" Width="16" Height="16" Stretch="None"/>
                             <TextBlock Text="{Binding City.Iron}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
-                        </StackPanel>                        
+                        </StackPanel>  
+                        <Button Grid.Column="3" Content="T" Click="MakeTeacherClicked" />
+                        <Button Grid.Column="4" Content="E" Click="MakeStudentClicked" />
+                        <Button Grid.Column="5" Content="H" Click="MakeHeadClicked" />
                     </Grid>                    
                 </Grid>
                 <ListBox HorizontalContentAlignment="Stretch" Name="_units" ItemsSource="{Binding Units, Mode=TwoWay}" SelectedItem="{Binding SelectedUnitView, Mode=OneWayToSource}" Margin="10" Grid.Row="1" Grid.ColumnSpan="4">

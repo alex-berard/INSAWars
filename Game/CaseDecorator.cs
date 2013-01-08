@@ -14,105 +14,27 @@ namespace INSAWars.Game
     {
         protected Case decoratedCase;
 
-        public override City City
-        {
-            get { return decoratedCase.City; }
-        }
-
-        public override bool IsFree
-        {
-            get { return decoratedCase.IsFree; }
-        }
-
-        public override bool IsUsed
-        {
-            get { return decoratedCase.IsUsed; }
-        }
-
-        public override bool HasCity
-        {
-            get { return decoratedCase.IsUsed; }
-        }
-
-        public override bool HasUnits
-        {
-            get { return decoratedCase.HasUnits; }
-        }
-
-        public override Player Occupant
-        {
-            get { return decoratedCase.Occupant; }
-        }
-
-        public override int X
-        {
-            get { return decoratedCase.X; }
-        }
-
-        public override int Y
-        {
-            get { return decoratedCase.Y; }
-        }
-
-        public override IEnumerable<Unit> Units
-        {
-            get { return decoratedCase.Units; }
-        }
-
-        public override IEnumerable<Unit> Students
-        {
-            get
-            {
-                return decoratedCase.Students;
-            }
-        }
-
-        public override IEnumerable<Unit> Teachers
-        {
-            get
-            {
-                return decoratedCase.Teachers;
-            }
-        }
-
-        public override Unit Head
-        {
-            get
-            {
-                return decoratedCase.Head;
-            }
-        }
-
         public CaseDecorator(Case decoratedCase)
+            : base(decoratedCase.X, decoratedCase.Y)
         {
             this.decoratedCase = decoratedCase;
         }
 
-        public override void BuildCity(City city)
+        public override string Texture
         {
-            decoratedCase.BuildCity(city);
+            get { return decoratedCase.Texture; }
         }
 
-        public override void Use(City city)
+        public override int Food
         {
-            decoratedCase.Use(city);
+            get { return decoratedCase.Food; }
         }
 
-        public override void Free()
+        public override int Iron
         {
-            decoratedCase.Free();
+            get { return decoratedCase.Iron; }
         }
-
-        public override void AddUnit(Unit unit)
-        {
-            decoratedCase.AddUnit(unit);
-        }
-
-        public override void RemoveUnit(Unit unit)
-        {
-            decoratedCase.RemoveUnit(unit);
-        }
-
+        
         public override string ToString()
         {
             return decoratedCase.ToString();

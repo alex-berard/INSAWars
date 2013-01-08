@@ -18,13 +18,13 @@ namespace INSAWars.Game
         protected int x;
         protected int y;
         protected CaseStatus status;
-        protected City _city;
+        private City _city;
         protected List<Unit> units;
         protected Player occupant;
         #endregion
 
         #region properties
-        public virtual City City
+        public City City
         {
             get { return _city; }
             set
@@ -44,7 +44,7 @@ namespace INSAWars.Game
             get { return status == CaseStatus.USED; }
         }
 
-        public virtual bool HasCity
+        public bool HasCity
         {
             get { return status == CaseStatus.CITY; }
         }
@@ -115,10 +115,6 @@ namespace INSAWars.Game
         #endregion properties
 
         #region constructor
-        public Case()
-        {
-        }
-
         public Case(int x, int y)
         {
             this.x = x;
@@ -153,7 +149,7 @@ namespace INSAWars.Game
         {
             if (status != CaseStatus.CITY)
             {
-                this._city = city;
+                City = city;
                 status = CaseStatus.USED;
                 occupant = city.Player;
             }
@@ -161,7 +157,7 @@ namespace INSAWars.Game
 
         public virtual void Free()
         {
-            _city = null;
+            City = null;
             status = CaseStatus.FREE;
         }
 

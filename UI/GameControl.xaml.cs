@@ -308,7 +308,6 @@ namespace UI
                 if (c.HasCity)
                 {
                     DrawCity(drawer);
-                    DrawUnits(c, drawer);
                 }
                 else if (c.IsUsed)
                 {
@@ -316,9 +315,9 @@ namespace UI
                 }
                 else
                 {
-                    DrawMostDefensiveUnit(c, drawer);
-                    DrawUnits(c, drawer);
+                    DrawMostDefensiveUnit(c, drawer);                    
                 }
+                DrawUnits(c, drawer);
             }
             else { 
                 DrawFogOfWar(context, origin);

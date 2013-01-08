@@ -224,5 +224,50 @@ namespace UI
             _game.BuildCity(builder);
             _gameControl.ClearCaseSelection();
         }
+
+        private void MakeTeacherClicked(object sender, RoutedEventArgs e)
+        {
+            var c = (Case)_caseInformation.DataContext;
+            var command = new MakeStudentCommand(c);
+
+            if (command.CanExecute())
+            {
+                command.Execute();
+            }
+            else
+            {
+                _gameControl.DisplayInvalidCommandOn(_gameControl.SelectedCase);
+            }
+        }
+
+        private void MakeStudentClicked(object sender, RoutedEventArgs e)
+        {
+            var c = (Case)_caseInformation.DataContext;
+            var command = new MakeStudentCommand(c);
+
+            if (command.CanExecute())
+            {
+                command.Execute();
+            }
+            else
+            {
+                _gameControl.DisplayInvalidCommandOn(_gameControl.SelectedCase);
+            }
+        }
+
+        private void MakeHeadClicked(object sender, RoutedEventArgs e)
+        {
+            var c = (Case)_caseInformation.DataContext;
+            var command = new MakeStudentCommand(c);
+
+            if (command.CanExecute())
+            {
+                command.Execute();
+            }
+            else
+            {
+                _gameControl.DisplayInvalidCommandOn(_gameControl.SelectedCase);
+            }
+        }
     }
 }

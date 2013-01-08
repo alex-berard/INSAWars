@@ -60,7 +60,11 @@
     <Compile Include="CaseClickedEventArgs.cs" />
     <Compile Include="CaseSelectedEventArgs.cs" />
     <Compile Include="Commands\AttackCommand.cs" />
+    <Compile Include="Commands\BasicCommand.cs" />
     <Compile Include="Commands\CaseCommand.cs" />
+    <Compile Include="Commands\MakeHeadCommand.cs" />
+    <Compile Include="Commands\MakeStudentCommand.cs" />
+    <Compile Include="Commands\MakeTeacherCommand.cs" />
     <Compile Include="Commands\MoveUnitCommand.cs" />
     <Compile Include="Commands\SelectCaseCommand.cs" />
     <Compile Include="GameOverWindow.xaml.cs">
