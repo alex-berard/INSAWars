@@ -38,16 +38,9 @@ namespace INSAWars.Game
         {
             List<Case> territory = new List<Case>();
 
-            for (int i = -distance; i <= distance; i++)
+            for (int x = Math.Max(0, position.X - distance); x <= Math.Min(Size - 1, position.X + distance); x++)
             {
-                int x = position.X + i;
-
-                if (x < 0 || x >= Size)
-                    continue;
-
-                int offset = distance - Math.Abs(i);
-
-                for (int y = Math.Max(0, position.Y - offset); y <= Math.Min(Size - 1, position.Y + offset); y++)
+                for (int y = Math.Max(0, position.Y - distance); y <= Math.Min(Size - 1, position.Y + distance); y++)
                 {
                     Case c = GetCaseAt(x, y);
 
