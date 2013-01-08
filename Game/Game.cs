@@ -71,36 +71,6 @@ namespace INSAWars.Game
 
         #region methods
 
-        public void MakeStudent(City city)
-        {
-            city.MakeStudent();
-        }
-
-        public bool CanMakeStudent(City city)
-        {
-            return city.CanMakeStudent();
-        }
-
-        public void MakeTeacher(City city)
-        {
-            city.MakeTeacher();
-        }
-
-        public bool CanMakeTeacher(City city)
-        {
-            return city.CanMakeTeacher();
-        }
-
-        public void MakeHead(City city)
-        {
-            city.MakeHead();
-        }
-
-        public bool CanMakeHead(City city)
-        {
-            return city.CanMakeHead();
-        }
-
         /// <summary>
         /// Builds a city on the case on which the given teacher stands.
         /// </summary>

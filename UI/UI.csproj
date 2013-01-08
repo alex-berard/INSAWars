@@ -67,6 +67,7 @@
       <DependentUpon>GameOverWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CaseView.cs" />
+    <Compile Include="Views\CityView.cs" />
     <Compile Include="Views\GameView.cs" />
     <Compile Include="Views\PlayerView.cs" />
     <Compile Include="Views\UnitView.cs" />

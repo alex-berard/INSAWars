@@ -18,7 +18,7 @@ namespace INSAWars.Game
         protected int x;
         protected int y;
         protected CaseStatus status;
-        protected City city;
+        protected City _city;
         protected List<Unit> units;
         protected Player occupant;
         #endregion
@@ -26,7 +26,12 @@ namespace INSAWars.Game
         #region properties
         public virtual City City
         {
-            get { return city; }
+            get { return _city; }
+            set
+            {
+                SetProperty(ref _city, value);
+                OnPropertyChanged("HasCity");
+            }
         }
 
         public virtual bool IsFree
@@ -132,10 +137,10 @@ namespace INSAWars.Game
         {
             if (status == CaseStatus.USED)
             {
-                this.city.RemoveField(this);
+                this._city.RemoveField(this);
             }
 
-            this.city = city;
+            City = city;
             status = CaseStatus.CITY;
             occupant = city.Player;
         }
@@ -148,7 +153,7 @@ namespace INSAWars.Game
         {
             if (status != CaseStatus.CITY)
             {
-                this.city = city;
+                this._city = city;
                 status = CaseStatus.USED;
                 occupant = city.Player;
             }
@@ -156,7 +161,7 @@ namespace INSAWars.Game
 
         public virtual void Free()
         {
-            city = null;
+            _city = null;
             status = CaseStatus.FREE;
         }
 
@@ -169,22 +174,24 @@ namespace INSAWars.Game
             if (HasCity && occupant != unit.Player)
             {
                 // If an enemy city is built on this case, invade it.
-                city.Invade(unit.Player);
+                _city.Invade(unit.Player);
             }
             else if (IsUsed && occupant != unit.Player)
             {
                 // If the case is used as a field by an enemy, sack it.
-                city.RemoveField(this);
+                _city.RemoveField(this);
                 Free();
             }
 
             this.units.Add(unit);
+            OnPropertyChanged("Units");
             occupant = unit.Player;
         }
 
         public virtual void RemoveUnit(Unit unit)
         {
             units.Remove(unit);
+            OnPropertyChanged("Units");
         }
 
         public virtual bool Contains(Unit unit)

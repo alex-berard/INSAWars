@@ -47,7 +47,7 @@
                     <RowDefinition Height="24"/>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE">
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} ({1})">
                             <Binding Path="Name" />
@@ -68,7 +68,7 @@
                     </Grid.RowDefinitions>
                     <Image Width="16px" Height="16px" Source="./Resources/icons/16x16/city.png" Stretch="None" />
                     <Label Grid.Column="1" Content="{Binding CitiesCount}" FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
-                    <Image Grid.Row="1" Source="./Resources/icons/16x16/boss.png" Stretch="None" Width="16" Height="16"/>
+                    <Image Grid.Row="1" Source="./Resources/icons/16x16/head.png" Stretch="None" Width="16" Height="16"/>
                     <Label Grid.Row="1" Grid.Column="1" Content="{Binding HeadCount}"  FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
                     <Image Grid.Row="2" Source="./Resources/icons/16x16/teacher.png" Width="16" Height="16" Stretch="None" />
                     <Label Grid.Row="2" Grid.Column="1" Content="{Binding TeachersCount}"  FontFamily="Charlemagne STD" FontSize="12" Foreground="#FFEEEEEE" />
@@ -87,10 +87,10 @@
                     </Style>
                 </Grid.Style>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="151*"/>
-                    <ColumnDefinition Width="86*"/>
-                    <ColumnDefinition Width="85*"/>
-                    <ColumnDefinition Width="180*"/>
+                    <ColumnDefinition Width="134*"/>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="39*"/>
+                    <ColumnDefinition Width="289*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="18*"/>
@@ -98,14 +98,45 @@
                 </Grid.RowDefinitions>
                 <Label Content="{Binding Type}" FontFamily="Charlemagne STD" FontSize="16" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
-                    <Image Source="./Resources/icons/32x32/food.png" Width="32" Height="32" Stretch="None" />
-                    <Label Content="{Binding Food}" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                    <Image Source="./Resources/icons/16x16/food.png" Width="16" Height="16" Stretch="None" />
+                    <TextBlock Text="{Binding Food}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="2">
-                    <Image Source="./Resources/icons/32x32/iron.png" Width="32" Height="32" Stretch="None"/>
-                    <Label Content="{Binding Iron}" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                    <Image Source="./Resources/icons/16x16/iron.png" Width="16" Height="16" Stretch="None"/>
+                    <TextBlock Text="{Binding Iron}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                 </StackPanel>
-                <ListBox KeyboardNavigation.DirectionalNavigation="None" HorizontalContentAlignment="Stretch" Name="_units" FocusVisualStyle="{x:Null}" Focusable="False" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnitView, Mode=OneWayToSource}" Margin="10" Grid.Row="1" Grid.ColumnSpan="4">
+                <Grid Grid.Column="3">
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=HasCity}" Value="False">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="35*"/>
+                            <ColumnDefinition Width="42*"/>
+                            <ColumnDefinition Width="36*"/>
+                            <ColumnDefinition Width="176*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="./Resources/icons/16x16/city.png" Width="16" Height="16" Stretch="None"/>
+                            <TextBlock Text="{Binding City.Population}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="./Resources/icons/16x16/food.png" Width="16" Height="16" Stretch="None"/>
+                            <TextBlock Text="{Binding City.Food}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="./Resources/icons/16x16/iron.png" Width="16" Height="16" Stretch="None"/>
+                            <TextBlock Text="{Binding City.Iron}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                        </StackPanel>                        
+                    </Grid>                    
+                </Grid>
+                <ListBox HorizontalContentAlignment="Stretch" Name="_units" ItemsSource="{Binding Units, Mode=TwoWay}" SelectedItem="{Binding SelectedUnitView, Mode=OneWayToSource}" Margin="10" Grid.Row="1" Grid.ColumnSpan="4">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="2" Padding="4" BorderBrush="Black" Background="Beige" BorderThickness="1">
