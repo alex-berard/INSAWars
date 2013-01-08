@@ -187,6 +187,14 @@ namespace UI
             }
         }
 
+        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                _state = CommandState.Selecting;
+                Cursor = Cursors.Arrow;
+            }
+        }
         private void NextTurnClick(object sender, RoutedEventArgs e)
         {
             _game.NextTurn();
