@@ -118,7 +118,7 @@ namespace INSAWars.Game
         /// </summary>
         /// <param name="filename">Location of the save file</param>
         /// <returns>The restored game.</returns>
-        public Game LoadGame(string filename)
+        public static Game LoadGame(string filename)
         {
             Game game = null;
             Stream stream = File.Open(filename, FileMode.Open);
@@ -128,6 +128,18 @@ namespace INSAWars.Game
             stream.Close();
 
             return game;
+        }
+
+        /// <summary>
+        /// Saves the current game state into the given file.
+        /// </summary>
+        /// <param name="filename">Location of the save file.</param>
+        public static void SaveGame(string filename, Game g)
+        {
+            Stream stream = File.Open(filename, FileMode.Create);
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, g);
+            stream.Close();
         }
 
         /// <summary>

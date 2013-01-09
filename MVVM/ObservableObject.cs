@@ -12,8 +12,10 @@ namespace INSAWars.MVVM
     /// This class provides a common implementation of INotifyPropertyChanged, in order to
     /// (partially) implement the MVVM pattern.
     /// </summary>
+    [Serializable]
     public abstract class ObservableObject : INotifyPropertyChanged
     {
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>

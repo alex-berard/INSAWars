@@ -23,10 +23,10 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1">
             <Label Content="Number of players" HorizontalAlignment="Center" FontSize="48" Foreground="#FF9C9C8F" FontFamily="Charlemagne Std" Height="80"/>
-            <ComboBox x:Name="_numberOfPlayers" Height="21" Width="124" Margin="10" IsReadOnly="True">
-                <ComboBoxItem Content="2" Width="122" IsSelected="True" />
-                <ComboBoxItem Content="3" Width="122" />
-                <ComboBoxItem Content="4" Width="122" />
+            <ComboBox Style="{StaticResource CustomComboBox}" x:Name="_numberOfPlayers" IsReadOnly="True">
+                <ComboBoxItem Content="2" IsSelected="True" />
+                <ComboBoxItem Content="3" />
+                <ComboBoxItem Content="4" />
             </ComboBox>
         </StackPanel>
         <DockPanel LastChildFill="False" Grid.Row="2">

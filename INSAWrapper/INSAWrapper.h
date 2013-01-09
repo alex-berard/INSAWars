@@ -1,6 +1,4 @@
 // INSAWrapper.h
-
-#pragma comment (lib, "INSALib.lib")
 #pragma once
 
 #include <iostream>
