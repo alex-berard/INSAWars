@@ -31,6 +31,7 @@ namespace INSAWars.Game
 
         #region events
         public delegate void GameOver(object sender, GameOverEventArgs e);
+        [field: NonSerialized]
         public event GameOver GameIsOver;
         #endregion
 
@@ -162,18 +163,6 @@ namespace INSAWars.Game
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Saves the current game state into the given file.
-        /// </summary>
-        /// <param name="filename">Location of the save file.</param>
-        public void Save(string filename)
-        {
-            Stream stream = File.Open(filename, FileMode.Create);
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, this);
-            stream.Close();
         }
         #endregion
     }

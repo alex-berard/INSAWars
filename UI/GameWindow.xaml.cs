@@ -22,6 +22,7 @@ namespace UI
     /// Provides the main interaction logic between the GameControl (that is responsible for graphics rendering)
     /// and the game's general UI.
     /// </summary>
+    ///
     public partial class GameWindow : Window
     {
         private Game _game;
@@ -189,7 +190,7 @@ namespace UI
             switch (e.Key)
             {
                 case Key.Escape:
-                    var menu = new InGameMenuWindow();
+                    var menu = new InGameMenuWindow(_game);
                     Opacity = 0.5;
                     menu.ShowDialog();
                     Opacity = 1;

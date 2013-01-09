@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="InGameMenuWindow" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Height="300" Width="300">
     <Window.Background>
-        <ImageBrush ImageSource=".\Resources\ui\ingame-menu-background.png" Viewport="0,0,300,300"
+        <ImageBrush ImageSource=".\Resources\ui\gameover-menu-background.png" Viewport="0,0,300,300"
         ViewportUnits="Absolute"
         TileMode="Tile"
         Stretch="None"

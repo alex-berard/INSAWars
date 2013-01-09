@@ -1,8 +1,4 @@
-#if defined DLL_EXPORT
-#define EXPORT_OR_IMPORT __declspec (dllexport)
-#else
-#define EXPORT_OR_IMPORT __declspec (dllimport)
-#endif
+#pragma once
 
 #include <vector>
 #include <iostream>
@@ -15,7 +11,7 @@ double interpolate_2d(double a, double b, double c, double d, double x, double y
 inline double interpolate(double a, double b, double x);
 void smoothen(vector<vector<double>>& perlinMap);
 
-class EXPORT_OR_IMPORT Distribution
+class __declspec(dllexport) Distribution
 {
 public:
 	/**
@@ -40,7 +36,7 @@ private:
 
 // TODO: city placement suggestions
 
-class EXPORT_OR_IMPORT PerlinMap
+class __declspec(dllexport) PerlinMap
 {
 public:
 	PerlinMap(int height, int width, int octaves, double persistance, Distribution* distr);

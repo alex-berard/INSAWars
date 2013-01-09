@@ -12,47 +12,63 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using INSAWars.Game;
 
 namespace UI
 {
     /// <summary>
-    /// Provides buttons to start a new game, load an existing game or exit the application.
+    /// Interaction logic for InGameMenuHomePage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class InGameMenuHomePage : Page
     {
-        public HomePage()
+        private Game _game;
+
+        public InGameMenuHomePage()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Navigates to a new page to create a new game.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CreateGameClicked(object sender, RoutedEventArgs e)
+        public Game CurrentGame
         {
-            NavigationService.Navigate(new ChoosePlayerCountPage());
+            get;
+            set;
         }
 
         /// <summary>
-        /// Exits the game.
+        /// Shows the user a new page to save the current game to a file.
+        /// Not implemented yet.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveGameClicked(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new InGameMenuSavePage(CurrentGame));
+        }
+
+        /// <summary>
+        /// Exits the application.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ExitClicked(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();
+            Window.GetWindow(this).Close();
         }
 
         /// <summary>
-        /// Navigates to a new page to load an existing game.
+        /// Creates a new Main Window to start a new game.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LoadGameClicked(object sender, RoutedEventArgs e)
+        private void BackToMainMenuClicked(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new LoadGamePage());
+            var window = new MainWindow();
+            var gameWindow = Application.Current.MainWindow;
+            Application.Current.MainWindow = window;
+            window.Show();
+            gameWindow.Close();
+            Window.GetWindow(this).Close();
         }
     }
 }

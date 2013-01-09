@@ -20,9 +20,9 @@
             <RowDefinition Height="179*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1">
-            <Button Name="_createGame" Content="New game" Style="{StaticResource menuStyle}" Click="CreateGameButtonClick" />
-            <Button Content="Load Game" Click="ExitButtonClick" Style="{StaticResource menuStyle}"/>
-            <Button Content="Exit" Click="ExitButtonClick" Style="{StaticResource menuStyle}"/>
+            <Button Name="_createGame" Content="New game" Style="{StaticResource menuStyle}" Click="CreateGameClicked" />
+            <Button Content="Load Game" Click="LoadGameClicked" Style="{StaticResource menuStyle}"/>
+            <Button Content="Exit" Click="ExitClicked" Style="{StaticResource menuStyle}"/>
         </StackPanel>
     </Grid>
 </Page>

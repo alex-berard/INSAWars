@@ -10,55 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using INSAWars.Game;
 
 namespace UI
 {
     /// <summary>
     /// The in-game menu provides actions to create a new game, save the curent game or exit the application.
     /// </summary>
-    public partial class InGameMenuWindow : Window
+    public partial class InGameMenuWindow : NavigationWindow
     {
-        public InGameMenuWindow()
+        private Game _game;
+
+        public InGameMenuWindow(Game currentGame)
         {
+            _game = currentGame;
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Shows the user a new page to save the current game to a file.
-        /// Not implemented yet.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveGameClicked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Exits the application.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ExitClicked(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.Close();
-            Close();
-        }
-
-        /// <summary>
-        /// Creates a new Main Window to start a new game.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BackToMainMenuClicked(object sender, RoutedEventArgs e)
-        {
-            var window = new MainWindow();
-            var gameWindow = Application.Current.MainWindow;
-            Application.Current.MainWindow = window;
-            window.Show();
-            gameWindow.Close();
-            Close();
         }
 
         /// <summary>
@@ -71,6 +39,23 @@ namespace UI
             {
                 Close();
             }
+        }
+
+        /// <summary>
+        /// Transfers the current game to the home page.
+        /// This is necessary since a Game instance is needed to save it to a file.
+        /// Since InGameMenuWindow is a NavigationWindow, this method with be called everytime a
+        /// new page is loaded. This is why we need to check that the home page was loaded.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadComplete(object sender, NavigationEventArgs e)
+        {
+            var homePage = e.Content as InGameMenuHomePage;
+            if (homePage != null)
+            {
+                homePage.CurrentGame = _game;
+            }           
         }
     }
 }
