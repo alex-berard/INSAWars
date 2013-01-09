@@ -180,6 +180,11 @@ namespace INSAWars.Game
             return playerObj != null && name == playerObj.name;
         }
 
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
+
         public override string ToString()
         {
             return "Player " + name + " (" + (isDead ? "dead" : "alive") + ")";

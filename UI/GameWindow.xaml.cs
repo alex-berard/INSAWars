@@ -28,6 +28,7 @@ namespace UI
         private Game _game;
         private GameView _gameView;
         private CommandState _state;
+        private Dictionary<Player, Case> _lastSelectedCases;
 
         /// <summary>
         /// Provides a nice way of dealing with the UI's current state.
@@ -49,12 +50,25 @@ namespace UI
             _game.GameIsOver += GameIsOver;
 
             _gameView = new GameView(_game);
-
+            
             InitializeComponent();
             InitializeGameControl();
             InitializeDataContexts();
             InitializeClock();
+            InitializeLastSelectedCases();
             ResetUIState();
+        }
+
+        private void InitializeLastSelectedCases()
+        {
+            _lastSelectedCases = new Dictionary<Player, Case>();
+            foreach (Player p in _game.Players)
+            {
+                _lastSelectedCases.Add(p, p.Units.First().Location);
+            }
+
+            _gameControl.SelectCase(_lastSelectedCases[_game.CurrentPlayer]);
+            _gameControl.MoveVisibleMapToSelectedCase();
         }
 
         /// <summary>
@@ -178,6 +192,7 @@ namespace UI
         private void CaseSelected(object sender, CaseSelectedEventArgs e)
         {
             _caseInformation.DataContext = _unitActions.DataContext = (e.IsDeselection ? null : new CaseView(_game, e.SelectedCase));
+            _lastSelectedCases[_game.CurrentPlayer] = e.SelectedCase;
         }
 
         /// <summary>
@@ -246,7 +261,16 @@ namespace UI
             _game.NextTurn();
             _playerInformation.DataContext = new PlayerView(_game.CurrentPlayer);
             ResetUIState();
-            _gameControl.ClearCaseSelection();
+
+            if (_lastSelectedCases[_game.CurrentPlayer] != null)
+            {
+                _gameControl.SelectCase(_lastSelectedCases[_game.CurrentPlayer]);
+                _gameControl.MoveVisibleMapToSelectedCase();
+            }
+            else
+            {
+                _gameControl.ClearCaseSelection();
+            }
         }
 
         private void MoveClicked(object sender, RoutedEventArgs e)

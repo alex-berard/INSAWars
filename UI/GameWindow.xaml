@@ -109,7 +109,7 @@
                     <RowDefinition Height="47*"/>
                     <RowDefinition Height="83*"/>
                 </Grid.RowDefinitions>
-                <Label Content="{Binding Type}" FontFamily="Charlemagne STD" FontSize="16" VerticalAlignment="Center" Foreground="#FFEEEEEE" Height="10" Margin="0,18,0,19" />
+                <Label Content="{Binding Type}" FontFamily="Charlemagne STD" FontSize="16" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
                     <Image Source="./Resources/icons/16x16/food.png" Width="16" Height="16" Stretch="None" />
                     <TextBlock Text="{Binding Food}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />

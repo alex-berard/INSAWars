@@ -41,6 +41,11 @@ namespace INSAWars.Game
             get { return _over; }
         }
 
+        public List<Player> Players
+        {
+            get { return players; }
+        }
+
         public int NbTurns { 
             get { return nbTurns; }
             set
