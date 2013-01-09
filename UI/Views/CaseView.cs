@@ -15,7 +15,7 @@ namespace UI.Views
     /// </summary>
     public class CaseView : ObservableObject
     {
-        private string _type;
+        private string _occupantName;
         private int _food;
         private int _iron;
         private bool _hasCity;
@@ -43,7 +43,7 @@ namespace UI.Views
                 City = new CityView(c.City);
             }
 
-            Type = c.ToString();
+            OccupantName = (c.Occupant == null) ? "Free" : c.Occupant.Name.ToString();
             Food = c.Food;
             Iron = c.Iron;
             SelectedUnitCanMove = false;
@@ -59,9 +59,13 @@ namespace UI.Views
                 {
                     case "Units":
                         Units = updatedCase.Units.Select(u => new UnitView(u)).ToList();
+                        
                         break;
                     case "HasCity":
                         HasCity = updatedCase.HasCity;
+                        break;
+                    case "Occupant":
+                        OccupantName = (updatedCase.Occupant == null) ? "Free" : updatedCase.Occupant.Name.ToString();
                         break;
                     case "City":
                         // The new city could be null, we need to update only if it's not null
@@ -81,12 +85,12 @@ namespace UI.Views
             get { return _case; }
         }
 
-        public string Type
+        public string OccupantName
         {
-            get { return _type; }
+            get { return _occupantName; }
             set
             {
-                SetProperty(ref _type, value);
+                SetProperty(ref _occupantName, value);
             }
         }
 

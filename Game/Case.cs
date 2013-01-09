@@ -20,7 +20,7 @@ namespace INSAWars.Game
         protected CaseStatus status;
         private City _city;
         protected List<Unit> units;
-        protected Player occupant;
+        protected Player _occupant;
         #endregion
 
         #region properties
@@ -56,7 +56,11 @@ namespace INSAWars.Game
 
         public virtual Player Occupant
         {
-            get { return occupant; }
+            get { return _occupant; }
+            set
+            {
+                SetProperty(ref _occupant, value);
+            }
         }
 
         public virtual IEnumerable<Unit> Units
@@ -138,7 +142,7 @@ namespace INSAWars.Game
 
             City = city;
             status = CaseStatus.CITY;
-            occupant = city.Player;
+            Occupant = city.Player;
         }
 
         /// <summary>
@@ -151,7 +155,7 @@ namespace INSAWars.Game
             {
                 City = city;
                 status = CaseStatus.USED;
-                occupant = city.Player;
+                Occupant = city.Player;
             }
         }
 
@@ -167,12 +171,12 @@ namespace INSAWars.Game
         /// <param name="unit">The new unit to occupy the case.</param>
         public virtual void AddUnit(Unit unit)
         {
-            if (HasCity && occupant != unit.Player)
+            if (HasCity && Occupant != unit.Player)
             {
                 // If an enemy city is built on this case, invade it.
                 _city.Invade(unit.Player);
             }
-            else if (IsUsed && occupant != unit.Player)
+            else if (IsUsed && Occupant != unit.Player)
             {
                 // If the case is used as a field by an enemy, sack it.
                 _city.RemoveField(this);
@@ -181,7 +185,7 @@ namespace INSAWars.Game
 
             this.units.Add(unit);
             OnPropertyChanged("Units");
-            occupant = unit.Player;
+            Occupant = unit.Player;
         }
 
         /// <summary>
