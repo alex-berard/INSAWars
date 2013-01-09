@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for LoadErrorWindow.xaml
+    /// Defines a very simple window displaying an error message.
     /// </summary>
     public partial class LoadErrorWindow : Window
     {
@@ -24,6 +24,11 @@ namespace UI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Closes the window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackClicked(object sender, RoutedEventArgs e)
         {
             Close();

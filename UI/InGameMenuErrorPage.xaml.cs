@@ -12,19 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using INSAWars.Game;
 
 namespace UI
 {
     /// <summary>
-    /// Interaction logic for InGameMenuSavePage.xaml
+    /// Defines a simple page that displays an error message.
     /// </summary>
-    public partial class InGameMenuSavePage : Page
+    public partial class InGameMenuErrorPage : Page
     {
-        private Game _game;
-        public InGameMenuSavePage(Game currentGame)
+        public InGameMenuErrorPage()
         {
-            _game = currentGame;
             InitializeComponent();
         }
 
@@ -36,24 +33,6 @@ namespace UI
         private void BackClicked(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-        }
-
-        /// <summary>
-        /// Saves the game to a file and show a success message.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveClicked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                GameBuilder.SaveGame(_gameName.Text, _game);
-                Window.GetWindow(this).Close();
-            }
-            catch(Exception ex)
-            {
-                NavigationService.Navigate(new InGameMenuErrorPage());
-            }
         }
     }
 }

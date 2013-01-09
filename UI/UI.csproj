@@ -86,6 +86,9 @@
     <Compile Include="GameOverWindow.xaml.cs">
       <DependentUpon>GameOverWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InGameMenuErrorPage.xaml.cs">
+      <DependentUpon>InGameMenuErrorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InGameMenuHomePage.xaml.cs">
       <DependentUpon>InGameMenuHomePage.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InGameMenuErrorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
