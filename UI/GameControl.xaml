@@ -12,9 +12,7 @@
         <BitmapImage x:Key="Mountain" UriSource="./Resources/textures/mountain.png" />
 
         <BitmapImage x:Key="FoodSmall" UriSource="./Resources/icons/16x16/food.png" />
-        <BitmapImage x:Key="FoodBig" UriSource="./Resources/icons/32x32/food.png" />
         <BitmapImage x:Key="IronSmall" UriSource="./Resources/icons/16x16/iron.png" />
-        <BitmapImage x:Key="IronBig" UriSource="./Resources/icons/32x32/iron.png" />
         
         <BitmapImage x:Key="CitySmall" UriSource="./Resources/icons/16x16/city.png" />
         <BitmapImage x:Key="CityBig" UriSource="./Resources/textures/city.png" />

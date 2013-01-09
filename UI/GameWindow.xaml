@@ -6,6 +6,19 @@
     <Window.Resources>
         <FrameworkElement x:Key="AttackCursor" Cursor="Resources/cursors/attack.cur"/>
         <FrameworkElement x:Key="MoveCursor" Cursor="Resources/cursors/move.cur"/>
+
+        <BitmapImage x:Key="ShoeSmall" UriSource="./Resources/icons/16x16/shoe.png" />
+        <BitmapImage x:Key="HeartSmall" UriSource="./Resources/icons/16x16/heart.png" />
+        <BitmapImage x:Key="SwordSmall" UriSource="./Resources/icons/16x16/sword.png" />
+        <BitmapImage x:Key="ShieldSmall" UriSource="./Resources/icons/16x16/shield.png" />
+
+        <BitmapImage x:Key="HeadSmall" UriSource="./Resources/icons/16x16/head.png" />
+        <BitmapImage x:Key="StudentSmall" UriSource="./Resources/icons/16x16/student.png" />
+        <BitmapImage x:Key="TeacherSmall" UriSource="./Resources/icons/16x16/teacher.png" />
+
+        <BitmapImage x:Key="Hammer" UriSource="./Resources/icons/32x32/hammer.png" />
+        <BitmapImage x:Key="Sword" UriSource="./Resources/icons/32x32/sword.png" />
+        <BitmapImage x:Key="Boot" UriSource="./Resources/icons/32x32/boot.png" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -93,10 +106,10 @@
                     <ColumnDefinition Width="289*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="18*"/>
                     <RowDefinition Height="47*"/>
+                    <RowDefinition Height="83*"/>
                 </Grid.RowDefinitions>
-                <Label Content="{Binding Type}" FontFamily="Charlemagne STD" FontSize="16" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
+                <Label Content="{Binding Type}" FontFamily="Charlemagne STD" FontSize="16" VerticalAlignment="Center" Foreground="#FFEEEEEE" Height="10" Margin="0,18,0,19" />
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
                     <Image Source="./Resources/icons/16x16/food.png" Width="16" Height="16" Stretch="None" />
                     <TextBlock Text="{Binding Food}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
@@ -136,34 +149,84 @@
                         <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,4" Height="28">
                             <Image Source="./Resources/icons/16x16/iron.png" Width="16" Height="16" Stretch="None"/>
                             <TextBlock Text="{Binding City.Iron}" Margin="5" FontFamily="Charlemagne STD" FontSize="14" VerticalAlignment="Center" Foreground="#FFEEEEEE" />
-                        </StackPanel>  
-                        <Button Grid.Column="3" Content="T" Click="MakeTeacherClicked" />
-                        <Button Grid.Column="4" Content="S" Click="MakeStudentClicked" />
-                        <Button Grid.Column="5" Content="H" Click="MakeHeadClicked" />
+                        </StackPanel>
+                        <Button Grid.Column="3" VerticalAlignment="Center" Style="{StaticResource ActionStyle}" Click="MakeTeacherClicked" ToolTip="Make a teacher!">
+                            <Button.Content>
+                                <Image Source="{StaticResource TeacherSmall}" Width="16" Height="16" />
+                            </Button.Content>
+                        </Button>
+                        <Button Grid.Column="4" VerticalAlignment="Center" Style="{StaticResource ActionStyle}" Click="MakeStudentClicked" ToolTip="Make a student!">
+                            <Button.Content>
+                                <Image Source="{StaticResource StudentSmall}" Width="16" Height="16" />
+                            </Button.Content>
+                        </Button>
+                        <Button Grid.Column="5" VerticalAlignment="Center" Style="{StaticResource ActionStyle}" Click="MakeHeadClicked" ToolTip="Make a head of departement!">
+                            <Button.Content>
+                                <Image Source="{StaticResource HeadSmall}" Width="16" Height="16" />
+                            </Button.Content>
+                        </Button>
                     </Grid>                    
                 </Grid>
-                <ListBox HorizontalContentAlignment="Stretch" Name="_units" ItemsSource="{Binding Units, Mode=TwoWay}" SelectedItem="{Binding SelectedUnitView, Mode=OneWayToSource}" Margin="10" Grid.Row="1" Grid.ColumnSpan="4">
+                <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Stretch" Name="_units" Background="Transparent" ItemsSource="{Binding Units, Mode=TwoWay}" SelectedItem="{Binding SelectedUnitView, Mode=OneWayToSource}" BorderThickness="0" Margin="10" Grid.Row="1" Grid.ColumnSpan="4">
+                    <ListBox.Resources>
+                        <Style TargetType="ListBoxItem">
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#55FEFEFE"/>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                            </Style.Resources>
+                        </Style>
+                    </ListBox.Resources>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="2" Padding="4" BorderBrush="Black" Background="Beige" BorderThickness="1">
+                            <Border Padding="4" BorderBrush="#FF5b4825" Background="#FF968468" BorderThickness="3">
                                 <StackPanel Orientation="Horizontal" TextBlock.FontSize="16">
-                                    <TextBlock Foreground="Black" Margin="5, 0, 5, 0" FontWeight="Bold" Text="{Binding Type}" />
-                                    <TextBlock Foreground="Blue" Margin="5, 0, 5, 0">
-                                        <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0}/{1}">                                                
+                                    <Label Foreground="#FF2B2B2B">
+                                        <Label.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource StudentSmall}" Height="16" Width="16" Margin="4" />
+                                                <TextBlock Text="{Binding Type}" />
+                                            </StackPanel>                                            
+                                        </Label.Content>
+                                    </Label>
+                                    <Label Foreground="#FF2B2B2B" FontWeight="Bold">
+                                        <Label.ToolTip>
+                                            <MultiBinding StringFormat="{}Remaining movement points: {0}/{1}">                                                
                                                 <Binding Path="RemainingMovementPoints" />
                                                 <Binding Path="MovementPoints" />
                                             </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                    <TextBlock Foreground="Red" Margin="5, 0, 5, 0">
-                                        <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0}/{1}">                                                
-                                                <Binding Path="RemainingHitPoints" />
-                                                <Binding Path="HitPoints" />
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
+                                        </Label.ToolTip>
+                                        <Label.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource ShoeSmall}" Margin="4" Height="16" Width="16" />
+                                                <TextBlock Text="{Binding RemainingMovementPoints}" />
+                                            </StackPanel>                                            
+                                        </Label.Content>
+                                    </Label>
+                                    <Label Foreground="#FF2B2B2B" FontWeight="Bold">                                        
+                                        <Label.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource HeartSmall}" Margin="4" Height="16" Width="16" />
+                                                <TextBlock Text="{Binding RemainingHitPoints}" />
+                                            </StackPanel>
+                                        </Label.Content>
+                                    </Label>
+                                    <Label Foreground="#FF2B2B2B" FontWeight="Bold">
+                                        <Label.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource SwordSmall}" Margin="4" Height="16" Width="16" />
+                                                <TextBlock Text="{Binding Attack}" />
+                                            </StackPanel>
+                                        </Label.Content>
+                                    </Label>
+
+                                    <Label Foreground="#FF2B2B2B" FontWeight="Bold">
+                                        <Label.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource ShieldSmall}" Margin="4" Height="16" Width="16" />
+                                                <TextBlock Text="{Binding Defense}" />
+                                            </StackPanel>
+                                        </Label.Content>
+                                    </Label>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
@@ -187,9 +250,15 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Move" Visibility="{Binding SelectedUnitCanMove, Converter={StaticResource BoolToVisibilityConverter}}" Click="MoveClicked" />
-                <Button Grid.Column="1" Content="Attack" Visibility="{Binding SelectedUnitCanAttack, Converter={StaticResource BoolToVisibilityConverter}}" Click="AttackClicked" />
-                <Button Grid.Column="1" Content="Build City" Visibility="{Binding SelectedUnitCanBuildCity, Converter={StaticResource BoolToVisibilityConverter}}" Click="BuildCityClicked" />
+                <Button Style="{StaticResource ActionStyle}" Visibility="{Binding SelectedUnitCanMove, Converter={StaticResource BoolToVisibilityConverter}}" Click="MoveClicked">
+                    <Image Source="{StaticResource Boot}" Height="32" Width="32" />
+                </Button>
+                <Button Grid.Column="1" Style="{StaticResource ActionStyle}" Visibility="{Binding SelectedUnitCanAttack, Converter={StaticResource BoolToVisibilityConverter}}" Click="AttackClicked">
+                    <Image Source="{StaticResource Sword}" Height="32" Width="32" />
+                </Button>
+                <Button Grid.Column="1" Style="{StaticResource ActionStyle}" Visibility="{Binding SelectedUnitCanBuildCity, Converter={StaticResource BoolToVisibilityConverter}}" Click="BuildCityClicked">
+                    <Image Source="{StaticResource Hammer}" Height="32" Width="32" />
+                </Button>
             </Grid>
         </Grid>
     </Grid>

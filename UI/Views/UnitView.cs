@@ -22,6 +22,7 @@ namespace UI.Views
         private int _remainingHitPoints;
         private int _remainingMovementPoints;
         private string _type;
+        private string _texture;
 
         public UnitView(Unit unit)
         {
