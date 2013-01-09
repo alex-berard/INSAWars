@@ -23,9 +23,9 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1">
             <Label Content="Map size" HorizontalAlignment="Center" FontSize="48" Foreground="#FF9C9C8F" FontFamily="Charlemagne Std" Height="80"/>
-            <ComboBox x:Name="_mapSize" Height="21" Width="124" Margin="10" IsReadOnly="True">
-                <ComboBoxItem Content="Small" Width="122" IsSelected="True" />
-                <ComboBoxItem Content="Medium" Width="122" />
+            <ComboBox x:Name="_mapSize" Style="{StaticResource CustomComboBox}" IsReadOnly="True">
+                <ComboBoxItem Content="Small" IsSelected="True" />
+                <ComboBoxItem Content="Medium" />
             </ComboBox>
         </StackPanel>
         <DockPanel LastChildFill="False" Grid.Row="2">

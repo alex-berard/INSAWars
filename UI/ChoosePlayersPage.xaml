@@ -29,29 +29,29 @@
             </Grid.RowDefinitions>       
             
             <StackPanel Name="_playerOne">
-                <TextBox Name="_playerOneName" MaxLength="6" TextWrapping="Wrap" Text="Player 1" VerticalAlignment="Top" Width="240"/>
-                <ComboBox Name="_playerOneCivilization" VerticalAlignment="Top" Width="240" >
+                <TextBox Name="_playerOneName" Margin="5" Text="Player 1"  MaxLength="6" TextWrapping="Wrap" FontSize="10" FontFamily="Charlemagne STD" Padding="4" BorderThickness="0" BorderBrush="#FF2c2210" Background="#FFceceb3" Foreground="#FF2B2B2B" VerticalAlignment="Top" Width="240" />
+                <ComboBox Name="_playerOneCivilization" Style="{StaticResource CustomComboBox}" VerticalAlignment="Top" Width="240" >
                     <ComboBoxItem Content="INFO" HorizontalAlignment="Left" Width="238" IsSelected="True"/>
                     <ComboBoxItem Content="EII" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>
             </StackPanel>
             <StackPanel Name="_playerTwo" Grid.Row="1">
-                <TextBox Name="_playerTwoName" MaxLength="6" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Width="240"/>
-                <ComboBox Name="_playerTwoCivilization" VerticalAlignment="Top" Width="240" >
+                <TextBox Name="_playerTwoName" Margin="5" Text="Player 2"  MaxLength="6" TextWrapping="Wrap" FontSize="10" FontFamily="Charlemagne STD" Padding="4" BorderThickness="0" BorderBrush="#FF2c2210" Background="#FFceceb3" Foreground="#FF2B2B2B" VerticalAlignment="Top" Width="240" />
+                <ComboBox Name="_playerTwoCivilization" Style="{StaticResource CustomComboBox}" VerticalAlignment="Top" Width="240" >
                     <ComboBoxItem Content="INFO" HorizontalAlignment="Left" Width="238" IsSelected="True"/>
                     <ComboBoxItem Content="EII" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>
             </StackPanel>
             <StackPanel Name="_playerThree" Grid.Row="2">
-                <TextBox Name="_playerThreeName" MaxLength="6" TextWrapping="Wrap" Text="Player 3" VerticalAlignment="Top" Width="240"/>
-                <ComboBox Name="_playerThreeCivilization" VerticalAlignment="Top" Width="240" >
+                <TextBox Name="_playerThreeName" Margin="5" Text="Player 3"  MaxLength="6" TextWrapping="Wrap" FontSize="10" FontFamily="Charlemagne STD" Padding="4" BorderThickness="0" BorderBrush="#FF2c2210" Background="#FFceceb3" Foreground="#FF2B2B2B" VerticalAlignment="Top" Width="240" />
+                <ComboBox Name="_playerThreeCivilization" Style="{StaticResource CustomComboBox}" VerticalAlignment="Top" Width="240" >
                     <ComboBoxItem Content="INFO" HorizontalAlignment="Left" Width="238" IsSelected="True"/>
                     <ComboBoxItem Content="EII" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>
             </StackPanel>
             <StackPanel Name="_playerFour" Grid.Row="3">
-                <TextBox Name="_playerFourName" MaxLength="6" TextWrapping="Wrap" Text="Player 4" VerticalAlignment="Top" Width="240"/>
-                <ComboBox Name="_playerFourCivilization" VerticalAlignment="Top" Width="240" >
+                <TextBox Name="_playerFourName" Margin="5" Text="Player 4"  MaxLength="6" TextWrapping="Wrap" FontSize="10" FontFamily="Charlemagne STD" Padding="4" BorderThickness="0" BorderBrush="#FF2c2210" Background="#FFceceb3" Foreground="#FF2B2B2B" VerticalAlignment="Top" Width="240" />
+                <ComboBox Name="_playerFourCivilization" Style="{StaticResource CustomComboBox}" VerticalAlignment="Top" Width="240" >
                     <ComboBoxItem Content="INFO" HorizontalAlignment="Left" Width="238" IsSelected="True"/>
                     <ComboBoxItem Content="EII" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>

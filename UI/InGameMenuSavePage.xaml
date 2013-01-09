@@ -23,7 +23,7 @@
         <StackPanel Grid.Row="1" Grid.RowSpan="2">
             <Label Content="Save game" HorizontalAlignment="Center" FontSize="24" Foreground="#FF9C9C8F" FontFamily="Charlemagne Std"/>
             <StackPanel>
-                <TextBox Name="_gameName" TextWrapping="Wrap" Text="Please enter the name of your game..." VerticalAlignment="Top" Width="240"/>
+                <TextBox Name="_gameName" TextWrapping="Wrap" FontSize="10" FontFamily="Charlemagne STD" Text="Please enter the name of your game..." Padding="4" BorderThickness="0" BorderBrush="#FF2c2210" Background="#FFceceb3" Foreground="#FF2B2B2B" VerticalAlignment="Top" Width="250" />
             </StackPanel>
         </StackPanel>
         <DockPanel LastChildFill="False" Grid.Row="2">

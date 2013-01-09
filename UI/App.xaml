@@ -14,9 +14,10 @@
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
             <Setter Property="TextElement.Foreground" Value="#FF968468"/>
             <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="BorderBrush" Value="#FF241a08"/>
-            <Setter Property="BorderThickness" Value="7" />
-            <Setter Property="Background" Value="#FF968468" />
+            <Setter Property="BorderBrush" Value="#FF2c2210"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="#FFceceb3" />
+            <Setter Property="Foreground" Value="#FF2B2B2B" />
         </Style>
 
         <Style TargetType="Button" x:Key="menuStyle" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
