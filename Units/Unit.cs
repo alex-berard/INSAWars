@@ -77,7 +77,9 @@ namespace INSAWars.Units
         {
             this._location = location;
             this._player = player;
-            Reset();
+            RemainingHitPoints = HitPoints;
+            RemainingMovementPoints = MovementPoints;
+            HasAttacked = false;
         }
         #endregion
 
@@ -225,7 +227,7 @@ namespace INSAWars.Units
         /// </summary>
         public void Reset()
         {
-            RemainingHitPoints = HitPoints;
+            RemainingHitPoints = Math.Min(HitPoints, RemainingHitPoints + 1);
             RemainingMovementPoints = MovementPoints;
             HasAttacked = false;
         }
