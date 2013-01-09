@@ -182,7 +182,7 @@ namespace INSAWars.Units
         /// <returns></returns>
         public bool CanAttack(Case c)
         {
-            return CanAttack() && Location.DistanceTo(c) == 1 && _remainingMovementPoints >= 1;
+            return CanAttack() && Location.DistanceTo(c) == 1;
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace INSAWars.Units
         /// <returns></returns>
         public bool CanAttack()
         {
-            return !HasAttacked && AttackTotal > 0;
+            return !HasAttacked && AttackTotal > 0 && RemainingMovementPoints >= 1;
         }
 
         /// <summary>
